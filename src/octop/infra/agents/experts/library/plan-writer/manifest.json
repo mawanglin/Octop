@@ -1,0 +1,102 @@
+{
+  "id": "plan-writer",
+  "label": {
+    "zh": "方案策划专家",
+    "en": "Plan Writer"
+  },
+  "description": {
+    "zh": "撰写年会、团建、发布会、促销、展会、培训等活动策划方案，以及实施方案、工作方案和可行性研究报告：可衡量的目标、流程、倒排执行表、分工、风险预案和评估指标，导出 Word 方案和带公式的预算表。",
+    "en": "Writes event plans (galas, team building, launches, promotions, expos, training) and implementation plans or feasibility studies with measurable goals, run sheets, back-scheduled timelines, roles, contingencies, and metrics; exports Word plans and formula-driven budgets."
+  },
+  "welcome_message": {
+    "zh": "告诉我要办什么活动或推进什么项目、规模、时间和预算",
+    "en": "Tell me the event or project, its scale, timing, and budget"
+  },
+  "icon_name": "list-todo",
+  "color": "#4F46E5",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": { "zh": "年会方案", "en": "Year-end gala" },
+      "description": { "zh": "主题、流程、预算、预案", "en": "Theme, run sheet, budget" },
+      "prompt": {
+        "zh": "帮我策划公司年会：___ 人，日期 ___，预算约 ___ 元，希望突出 ___。",
+        "en": "Plan our year-end gala: ___ people, date ___, budget about ___, focus on ___."
+      },
+      "color": "#e0e7ff",
+      "icon_name": "sparkles"
+    },
+    {
+      "title": { "zh": "团建方案", "en": "Team building" },
+      "description": { "zh": "行程、项目、安全预案", "en": "Itinerary, activities, safety" },
+      "prompt": {
+        "zh": "帮我做一份 ___ 人的团建方案，时长 ___，人均预算 ___ 元，地点偏好 ___。",
+        "en": "Plan team building for ___ people, ___ long, ___ per person, near ___."
+      },
+      "color": "#dcfce7",
+      "icon_name": "users"
+    },
+    {
+      "title": { "zh": "发布会方案", "en": "Launch event" },
+      "description": { "zh": "流程、宣传、媒体", "en": "Run sheet, promotion, media" },
+      "prompt": {
+        "zh": "帮我策划 ___ 产品发布会，目标是 ___，邀请对象 ___，预算 ___。",
+        "en": "Plan a launch for ___. Goal: ___; invitees: ___; budget: ___."
+      },
+      "color": "#fef3c7",
+      "icon_name": "rocket"
+    },
+    {
+      "title": { "zh": "实施方案", "en": "Implementation plan" },
+      "description": { "zh": "目标、任务、步骤、保障", "en": "Goals, tasks, phases, support" },
+      "prompt": {
+        "zh": "帮我写一份 ___ 的实施方案，背景是 ___，要在 ___ 前完成。",
+        "en": "Write an implementation plan for ___. Background: ___; deadline: ___."
+      },
+      "color": "#e8f4ff",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": { "zh": "可行性研究", "en": "Feasibility study" },
+      "description": { "zh": "必要性、方案比选、效益", "en": "Need, options, benefits" },
+      "prompt": {
+        "zh": "帮我写 ___ 项目的可行性研究报告提纲，已有材料如下：\n\n",
+        "en": "Outline a feasibility study for ___. Existing material:\n\n"
+      },
+      "color": "#f3e8ff",
+      "icon_name": "file-text"
+    },
+    {
+      "title": { "zh": "做预算表", "en": "Budget sheet" },
+      "description": { "zh": "带公式，改数自动算", "en": "Formulas that recalc" },
+      "prompt": {
+        "zh": "把下面的费用明细做成预算表 Excel，预备费 ___%，税率 ___%：\n\n",
+        "en": "Turn these costs into a budget spreadsheet. Reserve ___%, tax ___%:\n\n"
+      },
+      "color": "#f1f5f9",
+      "icon_name": "trending-up"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每周一「10:00」检查进行中活动方案的倒排表，列出本周到期的准备事项",
+      "活动前 7 天「09:00」生成物料和场地核对清单发给我",
+      "每月 1 日「10:00」根据上月活动复盘，更新方案模板中的经验教训",
+      "每周三「15:00」检查本周新增的供应商报价，更新预算表",
+      "每年 10 月 15 日「09:00」起草年会策划方案初稿",
+      "活动结束后第 3 天「10:00」起草活动复盘报告提纲"
+    ],
+    "en": [
+      "Every Monday at 10:00, list this week's due prep items from active event timelines",
+      "Seven days before each event at 09:00, send me the materials and venue checklist",
+      "On the 1st of each month at 10:00, update plan templates with lessons from last month's events",
+      "Every Wednesday at 15:00, update budgets with this week's new vendor quotes",
+      "On October 15 each year at 09:00, draft the year-end gala plan",
+      "Three days after each event at 10:00, outline the post-event review"
+    ]
+  }
+}
