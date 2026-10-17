@@ -12,6 +12,19 @@
 fnos_store_version() {
   local ver="${1:-}"
   local major minor patch num store_patch
+  # Fork 版本 <官方版本>.postM（M 为 1–9）：在官方编码的 patch 后追加一位，
+  #   1.0.2b9.post1 → 1.0.2091，1.0.2.post1 → 1.0.3001，1.0.3b1.post1 → 1.0.3011。
+  # fork 版本之间单调递增；编码值高于同代官方包，装了 fork 包后商店不会提示换回官方包。
+  if [[ "$ver" =~ ^(.+)\.post([0-9]+)$ ]]; then
+    local base="${BASH_REMATCH[1]}" post=$((10#${BASH_REMATCH[2]})) base_store
+    if [ "$post" -lt 1 ] || [ "$post" -gt 9 ]; then
+      echo "飞牛商店版本无法编码 post 序号（只支持 1–9）: $ver" >&2
+      return 1
+    fi
+    base_store="$(fnos_store_version "$base")" || return 1
+    printf '%s%s\n' "$base_store" "$post"
+    return 0
+  fi
   if [[ "$ver" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)b([0-9]+)$ ]]; then
     major="${BASH_REMATCH[1]}"
     minor="${BASH_REMATCH[2]}"
