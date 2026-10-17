@@ -1,0 +1,102 @@
+{
+  "id": "video-editing-coach",
+  "label": {
+    "zh": "剪辑指导专家",
+    "en": "Video Editing Coach"
+  },
+  "description": {
+    "zh": "教你用剪映、Premiere、达芬奇、Final Cut 剪出好节奏、规范字幕和正确平台规格；按素材出带时间码的剪辑清单，把文稿做成 SRT 字幕并检查；环境中有 ffmpeg 时还能直接粗剪、烧字幕、按抖音或 B 站规格导出和截封面。",
+    "en": "Teaches editing in CapCut, Premiere, Resolve, and Final Cut; builds timecoded edit lists; turns scripts into SRT subtitles and checks them; with ffmpeg available, also cuts, burns subtitles, exports platform presets, and grabs covers."
+  },
+  "welcome_message": {
+    "zh": "告诉我你用什么剪辑软件、手上有什么素材、想剪成什么样",
+    "en": "Tell me your editing app, your footage, and what you want to make"
+  },
+  "icon_name": "monitor",
+  "color": "#0EA5E9",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": { "zh": "剪辑技巧", "en": "Editing tips" },
+      "description": { "zh": "节奏、转场、调色、音频", "en": "Pacing, transitions, color, audio" },
+      "prompt": {
+        "zh": "我用 ___ 剪辑，想学 ___（例如口播去气口、卡点、调色），请一步步教我。",
+        "en": "I edit in ___. Teach me ___ (e.g. cutting pauses, beat sync, color) step by step."
+      },
+      "color": "#e0f2fe",
+      "icon_name": "video"
+    },
+    {
+      "title": { "zh": "剪辑方案", "en": "Edit plan" },
+      "description": { "zh": "素材变成剪辑清单", "en": "Footage to an edit list" },
+      "prompt": {
+        "zh": "我有这些素材：___，想剪成一条 ___ 秒的 ___（平台）视频，帮我出剪辑清单。",
+        "en": "I have this footage: ___. Plan a ___-second video for ___ with an edit list."
+      },
+      "color": "#ede9fe",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": { "zh": "文稿转字幕", "en": "Script to SRT" },
+      "description": { "zh": "按语速生成 SRT", "en": "Timed SRT from text" },
+      "prompt": {
+        "zh": "把下面的口播文稿做成 SRT 字幕，竖屏视频：\n\n",
+        "en": "Turn this voice-over into an SRT file for a vertical video:\n\n"
+      },
+      "color": "#dcfce7",
+      "icon_name": "message-square"
+    },
+    {
+      "title": { "zh": "检查字幕", "en": "Check subtitles" },
+      "description": { "zh": "重叠、超长、错别字", "en": "Overlaps, length, typos" },
+      "prompt": {
+        "zh": "帮我检查这个字幕文件的问题，并对照文稿校对错别字：\n\n",
+        "en": "Check this subtitle file and proofread it against the script:\n\n"
+      },
+      "color": "#fef3c7",
+      "icon_name": "shield-check"
+    },
+    {
+      "title": { "zh": "加字幕导出", "en": "Burn & export" },
+      "description": { "zh": "烧字幕 + 平台规格", "en": "Subtitles plus platform preset" },
+      "prompt": {
+        "zh": "我上传了视频 ___ 和字幕 ___，帮我把字幕烧进画面，并按 ___ 规格导出。",
+        "en": "I uploaded video ___ and subtitles ___. Burn them in and export for ___."
+      },
+      "color": "#ffe4e6",
+      "icon_name": "zap"
+    },
+    {
+      "title": { "zh": "横屏转竖屏", "en": "Landscape to vertical" },
+      "description": { "zh": "裁切或加边转 9:16", "en": "Crop or pad to 9:16" },
+      "prompt": {
+        "zh": "把我上传的横屏视频 ___ 转成抖音竖屏，主体在画面 ___，先告诉我裁切还是加边更合适。",
+        "en": "Convert my landscape video ___ to vertical for Douyin. The subject is on the ___. Crop or pad?"
+      },
+      "color": "#f1f5f9",
+      "icon_name": "monitor"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每天「21:00」检查 inbound 目录新上传的视频，输出素材体检报告",
+      "每周一「10:00」根据本周分镜表生成剪辑清单初稿",
+      "每个工作日「18:00」把当天定稿的口播文稿生成 SRT 字幕",
+      "每周五「16:00」检查本周字幕文件的超长和重叠问题",
+      "每周日「20:00」把本周成片截取封面，汇总到一个文件夹",
+      "每月 1 日「10:00」整理上月成片的时长和规格，生成清单"
+    ],
+    "en": [
+      "Every day at 21:00, probe new videos in inbound and report their specs",
+      "Every Monday at 10:00, draft edit lists from this week's storyboards",
+      "Every weekday at 18:00, turn today's final voice-over scripts into SRT files",
+      "Every Friday at 16:00, check this week's subtitles for overlaps and long lines",
+      "Every Sunday at 20:00, grab covers for this week's final videos",
+      "On the 1st of each month at 10:00, list last month's final videos with duration and specs"
+    ]
+  }
+}

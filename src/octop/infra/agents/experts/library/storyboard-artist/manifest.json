@@ -1,0 +1,102 @@
+{
+  "id": "storyboard-artist",
+  "label": {
+    "zh": "分镜头脚本专家",
+    "en": "Storyboard Artist"
+  },
+  "description": {
+    "zh": "把脚本拆成可以照着拍的分镜：景别、运镜、画面、台词、字幕、音效和时长，生成带累计时长、场景汇总和拍摄顺序的 Excel 分镜表；可附 AI 绘图提示词，并出拍摄通告单和器材清单。",
+    "en": "Breaks scripts into shootable storyboards — shot size, camera move, action, lines, captions, sound, and duration — exported as Excel with running time, scene summary, and shooting order; adds AI image prompts, call sheets, and gear lists."
+  },
+  "welcome_message": {
+    "zh": "把脚本发给我，告诉我画幅和拍摄条件，我来拆成分镜表",
+    "en": "Send me the script plus aspect ratio and shooting setup — I'll build the storyboard"
+  },
+  "icon_name": "video",
+  "color": "#7C3AED",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": { "zh": "脚本拆分镜", "en": "Script to storyboard" },
+      "description": { "zh": "景别、运镜、时长一次排好", "en": "Shots, moves, and timing" },
+      "prompt": {
+        "zh": "把下面的脚本拆成分镜表，画幅 ___，拍摄条件：___。\n\n",
+        "en": "Turn this script into a storyboard. Aspect ratio: ___; setup: ___.\n\n"
+      },
+      "color": "#ede9fe",
+      "icon_name": "video"
+    },
+    {
+      "title": { "zh": "产品展示分镜", "en": "Product shots" },
+      "description": { "zh": "出场、细节、场景、定版", "en": "Reveal, details, use, end card" },
+      "prompt": {
+        "zh": "帮我设计一条 ___ 秒的产品展示视频分镜。产品：___；卖点：___。",
+        "en": "Design a ___-second product video storyboard. Product: ___; key points: ___."
+      },
+      "color": "#fef3c7",
+      "icon_name": "shopping-bag"
+    },
+    {
+      "title": { "zh": "AI 出图提示词", "en": "AI image prompts" },
+      "description": { "zh": "每个镜头一条提示词", "en": "One prompt per shot" },
+      "prompt": {
+        "zh": "给这份分镜表的每个镜头写 AI 绘图提示词，风格：___。\n\n",
+        "en": "Write an AI image prompt for each shot in this storyboard. Style: ___.\n\n"
+      },
+      "color": "#e8f4ff",
+      "icon_name": "sparkles"
+    },
+    {
+      "title": { "zh": "拍摄通告单", "en": "Call sheet" },
+      "description": { "zh": "时间、地点、人员、场次", "en": "Time, place, crew, scenes" },
+      "prompt": {
+        "zh": "根据这份分镜表出一份拍摄通告单，拍摄日期 ___，地点 ___，人员 ___。",
+        "en": "Make a call sheet from this storyboard. Date: ___; location: ___; crew: ___."
+      },
+      "color": "#dcfce7",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": { "zh": "器材清单", "en": "Gear list" },
+      "description": { "zh": "按运镜反推所需设备", "en": "Gear derived from the shots" },
+      "prompt": {
+        "zh": "根据这份分镜列出需要的拍摄器材，我现有的设备是：___。",
+        "en": "List the gear this storyboard needs. I already have: ___."
+      },
+      "color": "#f1f5f9",
+      "icon_name": "wrench"
+    },
+    {
+      "title": { "zh": "优化分镜", "en": "Improve shots" },
+      "description": { "zh": "节奏、景别、可行性", "en": "Pacing, framing, feasibility" },
+      "prompt": {
+        "zh": "帮我检查这份分镜的节奏、景别变化和拍摄可行性，并给出修改建议：\n\n",
+        "en": "Review this storyboard's pacing, shot variety, and feasibility, and suggest changes:\n\n"
+      },
+      "color": "#ffe4e6",
+      "icon_name": "pen-tool"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每周一「10:00」把本周定稿的短视频脚本拆成分镜表",
+      "每次拍摄前一天「17:00」根据分镜表生成拍摄通告单并发给我",
+      "每周三「14:00」检查本周分镜表的总时长和景别变化",
+      "每月 1 日「10:00」汇总上月拍摄的场景和镜头数，生成复盘表",
+      "每个工作日「09:00」检查 inbound 目录的新脚本，生成分镜初稿",
+      "每周五「16:00」根据下周分镜列出需要借用或租赁的器材"
+    ],
+    "en": [
+      "Every Monday at 10:00, turn this week's final scripts into storyboards",
+      "The day before each shoot at 17:00, generate the call sheet from the storyboard",
+      "Every Wednesday at 14:00, check this week's storyboards for running time and shot variety",
+      "On the 1st of each month at 10:00, summarize last month's scenes and shots",
+      "Every weekday at 09:00, draft storyboards for new scripts in inbound",
+      "Every Friday at 16:00, list gear to borrow or rent for next week's storyboards"
+    ]
+  }
+}

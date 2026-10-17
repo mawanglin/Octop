@@ -1,0 +1,102 @@
+{
+  "id": "video-scriptwriter",
+  "label": {
+    "zh": "短视频脚本专家",
+    "en": "Short Video Scriptwriter"
+  },
+  "description": {
+    "zh": "为抖音、视频号、小红书、B 站写口播、剧情、教程、测评、带货脚本：前 3 秒钩子、按秒分段的画面和口播、标题、话题和封面文案；自动核对每段时长和开头钩子，检查广告法和功效承诺风险。",
+    "en": "Writes scripts for Douyin, Channels, Xiaohongshu, and Bilibili — talking-head, skits, tutorials, reviews, and product videos — with 3-second hooks, second-by-second shots and lines, titles, and hashtags; checks timing and ad-law risks."
+  },
+  "welcome_message": {
+    "zh": "告诉我平台、时长和想拍的内容，我给你一份按秒分段的脚本",
+    "en": "Tell me the platform, length, and idea — I'll write a second-by-second script"
+  },
+  "icon_name": "pen-tool",
+  "color": "#E11D48",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": { "zh": "口播脚本", "en": "Talking-head script" },
+      "description": { "zh": "知识、观点类口播", "en": "Knowledge or opinion videos" },
+      "prompt": {
+        "zh": "帮我写一条 ___ 秒的 ___（平台）口播脚本，主题：___，账号定位：___。",
+        "en": "Write a ___-second talking-head script for ___ (platform). Topic: ___; account focus: ___."
+      },
+      "color": "#ffe4e6",
+      "icon_name": "video"
+    },
+    {
+      "title": { "zh": "带货脚本", "en": "Product video" },
+      "description": { "zh": "痛点、演示、促单", "en": "Pain point, demo, call to action" },
+      "prompt": {
+        "zh": "帮我写一条带货短视频脚本。产品：___；核心卖点：___；价格和福利：___；时长：___ 秒。",
+        "en": "Write a product video script. Product: ___; key benefits: ___; price/offer: ___; length: ___ seconds."
+      },
+      "color": "#fef3c7",
+      "icon_name": "shopping-bag"
+    },
+    {
+      "title": { "zh": "剧情脚本", "en": "Skit script" },
+      "description": { "zh": "冲突、反转、点题", "en": "Conflict, twist, message" },
+      "prompt": {
+        "zh": "帮我写一个 ___ 秒的剧情短视频，主题：___，出场人物：___。",
+        "en": "Write a ___-second skit. Theme: ___; characters: ___."
+      },
+      "color": "#f3e8ff",
+      "icon_name": "users"
+    },
+    {
+      "title": { "zh": "开头钩子", "en": "Hooks" },
+      "description": { "zh": "前 3 秒留住人", "en": "Keep viewers in 3 seconds" },
+      "prompt": {
+        "zh": "这条视频的主题是 ___，帮我写 5 个不同类型的前 3 秒开头。",
+        "en": "The video is about ___. Write five different 3-second openings."
+      },
+      "color": "#e8f4ff",
+      "icon_name": "zap"
+    },
+    {
+      "title": { "zh": "标题和话题", "en": "Titles & tags" },
+      "description": { "zh": "标题、话题、封面字", "en": "Titles, hashtags, cover text" },
+      "prompt": {
+        "zh": "帮这条视频写 5 个标题、话题标签和封面文案：\n\n",
+        "en": "Write five titles, hashtags, and cover text for this video:\n\n"
+      },
+      "color": "#dcfce7",
+      "icon_name": "sparkles"
+    },
+    {
+      "title": { "zh": "文章改视频", "en": "Article to video" },
+      "description": { "zh": "长文变短视频脚本", "en": "Turn an article into a script" },
+      "prompt": {
+        "zh": "把下面这篇文章改成一条 ___ 秒的短视频脚本：\n\n",
+        "en": "Turn this article into a ___-second video script:\n\n"
+      },
+      "color": "#f1f5f9",
+      "icon_name": "file-text"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每周一「10:00」结合本周热点给我 5 个短视频选题和开头钩子",
+      "每个工作日「09:30」写一条 60 秒口播脚本初稿，先发我确认",
+      "每周三「15:00」把本周公众号文章改写成短视频脚本",
+      "每周五「17:00」拆解我贴到 inbox 的 3 条爆款视频文案，总结可复用的结构",
+      "每天「20:00」检查 drafts 目录的新脚本，核对时长并做合规检查",
+      "每月 1 日「10:00」整理上月脚本的标题和话题，生成复盘表"
+    ],
+    "en": [
+      "Every Monday at 10:00, suggest five video topics with hooks based on this week's trends",
+      "Every weekday at 09:30, draft a 60-second talking-head script for my review",
+      "Every Wednesday at 15:00, turn this week's article into a short video script",
+      "Every Friday at 17:00, break down three viral scripts I saved and summarize reusable structures",
+      "Every day at 20:00, check new scripts in drafts for timing and compliance",
+      "On the 1st of each month at 10:00, compile last month's titles and hashtags into a review table"
+    ]
+  }
+}

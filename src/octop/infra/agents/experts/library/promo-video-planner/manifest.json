@@ -1,0 +1,102 @@
+{
+  "id": "promo-video-planner",
+  "label": {
+    "zh": "宣传片策划专家",
+    "en": "Promo Video Planner"
+  },
+  "description": {
+    "zh": "为企业、政府、城市、园区、学校和产品策划宣传片：2–3 个创意方向、分段画面构想、按时长写的解说词和片名，拍摄计划与制作周期，以及带公式的预算表 Excel；也能写招商片和年会 VCR 方案。",
+    "en": "Plans promo videos for companies, governments, cities, parks, schools, and products: creative directions, scene ideas, timed narration and titles, shooting plans and schedules, and a formula-driven budget sheet."
+  },
+  "welcome_message": {
+    "zh": "告诉我为谁拍、给谁看、片长和预算，我来出创意方案和预算表",
+    "en": "Tell me who it's for, the audience, length, and budget — I'll draft the concept and budget"
+  },
+  "icon_name": "rocket",
+  "color": "#D97706",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": { "zh": "企业宣传片", "en": "Corporate film" },
+      "description": { "zh": "创意、解说词、预算", "en": "Concept, narration, budget" },
+      "prompt": {
+        "zh": "帮我策划一部 ___ 分钟的企业宣传片。公司：___；用途：___；预算大约：___。",
+        "en": "Plan a ___-minute corporate film. Company: ___; purpose: ___; budget about: ___."
+      },
+      "color": "#fef3c7",
+      "icon_name": "video"
+    },
+    {
+      "title": { "zh": "城市/政务宣传片", "en": "City film" },
+      "description": { "zh": "城市形象、区县、部门", "en": "City, district, or agency" },
+      "prompt": {
+        "zh": "帮我策划 ___ 的城市宣传片，片长 ___ 分钟，想突出：___。",
+        "en": "Plan a city promo for ___, ___ minutes long, highlighting: ___."
+      },
+      "color": "#fee2e2",
+      "icon_name": "map-pin"
+    },
+    {
+      "title": { "zh": "写解说词", "en": "Narration" },
+      "description": { "zh": "按时长、配画面", "en": "Timed and matched to visuals" },
+      "prompt": {
+        "zh": "帮我写一篇 ___ 分钟宣传片的解说词，主题：___，素材和数据如下：\n\n",
+        "en": "Write narration for a ___-minute promo. Theme: ___. Material and data:\n\n"
+      },
+      "color": "#e8f4ff",
+      "icon_name": "file-text"
+    },
+    {
+      "title": { "zh": "招商片", "en": "Investment film" },
+      "description": { "zh": "区位、产业、政策", "en": "Location, industry, policy" },
+      "prompt": {
+        "zh": "帮我策划 ___ 园区的招商宣传片，主导产业：___，优势政策：___。",
+        "en": "Plan an investment promo for ___ park. Key industries: ___; policies: ___."
+      },
+      "color": "#dcfce7",
+      "icon_name": "trending-up"
+    },
+    {
+      "title": { "zh": "年会 VCR", "en": "Year-end VCR" },
+      "description": { "zh": "年度高光与感谢", "en": "Highlights and thanks" },
+      "prompt": {
+        "zh": "帮我策划一段 ___ 分钟的年会开场 VCR，公司今年的关键事件：\n\n",
+        "en": "Plan a ___-minute year-end opening VCR. This year's key events:\n\n"
+      },
+      "color": "#f3e8ff",
+      "icon_name": "sparkles"
+    },
+    {
+      "title": { "zh": "预算表", "en": "Budget sheet" },
+      "description": { "zh": "带公式的制作预算", "en": "Formula-driven budget" },
+      "prompt": {
+        "zh": "帮我把下面的制作报价整理成预算表 Excel，管理费 ___%，税率 ___%：\n\n",
+        "en": "Turn this quote into a budget spreadsheet. Overhead ___%, tax ___%:\n\n"
+      },
+      "color": "#f1f5f9",
+      "icon_name": "list-todo"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每周一「10:00」汇总本周宣传片项目的进度和待确认事项",
+      "每次审片后第二天「09:30」把审片意见整理成修改清单",
+      "每月 1 日「10:00」根据项目计划更新制作周期表，标出延期风险",
+      "每周三「15:00」检查本周新增的报价，更新预算表",
+      "每年 11 月 15 日「09:00」起草年会 VCR 的策划方案",
+      "每周五「17:00」整理下周拍摄需要办理的许可和报备事项"
+    ],
+    "en": [
+      "Every Monday at 10:00, summarize progress and open items for this week's promo projects",
+      "The day after each review at 09:30, turn feedback into a revision list",
+      "On the 1st of each month at 10:00, update the production schedule and flag delays",
+      "Every Wednesday at 15:00, update the budget sheet with new quotes",
+      "On November 15 each year at 09:00, draft the year-end VCR plan",
+      "Every Friday at 17:00, list permits and filings needed for next week's shoots"
+    ]
+  }
+}
