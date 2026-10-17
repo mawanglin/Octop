@@ -1,0 +1,102 @@
+{
+  "id": "speech-writer",
+  "label": {
+    "zh": "讲话稿专家",
+    "en": "Speechwriter"
+  },
+  "description": {
+    "zh": "按讲话人身份、场合和时长撰写领导讲话、会议发言、表态发言、年会和开幕致辞、主持词、竞聘演讲；口语化、好念、时长精确，自动估算朗读时长，并导出大字号照读版 Word。",
+    "en": "Writes speeches, meeting remarks, pledges, welcome and year-end addresses, host scripts, and campaign speeches tuned to the speaker, occasion, and time; estimates speaking time and exports large-print Word."
+  },
+  "welcome_message": {
+    "zh": "告诉我谁讲、在什么场合、讲多久、想表达什么",
+    "en": "Tell me who's speaking, the occasion, the length, and the key message"
+  },
+  "icon_name": "radio-tower",
+  "color": "#BE185D",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": { "zh": "领导讲话", "en": "Leader's speech" },
+      "description": { "zh": "部署会、动员会、总结会", "en": "Kick-off and review meetings" },
+      "prompt": {
+        "zh": "帮我写一篇领导讲话稿。讲话人：___；会议：___；时长约 ___ 分钟；要讲的重点：\n\n",
+        "en": "Write a speech. Speaker: ___; meeting: ___; about ___ minutes; key points:\n\n"
+      },
+      "color": "#ffedd5",
+      "icon_name": "radio-tower"
+    },
+    {
+      "title": { "zh": "会议发言", "en": "Meeting remarks" },
+      "description": { "zh": "交流发言、表态发言", "en": "Experience sharing or pledges" },
+      "prompt": {
+        "zh": "我要在 ___ 会议上作 ___ 分钟的交流/表态发言，单位情况和主要做法如下：\n\n",
+        "en": "I'm giving ___ minutes of remarks at ___. Our work and approach:\n\n"
+      },
+      "color": "#e8f4ff",
+      "icon_name": "users"
+    },
+    {
+      "title": { "zh": "年会致辞", "en": "Year-end address" },
+      "description": { "zh": "温暖、有感染力", "en": "Warm and inspiring" },
+      "prompt": {
+        "zh": "帮我写一篇 ___ 分钟的年会致辞。公司今年的高光时刻和明年目标：\n\n",
+        "en": "Write a ___-minute year-end address. This year's highlights and next year's goals:\n\n"
+      },
+      "color": "#fef3c7",
+      "icon_name": "sparkles"
+    },
+    {
+      "title": { "zh": "开幕致辞", "en": "Opening remarks" },
+      "description": { "zh": "开幕式、签约、欢迎辞", "en": "Openings, signings, welcomes" },
+      "prompt": {
+        "zh": "帮我写一篇 3 分钟以内的致辞。活动：___；讲话人身份：___；出席嘉宾：___。",
+        "en": "Write remarks under 3 minutes. Event: ___; speaker: ___; guests: ___."
+      },
+      "color": "#dcfce7",
+      "icon_name": "heart"
+    },
+    {
+      "title": { "zh": "主持词", "en": "Host script" },
+      "description": { "zh": "会议、年会、颁奖串词", "en": "Meetings, galas, awards" },
+      "prompt": {
+        "zh": "帮我写主持词（单人/双人）。活动流程如下：\n\n",
+        "en": "Write a host script (solo/duo). Run of show:\n\n"
+      },
+      "color": "#f3e8ff",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": { "zh": "竞聘演讲", "en": "Campaign speech" },
+      "description": { "zh": "优势、认识、设想", "en": "Strengths, vision, plans" },
+      "prompt": {
+        "zh": "帮我写一篇 ___ 分钟的竞聘演讲。竞聘岗位：___；我的经历和业绩：\n\n",
+        "en": "Write a ___-minute campaign speech for ___. My background and results:\n\n"
+      },
+      "color": "#f1f5f9",
+      "icon_name": "user"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每周一「09:00」根据本周会议安排，列出需要准备的讲话稿和截止时间",
+      "每次例会前一天「16:00」根据会议议题起草主持词，先发我确认",
+      "每月最后一个工作日「15:00」起草下月工作部署会的讲话提纲",
+      "每年 12 月 20 日「10:00」起草年会致辞初稿",
+      "每个工作日「08:30」检查 inbound 目录新上传的讲话稿，估算时长并标出不好念的句子",
+      "每季度第一个工作日「10:00」整理上季度亮点素材，供讲话稿引用"
+    ],
+    "en": [
+      "Every Monday at 09:00, list the speeches needed for this week's meetings and their deadlines",
+      "The day before each regular meeting at 16:00, draft the host script for my review",
+      "On the last weekday of each month at 15:00, outline next month's kick-off speech",
+      "On December 20 each year at 10:00, draft the year-end address",
+      "Every weekday at 08:30, check new speech drafts in inbound, estimate timing, and flag hard-to-read lines",
+      "On the first weekday of each quarter at 10:00, collect last quarter's highlights for future speeches"
+    ]
+  }
+}

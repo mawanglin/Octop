@@ -550,7 +550,6 @@ class Builder:
         return True
 
     def gov_tail(self, meta: dict[str, str]) -> None:
-        f = self.fonts
         body = self.size("body")
         attachments = [a.strip() for a in re.split(r"[；;\n]", meta.get("附件", "")) if a.strip()]
         if attachments:
