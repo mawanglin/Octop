@@ -1,0 +1,102 @@
+{
+  "id": "meeting-assistant",
+  "label": {
+    "zh": "会议助手",
+    "en": "Meeting Assistant"
+  },
+  "description": {
+    "zh": "会前出议程、会议通知和材料清单；会后把录音转写稿、聊天记录或笔记整理成结构化纪要（议题、要点、决议、待办），导出 Word；把待办汇总成标出逾期和临期的 Excel 追踪表，并起草跟进提醒。",
+    "en": "Prepares agendas and invitations; turns transcripts and notes into structured minutes with decisions and action items, exported to Word; tracks action items in a color-coded spreadsheet and drafts follow-up reminders."
+  },
+  "welcome_message": {
+    "zh": "把会议转写稿或笔记发给我，或者告诉我要开什么会",
+    "en": "Send me a transcript or notes — or tell me about your next meeting"
+  },
+  "icon_name": "users",
+  "color": "#0D9488",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": { "zh": "整理纪要", "en": "Write minutes" },
+      "description": { "zh": "转写稿变结构化纪要", "en": "Transcript to structured minutes" },
+      "prompt": {
+        "zh": "把下面的会议转写稿/笔记整理成会议纪要，包含议题、讨论要点、决议和待办：\n\n",
+        "en": "Turn this transcript or notes into minutes with topics, key points, decisions, and actions:\n\n"
+      },
+      "color": "#ccfbf1",
+      "icon_name": "file-text"
+    },
+    {
+      "title": { "zh": "排议程", "en": "Plan an agenda" },
+      "description": { "zh": "议题、目标、时长", "en": "Topics, goals, timing" },
+      "prompt": {
+        "zh": "帮我排一个 ___ 分钟的会议议程。会议目的：___；议题有：___。",
+        "en": "Plan a ___-minute agenda. Purpose: ___; topics: ___."
+      },
+      "color": "#e8f4ff",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": { "zh": "会议通知", "en": "Invitation" },
+      "description": { "zh": "时间、地点、议题、准备", "en": "Time, place, topics, prep" },
+      "prompt": {
+        "zh": "帮我写一份会议通知：会议 ___，时间 ___，地点 ___，参会人 ___，需要提前准备 ___。",
+        "en": "Write an invitation: meeting ___, time ___, place ___, attendees ___, prep ___."
+      },
+      "color": "#fef3c7",
+      "icon_name": "mail"
+    },
+    {
+      "title": { "zh": "提取待办", "en": "Extract actions" },
+      "description": { "zh": "谁、做什么、何时完成", "en": "Who, what, by when" },
+      "prompt": {
+        "zh": "从下面的聊天记录里提取所有待办事项，列出负责人和截止日期：\n\n",
+        "en": "Extract every action item from this chat log with owner and due date:\n\n"
+      },
+      "color": "#dcfce7",
+      "icon_name": "zap"
+    },
+    {
+      "title": { "zh": "待办追踪表", "en": "Action tracker" },
+      "description": { "zh": "逾期标红、按人统计", "en": "Overdue flagged, per owner" },
+      "prompt": {
+        "zh": "把这些待办做成追踪表，标出逾期和这周要到期的：\n\n",
+        "en": "Build a tracker from these actions and flag overdue and due-this-week items:\n\n"
+      },
+      "color": "#ffe4e6",
+      "icon_name": "bell"
+    },
+    {
+      "title": { "zh": "周例会纪要", "en": "Weekly sync notes" },
+      "description": { "zh": "进展、问题、本周待办", "en": "Progress, issues, this week" },
+      "prompt": {
+        "zh": "把今天周例会各成员的发言整理成周例会纪要：\n\n",
+        "en": "Turn today's weekly sync updates into notes:\n\n"
+      },
+      "color": "#f1f5f9",
+      "icon_name": "users"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每个工作日「09:00」检查待办追踪表，把逾期和今明两天到期的事项发给我",
+      "每周一「08:30」根据上周纪要生成本周例会议程",
+      "每周五「17:00」汇总本周所有会议的决议和待办",
+      "每天「18:30」检查 inbound 目录新上传的会议转写稿，整理成纪要草稿",
+      "每月最后一个工作日「16:00」统计本月待办完成率和逾期最多的事项",
+      "每次例会前一天「16:00」起草会议通知，先发我确认"
+    ],
+    "en": [
+      "Every weekday at 09:00, check the action tracker and send me overdue and due-soon items",
+      "Every Monday at 08:30, draft this week's agenda from last week's minutes",
+      "Every Friday at 17:00, summarize this week's decisions and actions across meetings",
+      "Every day at 18:30, turn new transcripts in inbound into draft minutes",
+      "On the last weekday of each month at 16:00, report action completion rate and the most overdue items",
+      "The day before each regular meeting at 16:00, draft the invitation for my review"
+    ]
+  }
+}

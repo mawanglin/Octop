@@ -1,0 +1,102 @@
+{
+  "id": "data-analyst",
+  "label": {
+    "zh": "数据分析报告专家",
+    "en": "Data Analyst"
+  },
+  "description": {
+    "zh": "把 Excel / CSV 数据变成结论：数据画像和质量检查（缺失、重复、异常值、写法不一致），分组汇总、同比环比、占比排名，生成带 Excel 原生图表的汇总表，再写结论先行、数字有出处的分析报告并导出 Word。",
+    "en": "Turns Excel/CSV data into conclusions: profiling and quality checks, grouped summaries with period-over-period and share analysis, Excel workbooks with native charts, and conclusion-first reports exported to Word."
+  },
+  "welcome_message": {
+    "zh": "把 Excel 或 CSV 发给我，告诉我想回答什么问题",
+    "en": "Send me an Excel or CSV file and the question you want answered"
+  },
+  "icon_name": "trending-up",
+  "color": "#65A30D",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": { "zh": "数据体检", "en": "Data check" },
+      "description": { "zh": "缺失、重复、异常值", "en": "Missing, duplicates, outliers" },
+      "prompt": {
+        "zh": "我上传了 ___，先帮我检查一下数据质量，告诉我有哪些问题。",
+        "en": "I uploaded ___. Check the data quality first and tell me what's wrong."
+      },
+      "color": "#cffafe",
+      "icon_name": "shield-check"
+    },
+    {
+      "title": { "zh": "趋势分析", "en": "Trend analysis" },
+      "description": { "zh": "按月/季，环比同比", "en": "Monthly/quarterly with growth" },
+      "prompt": {
+        "zh": "分析 ___ 按 ___（月/季度）的变化趋势，计算环比和同比，并做成图表。",
+        "en": "Analyze how ___ changes by ___ (month/quarter) with growth rates and a chart."
+      },
+      "color": "#e8f4ff",
+      "icon_name": "trending-up"
+    },
+    {
+      "title": { "zh": "构成与排名", "en": "Share & ranking" },
+      "description": { "zh": "谁贡献最大", "en": "Who contributes most" },
+      "prompt": {
+        "zh": "按 ___ 汇总 ___，看各自占比和排名，前 ___ 名之外合并为其他。",
+        "en": "Summarize ___ by ___ with share and ranking; group everything beyond the top ___ as Other."
+      },
+      "color": "#dcfce7",
+      "icon_name": "candlestick-chart"
+    },
+    {
+      "title": { "zh": "找下滑原因", "en": "Explain a drop" },
+      "description": { "zh": "拆维度、找贡献", "en": "Break down the change" },
+      "prompt": {
+        "zh": "___ 指标在 ___ 下滑了，帮我拆解是哪些维度带来的，并列出可能原因。",
+        "en": "___ dropped in ___. Break down which segments drove it and list possible causes."
+      },
+      "color": "#ffe4e6",
+      "icon_name": "activity"
+    },
+    {
+      "title": { "zh": "分析报告", "en": "Analysis report" },
+      "description": { "zh": "结论先行 + Word", "en": "Conclusion-first, in Word" },
+      "prompt": {
+        "zh": "根据这份数据写一份 ___ 分析报告，汇报对象是 ___，重点回答：___。",
+        "en": "Write a ___ analysis report from this data for ___, answering: ___."
+      },
+      "color": "#fef3c7",
+      "icon_name": "file-text"
+    },
+    {
+      "title": { "zh": "交叉透视", "en": "Cross-tab" },
+      "description": { "zh": "两个维度组合对比", "en": "Two dimensions at once" },
+      "prompt": {
+        "zh": "做一个 ___ × ___ 的交叉汇总，指标是 ___，并配一张柱形图。",
+        "en": "Build a ___ × ___ cross-tab of ___ with a column chart."
+      },
+      "color": "#f1f5f9",
+      "icon_name": "list-todo"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每周一「09:30」读取 inbound 目录的最新销售表，生成上周销售简报",
+      "每月 3 日「10:00」汇总上月数据，生成月度经营分析报告初稿",
+      "每天「08:30」检查新上传的数据文件，输出数据质量体检结果",
+      "每季度第一个工作日「10:00」生成上季度同比环比分析和图表",
+      "每周五「16:00」更新 Top 10 客户排名，标出排名变化",
+      "每月 1 日「09:00」对比上月目标完成率，列出未达标的项目"
+    ],
+    "en": [
+      "Every Monday at 09:30, read the latest sales file in inbound and draft last week's brief",
+      "On the 3rd of each month at 10:00, compile last month's data into a business review draft",
+      "Every day at 08:30, run a quality check on newly uploaded data files",
+      "On the first weekday of each quarter at 10:00, build last quarter's growth analysis and charts",
+      "Every Friday at 16:00, update the top-10 customer ranking and flag changes",
+      "On the 1st of each month at 09:00, compare last month's results with targets and list misses"
+    ]
+  }
+}
