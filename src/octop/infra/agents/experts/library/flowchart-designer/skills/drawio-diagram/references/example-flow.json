@@ -1,0 +1,32 @@
+{
+  "title": "费用报销流程",
+  "direction": "LR",
+  "lanes": [
+    { "id": "emp", "label": "员工" },
+    { "id": "mgr", "label": "审批人" },
+    { "id": "fin", "label": "财务" }
+  ],
+  "nodes": [
+    { "id": "start", "label": "开始", "type": "start", "lane": "emp" },
+    { "id": "submit", "label": "提交报销申请", "type": "process", "lane": "emp" },
+    { "id": "amount", "label": "金额超过 5000 元？", "type": "decision", "lane": "mgr" },
+    { "id": "director", "label": "部门总监审批", "type": "process", "lane": "mgr" },
+    { "id": "lead", "label": "直属主管审批", "type": "process", "lane": "mgr" },
+    { "id": "review", "label": "财务复核票据", "type": "process", "lane": "fin" },
+    { "id": "ok", "label": "票据齐全？", "type": "decision", "lane": "fin" },
+    { "id": "pay", "label": "打款", "type": "database", "lane": "fin" },
+    { "id": "end", "label": "结束", "type": "end", "lane": "emp" }
+  ],
+  "edges": [
+    { "from": "start", "to": "submit" },
+    { "from": "submit", "to": "amount" },
+    { "from": "amount", "to": "director", "label": "是" },
+    { "from": "amount", "to": "lead", "label": "否" },
+    { "from": "director", "to": "review" },
+    { "from": "lead", "to": "review" },
+    { "from": "review", "to": "ok" },
+    { "from": "ok", "to": "submit", "label": "否，退回补充", "dashed": true },
+    { "from": "ok", "to": "pay", "label": "是" },
+    { "from": "pay", "to": "end" }
+  ]
+}

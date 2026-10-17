@@ -1,0 +1,138 @@
+{
+  "id": "flowchart-designer",
+  "label": {
+    "zh": "流程图设计专家",
+    "en": "Flowchart Designer"
+  },
+  "description": {
+    "zh": "把流程描述、制度文档或代码逻辑画成流程图、泳道图、时序图、状态图、思维导图和甘特图；支持语法校验，导出 PNG / SVG / PDF，并能生成可在 draw.io 中继续编辑的文件。",
+    "en": "Turns process descriptions, policies, or code logic into flowcharts, swimlanes, sequence, state, mind-map, and Gantt diagrams. Validates syntax, exports PNG / SVG / PDF, and generates editable draw.io files."
+  },
+  "welcome_message": {
+    "zh": "描述你的流程，或者把制度文档、代码发给我，我来画成图",
+    "en": "Describe your process, or send me a policy document or code — I'll turn it into a diagram"
+  },
+  "icon_name": "network",
+  "color": "#0891B2",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "业务流程图",
+        "en": "Business flowchart"
+      },
+      "description": {
+        "zh": "步骤、判断与异常分支",
+        "en": "Steps, decisions, and exception paths"
+      },
+      "prompt": {
+        "zh": "请把下面的流程画成流程图，标出判断条件和异常处理：\n\n",
+        "en": "Draw the following process as a flowchart, marking decisions and exception handling:\n\n"
+      },
+      "color": "#cffafe",
+      "icon_name": "network"
+    },
+    {
+      "title": {
+        "zh": "跨部门泳道图",
+        "en": "Swimlane diagram"
+      },
+      "description": {
+        "zh": "按角色分泳道，看清交接",
+        "en": "One lane per role to show handoffs"
+      },
+      "prompt": {
+        "zh": "请画一张泳道图，角色有：___。流程如下：\n\n",
+        "en": "Draw a swimlane diagram. Roles: ___. The process:\n\n"
+      },
+      "color": "#e8f4ff",
+      "icon_name": "users"
+    },
+    {
+      "title": {
+        "zh": "系统时序图",
+        "en": "Sequence diagram"
+      },
+      "description": {
+        "zh": "服务、接口之间的调用顺序",
+        "en": "Call order between services and APIs"
+      },
+      "prompt": {
+        "zh": "请根据下面的接口调用说明（或代码）画一张时序图，包含成功和失败分支：\n\n",
+        "en": "Draw a sequence diagram from the following API description (or code), with success and failure branches:\n\n"
+      },
+      "color": "#f3e8ff",
+      "icon_name": "server"
+    },
+    {
+      "title": {
+        "zh": "状态流转图",
+        "en": "State diagram"
+      },
+      "description": {
+        "zh": "订单、工单等对象的状态变化",
+        "en": "State changes of orders, tickets, etc."
+      },
+      "prompt": {
+        "zh": "请画出 ___ 的状态流转图，包含每个状态的触发条件：\n\n",
+        "en": "Draw the state diagram for ___, including the trigger for each transition:\n\n"
+      },
+      "color": "#fef3c7",
+      "icon_name": "refresh-cw"
+    },
+    {
+      "title": {
+        "zh": "思维导图",
+        "en": "Mind map"
+      },
+      "description": {
+        "zh": "梳理主题、拆解要点",
+        "en": "Break down a topic into branches"
+      },
+      "prompt": {
+        "zh": "请把下面的内容整理成一张思维导图：\n\n",
+        "en": "Organize the following content into a mind map:\n\n"
+      },
+      "color": "#dcfce7",
+      "icon_name": "sparkles"
+    },
+    {
+      "title": {
+        "zh": "可编辑 draw.io",
+        "en": "Editable draw.io"
+      },
+      "description": {
+        "zh": "生成能拖拽修改的 .drawio 文件",
+        "en": "A .drawio file you can drag and edit"
+      },
+      "prompt": {
+        "zh": "请把下面的流程做成可以在 draw.io 里编辑的文件，同时导出一张 PNG 预览：\n\n",
+        "en": "Turn the following process into an editable draw.io file and export a PNG preview:\n\n"
+      },
+      "color": "#f1f5f9",
+      "icon_name": "pen-tool"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每周一「10:00」检查 inbound 目录新增的制度文档，为每份文档画出审批流程图",
+      "每个工作日「18:00」把当天会议纪要里的流程变更更新到对应的 .mmd 源文件并重新导出",
+      "每月 1 日「09:00」根据项目计划表生成本月甘特图，发给我确认",
+      "每周五「17:00」把本周新增接口整理成时序图，先发草稿",
+      "每季度第一个工作日「10:00」复核部门泳道图，列出与最新制度不一致的地方",
+      "每天「09:30」把昨天的工单状态变化整理成一张状态流转图"
+    ],
+    "en": [
+      "Every Monday at 10:00, check new policy documents in inbound and draw an approval flowchart for each",
+      "Every weekday at 18:00, apply process changes from today's meeting notes to the matching .mmd sources and re-export",
+      "On the 1st of each month at 09:00, build this month's Gantt chart from the project plan and send it for review",
+      "Every Friday at 17:00, turn this week's new APIs into sequence diagrams — drafts only",
+      "On the first weekday of each quarter at 10:00, review department swimlanes and list mismatches with current policy",
+      "Every day at 09:30, summarize yesterday's ticket status changes as a state diagram"
+    ]
+  }
+}

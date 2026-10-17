@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="PPT 设计专家">
+  <defs>
+    <linearGradient id="bg-ppt-designer" x1="20" y1="8" x2="110" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFEDD5"/>
+      <stop offset="1" stop-color="#FDBA74"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="32" fill="url(#bg-ppt-designer)"/>
+  <!-- shoulders and collar -->
+  <path d="M26 118 Q28 94 48 88 Q64 84 80 88 Q100 94 102 118 Z" fill="#EA580C"/>
+  <path d="M48 88 Q64 96 80 88 L78 118 H50 Z" fill="#9A3412" opacity="0.25"/>
+  <path d="M50 89 L64 100 L78 89 L74 87 L64 95 L54 87 Z" fill="#FFF7ED"/>
+  <!-- hair, neck and head -->
+  <path d="M30 60 Q24 24 62 20 Q98 20 98 60 Q98 74 92 80 L36 80 Q30 74 30 60 Z" fill="#431407"/>
+  <rect x="56" y="86" width="16" height="14" rx="6" fill="#F1C7A6"/>
+  <ellipse cx="64" cy="64" rx="27" ry="29" fill="#F1C7A6"/>
+  <ellipse cx="37" cy="66" rx="5" ry="7" fill="#F1C7A6"/>
+  <ellipse cx="91" cy="66" rx="5" ry="7" fill="#F1C7A6"/>
+  <path d="M37 54 Q42 30 66 31 Q86 32 91 52 Q78 50 70 40 Q60 52 37 54 Z" fill="#431407"/>
+  <!-- face -->
+  <ellipse cx="53" cy="63" rx="3.2" ry="3.8" fill="#431407"/>
+  <ellipse cx="75" cy="63" rx="3.2" ry="3.8" fill="#431407"/>
+  <circle cx="54.2" cy="61.8" r="1.1" fill="#fff" opacity="0.95"/>
+  <circle cx="76.2" cy="61.8" r="1.1" fill="#fff" opacity="0.95"/>
+  <path d="M47 55 Q53 52 59 55 M69 55 Q75 52 81 55" fill="none" stroke="#431407" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+  <path d="M64 65 Q66 70 62 72" fill="none" stroke="#C08457" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+  <path d="M54 75 Q64 82 74 75" fill="none" stroke="#B45309" stroke-width="2.4" stroke-linecap="round"/>
+  <circle cx="45" cy="72" r="4" fill="#F9A8D4" opacity="0.35"/>
+  <circle cx="83" cy="72" r="4" fill="#F9A8D4" opacity="0.35"/>
+  <!-- presentation board with bar chart -->
+  <rect x="84" y="84" width="34" height="25" rx="3" fill="#FFF7ED" stroke="#EA580C" stroke-width="2"/>
+  <rect x="88" y="88" width="14" height="3" rx="1.5" fill="#EA580C"/>
+  <rect x="89" y="99" width="5" height="6" rx="1" fill="#FB923C"/>
+  <rect x="97" y="95" width="5" height="10" rx="1" fill="#EA580C"/>
+  <rect x="105" y="91" width="5" height="14" rx="1" fill="#9A3412"/>
+  <path d="M101 109 V118 M94 118 H108" stroke="#9A3412" stroke-width="2.4" stroke-linecap="round"/>
+</svg>

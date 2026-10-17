@@ -1,0 +1,138 @@
+{
+  "id": "ppt-designer",
+  "label": {
+    "zh": "PPT 设计专家",
+    "en": "Presentation Designer"
+  },
+  "description": {
+    "zh": "从主题、文档或数据出发，策划故事线和逐页大纲，生成风格统一、带原生图表和讲稿备注的 .pptx；内置 5 套主题、13 种版式，自动检查文字溢出，也能读取和修改已有 PPT。",
+    "en": "Plans a storyline and slide-by-slide outline from a topic, document, or data, then builds a consistent .pptx with native charts and speaker notes. Five themes, 13 layouts, automatic overflow checks, and editing for existing decks."
+  },
+  "welcome_message": {
+    "zh": "告诉我 PPT 的用途、受众和大致页数，或者直接把材料发给我",
+    "en": "Tell me the purpose, audience, and rough length — or just send me the material"
+  },
+  "icon_name": "presentation",
+  "color": "#EA580C",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "工作汇报 PPT",
+        "en": "Work report deck"
+      },
+      "description": {
+        "zh": "结论先行的季度/月度汇报",
+        "en": "Conclusion-first periodic report"
+      },
+      "prompt": {
+        "zh": "帮我做一份工作汇报 PPT。汇报对象：___；时间范围：___；主要内容和数据如下：\n\n",
+        "en": "Create a work report deck. Audience: ___; period: ___; key content and data:\n\n"
+      },
+      "color": "#ffedd5",
+      "icon_name": "presentation"
+    },
+    {
+      "title": {
+        "zh": "文档转 PPT",
+        "en": "Document to slides"
+      },
+      "description": {
+        "zh": "把长文档提炼成演示文稿",
+        "en": "Condense a long document into a deck"
+      },
+      "prompt": {
+        "zh": "请把我上传的文档提炼成一份 ___ 页左右的 PPT，受众是 ___，重点突出 ___。",
+        "en": "Turn the document I uploaded into a deck of about ___ slides for ___, emphasizing ___."
+      },
+      "color": "#e8f4ff",
+      "icon_name": "file-text"
+    },
+    {
+      "title": {
+        "zh": "方案提案",
+        "en": "Proposal pitch"
+      },
+      "description": {
+        "zh": "问题—方案—收益—计划",
+        "en": "Problem, solution, benefits, plan"
+      },
+      "prompt": {
+        "zh": "帮我做一份方案提案 PPT：要解决的问题是 ___，我们的方案是 ___，需要争取的支持是 ___。",
+        "en": "Create a proposal deck: the problem is ___, our solution is ___, and we need ___."
+      },
+      "color": "#dcfce7",
+      "icon_name": "rocket"
+    },
+    {
+      "title": {
+        "zh": "数据可视化页",
+        "en": "Data slides"
+      },
+      "description": {
+        "zh": "把表格数据做成图表页",
+        "en": "Turn spreadsheet data into chart slides"
+      },
+      "prompt": {
+        "zh": "把下面的数据做成几页图表 PPT，每页标题写出结论：\n\n",
+        "en": "Turn the following data into a few chart slides, each with a conclusion-style title:\n\n"
+      },
+      "color": "#f3e8ff",
+      "icon_name": "trending-up"
+    },
+    {
+      "title": {
+        "zh": "培训课件",
+        "en": "Training deck"
+      },
+      "description": {
+        "zh": "目标—概念—示例—回顾",
+        "en": "Objectives, concepts, examples, recap"
+      },
+      "prompt": {
+        "zh": "帮我做一份培训课件，主题：___，学员：___，时长约 ___ 分钟，需要带讲稿备注。",
+        "en": "Create a training deck on ___ for ___, about ___ minutes, with speaker notes."
+      },
+      "color": "#fef3c7",
+      "icon_name": "book-open"
+    },
+    {
+      "title": {
+        "zh": "修改已有 PPT",
+        "en": "Edit an existing deck"
+      },
+      "description": {
+        "zh": "改文字、调页序、补讲稿",
+        "en": "Fix text, reorder slides, add notes"
+      },
+      "prompt": {
+        "zh": "我上传了一份 PPT，请帮我：___（例如：把 2025 改成 2026、删掉第 5 页、给每页补讲稿）。",
+        "en": "I uploaded a deck. Please: ___ (e.g. change 2025 to 2026, delete slide 5, add notes to every slide)."
+      },
+      "color": "#f1f5f9",
+      "icon_name": "pen-tool"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每周五「16:00」根据本周工作记录生成周报 PPT 初稿，发给我确认",
+      "每月 1 日「10:00」用上月销售数据生成月度经营分析 PPT",
+      "每季度末最后一个工作日「15:00」整理季度复盘 PPT 大纲，先发大纲不生成文件",
+      "每周一「09:30」把上周例会纪要整理成 5 页以内的同步 PPT",
+      "每天「18:00」检查 inbound 目录新上传的 PPT，列出文字溢出和错别字问题",
+      "每月最后一个周五「17:00」汇总本月项目里程碑，生成时间轴页面"
+    ],
+    "en": [
+      "Every Friday at 16:00, draft a weekly report deck from this week's work log and send it for my review",
+      "On the 1st of each month at 10:00, build a monthly business review deck from last month's sales data",
+      "On the last weekday of each quarter at 15:00, prepare a quarterly retrospective outline — outline only, no file",
+      "Every Monday at 09:30, turn last week's meeting notes into a sync deck of at most 5 slides",
+      "Every day at 18:00, check newly uploaded decks in inbound and list overflow and typo issues",
+      "On the last Friday of each month at 17:00, summarize project milestones into a timeline slide"
+    ]
+  }
+}
