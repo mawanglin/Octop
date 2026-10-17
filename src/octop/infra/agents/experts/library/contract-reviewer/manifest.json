@@ -1,0 +1,102 @@
+{
+  "id": "contract-reviewer",
+  "label": {
+    "zh": "合同审阅专家",
+    "en": "Contract Reviewer"
+  },
+  "description": {
+    "zh": "签约前审合同：按主体、价款支付、交付验收、违约责任、知识产权、保密、争议解决等清单逐项识别风险，给出风险等级和可直接替换的修改条款，并把意见批注到合同 Word 副本上、输出风险清单；也能对比两版合同。审阅意见仅供参考，不构成法律意见。",
+    "en": "Reviews contracts before signing: checklist-based risk review (parties, payment, acceptance, liability, IP, confidentiality, disputes) with risk levels and drop-in clause fixes, comments written onto a Word copy, a risk list, and version comparison. For reference only — not legal advice."
+  },
+  "welcome_message": {
+    "zh": "把合同 Word 发给我，告诉我你是甲方还是乙方",
+    "en": "Send me the contract and tell me which side you're on"
+  },
+  "icon_name": "shield-check",
+  "color": "#475569",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": { "zh": "审合同", "en": "Review a contract" },
+      "description": { "zh": "风险清单 + 修改条款", "en": "Risks plus clause fixes" },
+      "prompt": {
+        "zh": "我上传了合同 ___，我方是 ___（甲方/乙方），帮我审一下风险并给出修改建议。",
+        "en": "I uploaded contract ___. We are the ___ party. Review the risks and suggest changes."
+      },
+      "color": "#f1f5f9",
+      "icon_name": "shield-check"
+    },
+    {
+      "title": { "zh": "批注版合同", "en": "Annotated copy" },
+      "description": { "zh": "意见批注在 Word 上", "en": "Comments in Word" },
+      "prompt": {
+        "zh": "把审阅意见批注到合同 ___ 的副本上，并输出风险清单 Excel。",
+        "en": "Add the review comments to a copy of ___ and export a risk list."
+      },
+      "color": "#e8f4ff",
+      "icon_name": "pen-tool"
+    },
+    {
+      "title": { "zh": "重点条款", "en": "Key clauses" },
+      "description": { "zh": "付款、验收、违约", "en": "Payment, acceptance, liability" },
+      "prompt": {
+        "zh": "只看这份合同的付款、验收和违约责任条款，我方是 ___，有什么风险？",
+        "en": "Only check payment, acceptance, and liability clauses. We are the ___ party."
+      },
+      "color": "#fef3c7",
+      "icon_name": "file-text"
+    },
+    {
+      "title": { "zh": "对比两版", "en": "Compare versions" },
+      "description": { "zh": "对方改了什么", "en": "What the other side changed" },
+      "prompt": {
+        "zh": "对方返回了修改稿 ___，和我们的原稿 ___ 对比一下，哪些改动对我方不利？",
+        "en": "The other side returned ___. Compare it with our draft ___ — which changes hurt us?"
+      },
+      "color": "#ffe4e6",
+      "icon_name": "refresh-cw"
+    },
+    {
+      "title": { "zh": "补充条款", "en": "Draft a clause" },
+      "description": { "zh": "保密、知识产权、责任上限", "en": "NDA, IP, liability cap" },
+      "prompt": {
+        "zh": "帮我起草一条 ___ 条款，我方是 ___，交易背景：___。",
+        "en": "Draft a ___ clause. We are the ___ party. Context: ___."
+      },
+      "color": "#dcfce7",
+      "icon_name": "zap"
+    },
+    {
+      "title": { "zh": "谈判回复", "en": "Negotiation reply" },
+      "description": { "zh": "拒绝或折中的话术", "en": "Push back or compromise" },
+      "prompt": {
+        "zh": "对方要求修改 ___ 条款为 ___，帮我写一段专业的回复，提出折中方案。",
+        "en": "The other side wants clause ___ changed to ___. Draft a professional reply with a compromise."
+      },
+      "color": "#f3e8ff",
+      "icon_name": "message-square"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每个工作日「09:00」检查 inbound 目录新上传的合同，生成审阅意见初稿",
+      "每周五「16:00」汇总本周审阅的合同和高风险条款，生成清单",
+      "每月 1 日「10:00」列出未来 60 天内到期或需续签的合同",
+      "每次收到对方修改稿后「30 分钟内」对比两版合同并列出不利改动",
+      "每季度第一个工作日「10:00」根据本季度审阅情况更新常用修改条款库",
+      "每周一「09:30」提醒我跟进上周审阅后仍在谈判中的合同"
+    ],
+    "en": [
+      "Every weekday at 09:00, draft review notes for new contracts in inbound",
+      "Every Friday at 16:00, summarize this week's reviewed contracts and high-risk clauses",
+      "On the 1st of each month at 10:00, list contracts expiring or due for renewal in 60 days",
+      "Within 30 minutes of receiving a counter-draft, compare versions and list unfavorable changes",
+      "On the first weekday of each quarter at 10:00, update the clause library from recent reviews",
+      "Every Monday at 09:30, remind me to follow up on contracts still in negotiation"
+    ]
+  }
+}

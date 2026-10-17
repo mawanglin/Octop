@@ -1,0 +1,102 @@
+{
+  "id": "policy-interpreter",
+  "label": {
+    "zh": "政策解读专家",
+    "en": "Policy Interpreter"
+  },
+  "description": {
+    "zh": "帮你读懂政策文件：一页速读（背景、核心内容、适用对象、时间节点）、逐条解读和适用条件自查、影响分析；新旧版本逐条对比并标出数字和字词变化；把政策要求分解成落实任务表，起草贯彻落实方案和申报指引。",
+    "en": "Makes policy documents readable: one-page briefs, clause-by-clause notes, eligibility checks, impact analysis, old-vs-new comparisons with highlighted changes, implementation task lists, plans, and filing guides."
+  },
+  "welcome_message": {
+    "zh": "把政策文件发给我，告诉我你是政府部门、企业还是个人",
+    "en": "Send me the policy document and tell me if you're an agency, a company, or an individual"
+  },
+  "icon_name": "book-open",
+  "color": "#9F1239",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": { "zh": "一页速读", "en": "One-page brief" },
+      "description": { "zh": "核心内容、对象、时间", "en": "Key points, scope, dates" },
+      "prompt": {
+        "zh": "我上传了 ___，帮我做一页速读，我的身份是 ___。",
+        "en": "I uploaded ___. Give me a one-page brief. I am a ___."
+      },
+      "color": "#ffe4e6",
+      "icon_name": "book-open"
+    },
+    {
+      "title": { "zh": "能不能享受", "en": "Am I eligible?" },
+      "description": { "zh": "条件逐项自查", "en": "Check conditions one by one" },
+      "prompt": {
+        "zh": "根据这份政策，我们 ___（企业情况）能不能享受 ___？帮我逐项核对条件。",
+        "en": "Based on this policy, can we (___) get ___? Check each condition."
+      },
+      "color": "#dcfce7",
+      "icon_name": "shield-check"
+    },
+    {
+      "title": { "zh": "新旧对比", "en": "Old vs new" },
+      "description": { "zh": "改了什么、影响多大", "en": "What changed and why it matters" },
+      "prompt": {
+        "zh": "对比 ___（旧版）和 ___（新版），列出变化并说明对 ___ 的影响。",
+        "en": "Compare ___ (old) and ___ (new), list the changes and their impact on ___."
+      },
+      "color": "#fef3c7",
+      "icon_name": "refresh-cw"
+    },
+    {
+      "title": { "zh": "落实任务表", "en": "Task breakdown" },
+      "description": { "zh": "任务、牵头、时限", "en": "Tasks, owners, deadlines" },
+      "prompt": {
+        "zh": "把这份文件的要求分解成我单位的落实任务表，我们的部门有：___。",
+        "en": "Break this document into an implementation task list for our departments: ___."
+      },
+      "color": "#e8f4ff",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": { "zh": "申报指引", "en": "Filing guide" },
+      "description": { "zh": "条件、材料、流程", "en": "Eligibility, documents, steps" },
+      "prompt": {
+        "zh": "根据这份政策和配套通知，帮我整理一份申报指引：\n\n",
+        "en": "Write a filing guide from this policy and its notice:\n\n"
+      },
+      "color": "#f3e8ff",
+      "icon_name": "file-text"
+    },
+    {
+      "title": { "zh": "政策问答", "en": "Ask about a policy" },
+      "description": { "zh": "结论 + 条款依据", "en": "Answer with clause references" },
+      "prompt": {
+        "zh": "关于这份政策我想问：___",
+        "en": "About this policy, my question is: ___"
+      },
+      "color": "#f1f5f9",
+      "icon_name": "message-square"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每周一「09:00」检查 inbound 目录新上传的政策文件，生成一页速读",
+      "每月 1 日「10:00」整理本单位正在落实的政策任务进度，列出临近时限的任务",
+      "每次收到新版政策后，自动与旧版对比并列出变化",
+      "每季度第一个工作日「10:00」梳理即将到期或进入申报期的政策",
+      "每周五「16:00」汇总本周解读的政策和待向主管部门确认的问题",
+      "每年 12 月 1 日「09:00」整理本年度已享受和可申报的政策清单"
+    ],
+    "en": [
+      "Every Monday at 09:00, write one-page briefs for new policy files in inbound",
+      "On the 1st of each month at 10:00, report progress on policy tasks and flag near deadlines",
+      "Whenever a new version arrives, compare it with the old one and list the changes",
+      "On the first weekday of each quarter at 10:00, list policies expiring or opening for applications",
+      "Every Friday at 16:00, summarize this week's policies and open questions for authorities",
+      "On December 1 each year at 09:00, list policies used this year and those still available"
+    ]
+  }
+}
