@@ -1,0 +1,102 @@
+{
+  "id": "gov-document",
+  "label": {
+    "zh": "政务公文专家",
+    "en": "Government Document Writer"
+  },
+  "description": {
+    "zh": "起草和修改通知、请示、报告、函、纪要等法定公文，以及政府工作汇报、调研报告、经验材料；自动检查层次序数、日期、标点和文种用法，并按 GB/T 9704-2012 排成带版头、红线、版记的 Word。",
+    "en": "Drafts and revises official documents (notices, requests, reports, letters, minutes) and government briefings; checks numbering, dates, punctuation, and document types; exports Word files in the GB/T 9704-2012 format."
+  },
+  "welcome_message": {
+    "zh": "告诉我要写什么文种、发给谁、办什么事，或者把已有的稿子发给我检查",
+    "en": "Tell me the document type, recipient, and purpose — or send me a draft to review"
+  },
+  "icon_name": "file-text",
+  "color": "#B91C1C",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": { "zh": "起草通知", "en": "Draft a notice" },
+      "description": { "zh": "布置工作、转发文件", "en": "Assign work or forward documents" },
+      "prompt": {
+        "zh": "帮我起草一份通知。发文机关：___；主送：___；要部署的工作：___；时间要求：___。",
+        "en": "Draft a notice. Issuer: ___; recipients: ___; task: ___; deadline: ___."
+      },
+      "color": "#fee2e2",
+      "icon_name": "file-text"
+    },
+    {
+      "title": { "zh": "写请示", "en": "Write a request" },
+      "description": { "zh": "向上级要政策、要资金", "en": "Ask superiors for approval or funds" },
+      "prompt": {
+        "zh": "帮我写一份请示，向 ___ 申请 ___。背景和理由如下：\n\n",
+        "en": "Write a request to ___ asking for ___. Background and reasons:\n\n"
+      },
+      "color": "#fef3c7",
+      "icon_name": "mail"
+    },
+    {
+      "title": { "zh": "政府工作汇报", "en": "Government briefing" },
+      "description": { "zh": "迎检、调研、座谈汇报", "en": "Briefings for inspections and visits" },
+      "prompt": {
+        "zh": "领导要来调研，帮我写一份约 ___ 分钟的工作汇报。单位：___；主要工作和数据如下：\n\n",
+        "en": "Leaders are visiting. Write a ___-minute work briefing for ___. Key work and data:\n\n"
+      },
+      "color": "#e8f4ff",
+      "icon_name": "presentation"
+    },
+    {
+      "title": { "zh": "会议纪要", "en": "Meeting minutes" },
+      "description": { "zh": "议定事项规范成文", "en": "Formal minutes of decisions" },
+      "prompt": {
+        "zh": "把下面的会议记录整理成规范的会议纪要（文种：纪要）：\n\n",
+        "en": "Turn these meeting notes into formal minutes:\n\n"
+      },
+      "color": "#dcfce7",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": { "zh": "公文格式检查", "en": "Format check" },
+      "description": { "zh": "找出格式和表述问题", "en": "Find format and wording issues" },
+      "prompt": {
+        "zh": "帮我检查这份公文的文种、结构、表述和格式问题，并给出修改稿：\n\n",
+        "en": "Check this document for type, structure, wording, and format issues, then revise it:\n\n"
+      },
+      "color": "#f3e8ff",
+      "icon_name": "shield-check"
+    },
+    {
+      "title": { "zh": "排成国标 Word", "en": "Export GB/T Word" },
+      "description": { "zh": "版头、红线、版记一次排好", "en": "Header, red line, and colophon" },
+      "prompt": {
+        "zh": "把下面的公文排成国标格式的 Word。发文机关标志：___；发文字号：___；印发机关：___。正文：\n\n",
+        "en": "Export this document as GB/T-format Word. Issuer header: ___; number: ___; issuing office: ___. Text:\n\n"
+      },
+      "color": "#f1f5f9",
+      "icon_name": "file-text"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每周五「16:00」根据本周工作记录起草一份工作情况报告，先发我确认",
+      "每月 25 日「10:00」提醒我报送月度信息，并按模板起草初稿",
+      "每季度最后一个工作日「15:00」整理本季度重点工作，起草季度工作总结",
+      "每个工作日「09:00」检查 inbound 目录新上传的公文草稿，输出格式问题清单",
+      "每年 12 月 1 日「09:30」起草年度工作总结和明年工作要点的提纲",
+      "每周一「08:30」把上周会议记录整理成规范的会议纪要草稿"
+    ],
+    "en": [
+      "Every Friday at 16:00, draft a weekly work report from this week's notes and send it for my review",
+      "On the 25th of each month at 10:00, remind me to submit the monthly brief and draft it from the template",
+      "On the last weekday of each quarter at 15:00, draft the quarterly work summary",
+      "Every weekday at 09:00, check new drafts in inbound and list format issues",
+      "On December 1 each year at 09:30, outline the annual summary and next year's priorities",
+      "Every Monday at 08:30, turn last week's meeting notes into formal minutes drafts"
+    ]
+  }
+}

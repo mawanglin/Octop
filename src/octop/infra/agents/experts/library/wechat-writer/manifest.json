@@ -1,0 +1,102 @@
+{
+  "id": "wechat-writer",
+  "label": {
+    "zh": "公众号写作专家",
+    "en": "WeChat Article Writer"
+  },
+  "description": {
+    "zh": "公众号内容一条龙：选题策划、5 个标题备选、正文写作与改稿、广告法和诱导分享合规自查，排版成复制即可粘贴的 HTML；还能改写成小红书、朋友圈、视频号文案，可交给发文官自动发布。",
+    "en": "End-to-end WeChat articles: topic planning, five headline options, writing and editing, ad-law and compliance checks, and paste-ready HTML layouts; also adapts content for Xiaohongshu, Moments, and Channels."
+  },
+  "welcome_message": {
+    "zh": "告诉我你的账号定位和想写的主题，或者把草稿发给我改",
+    "en": "Tell me about your account and topic — or send me a draft to edit"
+  },
+  "icon_name": "message-square",
+  "color": "#07A35A",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": { "zh": "写一篇推文", "en": "Write an article" },
+      "description": { "zh": "从大纲到排版成品", "en": "From outline to finished layout" },
+      "prompt": {
+        "zh": "帮我写一篇公众号文章。主题：___；目标读者：___；我掌握的素材：\n\n",
+        "en": "Write a WeChat article. Topic: ___; readers: ___; my material:\n\n"
+      },
+      "color": "#dcfce7",
+      "icon_name": "pen-tool"
+    },
+    {
+      "title": { "zh": "找选题", "en": "Find topics" },
+      "description": { "zh": "3 个角度 + 选题打分", "en": "Three angles with scoring" },
+      "prompt": {
+        "zh": "我的公众号定位是 ___，帮我想 5 个近期值得写的选题，并给出切入角度。",
+        "en": "My account focuses on ___. Suggest five timely topics with angles."
+      },
+      "color": "#fef3c7",
+      "icon_name": "sparkles"
+    },
+    {
+      "title": { "zh": "起标题", "en": "Headlines" },
+      "description": { "zh": "5 个标题 + 摘要 + 封面字", "en": "Five headlines, summary, cover" },
+      "prompt": {
+        "zh": "帮这篇文章起 5 个标题，并写摘要和封面文案：\n\n",
+        "en": "Give five headlines plus summary and cover text for this article:\n\n"
+      },
+      "color": "#e8f4ff",
+      "icon_name": "zap"
+    },
+    {
+      "title": { "zh": "改稿润色", "en": "Edit a draft" },
+      "description": { "zh": "结构、表达、合规一起改", "en": "Structure, wording, compliance" },
+      "prompt": {
+        "zh": "帮我改一下这篇稿子，先列问题再给修改稿：\n\n",
+        "en": "Edit this draft — list issues first, then give the revision:\n\n"
+      },
+      "color": "#f3e8ff",
+      "icon_name": "file-text"
+    },
+    {
+      "title": { "zh": "排版成品", "en": "Layout" },
+      "description": { "zh": "复制即可粘贴进公众号", "en": "Paste-ready for WeChat" },
+      "prompt": {
+        "zh": "把下面这篇文章排版成公众号格式，主题色用 ___：\n\n",
+        "en": "Lay out this article for WeChat with the ___ theme:\n\n"
+      },
+      "color": "#f1f5f9",
+      "icon_name": "palette"
+    },
+    {
+      "title": { "zh": "改成小红书", "en": "To Xiaohongshu" },
+      "description": { "zh": "笔记 + 话题 + 配图建议", "en": "Note, tags, image ideas" },
+      "prompt": {
+        "zh": "把这篇公众号文章改写成小红书笔记和一条朋友圈文案：\n\n",
+        "en": "Adapt this article into a Xiaohongshu note and a Moments post:\n\n"
+      },
+      "color": "#fee2e2",
+      "icon_name": "heart"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每周一「09:30」结合本周热点和账号定位，给我 5 个选题建议",
+      "每周三「15:00」根据本周选题写好文章初稿和 5 个标题，先发我确认",
+      "每月最后一个周五「10:00」生成下个月的选题日历",
+      "每天「08:30」检查 drafts 目录的新稿件，做合规自查并列出问题",
+      "每周五「17:00」把本周发布的文章改写成小红书笔记草稿",
+      "每月 1 日「10:00」统计上月文章字数、篇数，整理成复盘表"
+    ],
+    "en": [
+      "Every Monday at 09:30, suggest five topics based on this week's trends and my account focus",
+      "Every Wednesday at 15:00, draft this week's article with five headlines for my review",
+      "On the last Friday of each month at 10:00, build next month's content calendar",
+      "Every day at 08:30, check new drafts and list compliance issues",
+      "Every Friday at 17:00, adapt this week's articles into Xiaohongshu drafts",
+      "On the 1st of each month at 10:00, summarize last month's articles into a review table"
+    ]
+  }
+}

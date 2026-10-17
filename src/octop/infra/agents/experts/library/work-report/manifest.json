@@ -1,0 +1,102 @@
+{
+  "id": "work-report",
+  "label": {
+    "zh": "工作汇报专家",
+    "en": "Work Report Writer"
+  },
+  "description": {
+    "zh": "把零散的工作记录和数据整理成结论先行、量化清楚的日报、周报、月报、季度汇报、年终总结和述职报告；数据缺失时占位不编造，可导出排好版的 Word，或交给 PPT 专家做成汇报 PPT。",
+    "en": "Turns scattered notes and data into conclusion-first daily, weekly, monthly, and quarterly reports, annual reviews, and self-assessments. Never invents numbers; exports formatted Word or hands off to the PPT designer."
+  },
+  "welcome_message": {
+    "zh": "把这段时间做的事、数据随便发给我，告诉我写日报、周报还是年终总结",
+    "en": "Send me what you worked on and any numbers — daily, weekly, or annual report?"
+  },
+  "icon_name": "trending-up",
+  "color": "#2563EB",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": { "zh": "写周报", "en": "Weekly report" },
+      "description": { "zh": "零散记录变清晰周报", "en": "Notes into a clear weekly report" },
+      "prompt": {
+        "zh": "帮我写本周周报，汇报对象是 ___。本周工作记录如下：\n\n",
+        "en": "Write my weekly report for ___. This week's notes:\n\n"
+      },
+      "color": "#dbeafe",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": { "zh": "写日报", "en": "Daily report" },
+      "description": { "zh": "一屏看完的日报", "en": "A one-screen daily report" },
+      "prompt": {
+        "zh": "帮我整理今天的日报：\n\n",
+        "en": "Write today's daily report from these notes:\n\n"
+      },
+      "color": "#e8f4ff",
+      "icon_name": "file-text"
+    },
+    {
+      "title": { "zh": "月度/季度汇报", "en": "Monthly/quarterly report" },
+      "description": { "zh": "指标对比 + 问题分析", "en": "Metrics, analysis, next steps" },
+      "prompt": {
+        "zh": "帮我写一份 ___ 月度/季度工作汇报。目标和实际数据如下：\n\n",
+        "en": "Write a monthly/quarterly report for ___. Targets and actuals:\n\n"
+      },
+      "color": "#dcfce7",
+      "icon_name": "trending-up"
+    },
+    {
+      "title": { "zh": "年终总结", "en": "Annual review" },
+      "description": { "zh": "亮点、不足、明年计划", "en": "Highlights, gaps, next year" },
+      "prompt": {
+        "zh": "帮我写今年的年终总结。我的岗位是 ___，全年主要工作和成果如下：\n\n",
+        "en": "Write my annual review. Role: ___. Main work and results this year:\n\n"
+      },
+      "color": "#fef3c7",
+      "icon_name": "sparkles"
+    },
+    {
+      "title": { "zh": "述职报告", "en": "Self-assessment" },
+      "description": { "zh": "考核、竞聘、晋升答辩", "en": "For appraisals and promotions" },
+      "prompt": {
+        "zh": "帮我写一份约 ___ 分钟的述职报告，用于 ___。我的岗位和主要履职情况：\n\n",
+        "en": "Write a ___-minute self-assessment for ___. My role and work:\n\n"
+      },
+      "color": "#f3e8ff",
+      "icon_name": "user"
+    },
+    {
+      "title": { "zh": "汇报改写", "en": "Polish a report" },
+      "description": { "zh": "流水账改成结论先行", "en": "From diary to conclusions" },
+      "prompt": {
+        "zh": "这份汇报太像流水账了，帮我改成结论先行、有数据的版本：\n\n",
+        "en": "This report reads like a diary. Rewrite it conclusion-first with data:\n\n"
+      },
+      "color": "#f1f5f9",
+      "icon_name": "pen-tool"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每周五「16:30」读取本周工作记录，生成周报草稿发给我确认",
+      "每个工作日「18:00」提醒我记录今天的 3 件事，并生成日报",
+      "每月 1 日「10:00」汇总上月周报，生成月度工作汇报初稿",
+      "每季度最后一个工作日「14:00」整理季度指标完成情况表",
+      "每年 12 月 15 日「09:00」汇总全年月报，生成年终总结提纲",
+      "每周一「09:00」根据上周周报的下周计划，列出本周待办"
+    ],
+    "en": [
+      "Every Friday at 16:30, read this week's notes and draft my weekly report for review",
+      "Every weekday at 18:00, remind me to log 3 things and draft the daily report",
+      "On the 1st of each month at 10:00, compile last month's weekly reports into a monthly draft",
+      "On the last weekday of each quarter at 14:00, build the quarterly KPI table",
+      "On December 15 each year at 09:00, outline my annual review from the monthly reports",
+      "Every Monday at 09:00, turn last week's plan into this week's todo list"
+    ]
+  }
+}
