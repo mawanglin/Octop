@@ -1,0 +1,323 @@
+name: Fork Release
+
+# Fork 专用发布流水线（与官方 release.yml / docker-publish.yml / fnos-build-fpk.yml 无关）。
+#
+# 触发：
+#   - 推送 v*.post* 标签（例如 v1.0.2b9.post1；版本号 = 官方版本 + .postN）
+#   - 或在 Actions 页面手动运行，填写已存在的标签
+#
+# 产物（全部挂到同名 GitHub Release）：
+#   - wheel + sdist
+#   - 飞牛原生版 FPK：x86_64（Octop-fnos-native-<ver>.fpk）和 arm64（Octop-fnos-native-arm64-<ver>.fpk）
+#
+# 不做的事：不发 PyPI；不构建 Docker 镜像；不打飞牛 Docker 版 FPK（它的 compose 写死拉取
+# ghcr.io/tencentcloud/octop 官方镜像，装上去不含 fork 的改动）；不上传 COS。
+#
+# 飞牛原生版打包步骤复制自官方 fnos-build-fpk.yml 的 native / native-arm64 job，
+# 官方调整那边的依赖钉版本（mcp、langchain-mcp-adapters）时需要同步到这里。
+
+on:
+  push:
+    tags:
+      - "v*.post*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "要发布的已有标签，例如 v1.0.2b9.post1"
+        required: true
+        type: string
+      skip_tests:
+        description: "跳过测试（只在重新出包时使用）"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fork-release-${{ inputs.tag || github.ref_name }}
+  cancel-in-progress: false
+
+# Keep in sync with scripts/build-fpk.sh default FNPACK_VERSION.
+env:
+  FNPACK_VERSION: "1.2.3"
+
+jobs:
+  prepare:
+    name: Resolve version
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.ver.outputs.tag }}
+      version: ${{ steps.ver.outputs.version }}
+      prerelease: ${{ steps.ver.outputs.prerelease }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag || github.ref }}
+
+      - name: Check tag matches pyproject.toml
+        id: ver
+        env:
+          TAG: ${{ inputs.tag || github.ref_name }}
+        run: |
+          set -euo pipefail
+          case "$TAG" in
+            v*) ;;
+            *) echo "::error::标签必须以 v 开头，收到 $TAG"; exit 1 ;;
+          esac
+          VER="${TAG#v}"
+          PYVER=$(sed -nE 's/^version[[:space:]]*=[[:space:]]*"([^"]+)".*/\1/p' pyproject.toml | head -1)
+          if [ "$VER" != "$PYVER" ]; then
+            echo "::error::标签 $TAG 与 pyproject.toml 版本 $PYVER 不一致"
+            exit 1
+          fi
+          # 飞牛商店只认可编码的版本，提前失败比打完包再失败好。
+          bash scripts/fnos/store_version.sh "$VER"
+          if [[ "$VER" =~ (a|b|rc)[0-9]+ ]]; then pre=true; else pre=false; fi
+          {
+            echo "tag=$TAG"
+            echo "version=$VER"
+            echo "prerelease=$pre"
+          } >> "$GITHUB_OUTPUT"
+
+  build:
+    name: Test and build distributions
+    needs: prepare
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.prepare.outputs.tag }}
+          fetch-depth: 0
+
+      - uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: dashboard/package-lock.json
+
+      - name: Install dependencies
+        run: make install
+
+      - name: Run tests
+        if: ${{ !inputs.skip_tests }}
+        run: make test
+
+      - name: Build package
+        run: make build
+
+      - name: Upload distributions
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          if-no-files-found: error
+
+  github-release:
+    name: Create GitHub Release
+    needs: [prepare, build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.prepare.outputs.tag }}
+          fetch-depth: 0
+
+      - name: Download distributions
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - name: Release notes
+        env:
+          TAG: ${{ needs.prepare.outputs.tag }}
+          VER: ${{ needs.prepare.outputs.version }}
+        run: |
+          set -euo pipefail
+          : > .release-notes.md
+          if [ -f CHANGELOG.fork.md ]; then
+            awk -v v="$VER" '
+              $0 ~ "^## \\[?" v "\\]?([[:space:]]|$)" { flag = 1; next }
+              /^## / { flag = 0 }
+              flag
+            ' CHANGELOG.fork.md > .release-notes.md
+          fi
+          if [ ! -s .release-notes.md ]; then
+            PREV=$(git tag --list 'v*.post*' --sort=-version:refname | grep -vx "$TAG" | head -1 || true)
+            {
+              echo "## 变更"
+              echo
+              if [ -n "$PREV" ]; then
+                git log "${PREV}..${TAG}" --oneline --no-decorate --no-merges
+              else
+                git log --oneline --no-decorate --no-merges -20 "$TAG"
+              fi
+            } > .release-notes.md
+          fi
+          {
+            echo
+            echo "## 安装"
+            echo
+            echo '- 飞牛 NAS：下载 `Octop-fnos-native-*.fpk`（x86_64）或 `Octop-fnos-native-arm64-*.fpk`（ARM），在应用中心「手动安装」。'
+            echo '- pip：下载 `.whl` 后执行 `pip install ./octop-'"$VER"'-py3-none-any.whl`。'
+            echo
+            echo "> 这是基于官方 Octop ${VER%.post*} 的 fork 版本。应用内「检查更新」查询的是官方 PyPI，升级到官方版本会移除 fork 的改动。"
+          } >> .release-notes.md
+          cat .release-notes.md
+
+      - name: Create or update release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ needs.prepare.outputs.tag }}
+          VER: ${{ needs.prepare.outputs.version }}
+          PRERELEASE: ${{ needs.prepare.outputs.prerelease }}
+        run: |
+          set -euo pipefail
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            # 网页上手动建好的 Release：保留原说明，只补上附件。
+            gh release upload "$TAG" dist/* --clobber
+          else
+            args=(--title "Octop $VER" --notes-file .release-notes.md --verify-tag)
+            if [ "$PRERELEASE" = "true" ]; then args+=(--prerelease); fi
+            gh release create "$TAG" dist/* "${args[@]}"
+          fi
+
+  fnos-site-packages:
+    name: FnOS site-packages (${{ matrix.arch }})
+    needs: [prepare, build]
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: amd64
+            runner: ubuntu-latest
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.prepare.outputs.tag }}
+
+      - name: Download distributions
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Octop core into app/site-packages
+        timeout-minutes: 15
+        run: |
+          set -euo pipefail
+          SP="${{ github.workspace }}/fnos/native/app/site-packages"
+          mkdir -p "$SP"
+          uname -m
+          python3 -m pip install --quiet uv
+          python3 -m uv pip install --python python3.12 \
+            --target "$SP" --no-cache "$(ls dist/octop-*.whl | head -1)"
+          rm -rf "$SP/mcp" "$SP"/mcp-*.dist-info \
+                 "$SP/langchain_mcp_adapters" "$SP"/langchain_mcp_adapters-*.dist-info
+          mkdir -p /tmp/octop-pinned
+          python3.12 -m pip download --only-binary :all: --no-deps --no-cache-dir \
+            -d /tmp/octop-pinned \
+            "mcp==1.28.1" "langchain-mcp-adapters==0.3.0"
+          for whl in /tmp/octop-pinned/*.whl; do
+            python3.12 -m zipfile -e "$whl" "$SP"
+          done
+          cp dist/octop-*.whl "$SP/octop.whl"
+          mkdir -p "$SP/octop_harness/backends"
+          cp scripts/fnos/vendor/storage_errors.py "$SP/octop_harness/backends/storage_errors.py"
+          bash scripts/fnos/slim-site-packages.sh "$SP"
+          PYTHONPATH="$SP" python3.12 -c "import octop, mcp, langchain_mcp_adapters; from octop.launch import run_foreground_blocking; from octop_harness.backends.storage_errors import classify_storage_error; print('octop', octop.__version__)"
+
+      - name: Upload site-packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: fnos-site-packages-${{ matrix.arch }}
+          path: fnos/native/app/site-packages
+          if-no-files-found: error
+
+  fnos-pack:
+    name: FnOS native FPK (${{ matrix.arch }})
+    needs: [prepare, fnos-site-packages]
+    # fnpack 只有 linux-amd64 版本，两种架构都在 amd64 runner 上打包。
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [amd64, arm64]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.prepare.outputs.tag }}
+
+      - name: Cache fnpack CLI
+        uses: actions/cache@v4
+        with:
+          path: .verify/fnpack
+          key: fnpack-${{ env.FNPACK_VERSION }}-linux-amd64
+
+      - name: Download site-packages
+        uses: actions/download-artifact@v4
+        with:
+          name: fnos-site-packages-${{ matrix.arch }}
+          path: fnos/native/app/site-packages
+
+      - name: Build native FPK
+        env:
+          FPK_NAME_PREFIX: Octop-fnos
+          FPK_ARCH: ${{ matrix.arch }}
+        run: |
+          set -euo pipefail
+          test -d fnos/native/app/site-packages/octop
+          bash scripts/build-fpk.sh native
+          ls -lh dist/*.fpk
+
+      - name: Upload FPK
+        uses: actions/upload-artifact@v4
+        with:
+          name: fnos-fpk-${{ matrix.arch }}
+          path: dist/Octop-fnos-native-*.fpk
+          if-no-files-found: error
+
+  fnos-release:
+    name: Attach FPK to release
+    # 某个架构失败时，仍把已经打好的包挂上去。
+    if: ${{ always() && needs.github-release.result == 'success' }}
+    needs: [prepare, github-release, fnos-pack]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download FPKs
+        uses: actions/download-artifact@v4
+        with:
+          pattern: fnos-fpk-*
+          path: dist/
+          merge-multiple: true
+
+      - name: Upload to release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ needs.prepare.outputs.tag }}
+        run: |
+          set -euo pipefail
+          ls -lh dist
+          if ! ls dist/*.fpk >/dev/null 2>&1; then
+            echo "::error::没有可上传的 .fpk"
+            exit 1
+          fi
+          gh release upload "$TAG" dist/*.fpk --clobber --repo "${{ github.repository }}"
