@@ -1,0 +1,102 @@
+{
+  "id": "business-writing",
+  "label": {
+    "zh": "商务沟通专家",
+    "en": "Business Writing Coach"
+  },
+  "description": {
+    "zh": "写好工作中的每一条消息：商务邮件（中英文）、通知、邀请函、感谢信，催办、请示、跨部门协调、群通知，以及婉拒、致歉、催款、指出错误、坏消息通知、投诉回复等难开口的话；默认给正式和简洁两个版本。",
+    "en": "Drafts workplace communication: business emails (Chinese and English), notices, invitations, nudges, approvals, coordination messages, and tricky conversations like saying no, apologizing, chasing payment, and sharing bad news — in formal and concise versions."
+  },
+  "welcome_message": {
+    "zh": "告诉我要发给谁、想达到什么目的，我帮你写成可以直接发送的消息",
+    "en": "Tell me who it's for and what you want to achieve — I'll draft something ready to send"
+  },
+  "icon_name": "mail",
+  "color": "#0369A1",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": { "zh": "写邮件", "en": "Write an email" },
+      "description": { "zh": "主题、目的、下一步", "en": "Subject, purpose, next step" },
+      "prompt": {
+        "zh": "帮我写一封邮件给 ___（对方身份），目的是 ___，关键信息：___。",
+        "en": "Write an email to ___ to ___. Key facts: ___."
+      },
+      "color": "#e0f2fe",
+      "icon_name": "mail"
+    },
+    {
+      "title": { "zh": "英文邮件", "en": "English email" },
+      "description": { "zh": "地道、不中式", "en": "Natural, not literal" },
+      "prompt": {
+        "zh": "帮我写一封英文邮件给 ___，内容是：___。",
+        "en": "Write an English email to ___ about: ___."
+      },
+      "color": "#e8f4ff",
+      "icon_name": "globe"
+    },
+    {
+      "title": { "zh": "催一下进度", "en": "Nudge politely" },
+      "description": { "zh": "礼貌又有效", "en": "Polite but effective" },
+      "prompt": {
+        "zh": "___ 的事 ___ 还没给我，原定 ___ 完成，帮我写条消息催一下，不要太生硬。",
+        "en": "___ still hasn't delivered ___ (due ___). Write a nudge that isn't too blunt."
+      },
+      "color": "#fef3c7",
+      "icon_name": "bell"
+    },
+    {
+      "title": { "zh": "婉拒", "en": "Say no" },
+      "description": { "zh": "拒绝但不伤关系", "en": "Decline and keep the relationship" },
+      "prompt": {
+        "zh": "___ 请我 ___，我想拒绝，因为 ___，帮我写得委婉一点。",
+        "en": "___ asked me to ___. I want to decline because ___. Help me say it kindly."
+      },
+      "color": "#f3e8ff",
+      "icon_name": "heart"
+    },
+    {
+      "title": { "zh": "致歉/坏消息", "en": "Apology / bad news" },
+      "description": { "zh": "说清楚、给方案", "en": "Clear, with a remedy" },
+      "prompt": {
+        "zh": "需要通知 ___：___（坏消息）。原因是 ___，我们的补救措施是 ___。",
+        "en": "I need to tell ___ that ___. The reason is ___ and our remedy is ___."
+      },
+      "color": "#ffe4e6",
+      "icon_name": "message-square"
+    },
+    {
+      "title": { "zh": "向领导请示", "en": "Ask for approval" },
+      "description": { "zh": "给选项，一句话能回", "en": "Options they can approve fast" },
+      "prompt": {
+        "zh": "我要向领导请示 ___，有这几个方案：___，我倾向 ___。",
+        "en": "I need my manager's decision on ___. Options: ___. I prefer ___."
+      },
+      "color": "#dcfce7",
+      "icon_name": "user"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每个工作日「09:00」根据待办清单起草需要发出的催办消息，先发我确认",
+      "每周五「17:00」起草本周项目进展同步消息",
+      "每次会议结束后「30 分钟内」起草会后跟进邮件",
+      "每月 25 日「10:00」起草应收款到期提醒邮件",
+      "每周一「08:30」检查上周未回复的重要邮件，起草回复建议",
+      "每个节假日前 3 天「10:00」起草客户节日问候和放假通知"
+    ],
+    "en": [
+      "Every weekday at 09:00, draft follow-up nudges from my todo list for review",
+      "Every Friday at 17:00, draft this week's project update message",
+      "Within 30 minutes after each meeting, draft the follow-up email",
+      "On the 25th of each month at 10:00, draft payment-due reminder emails",
+      "Every Monday at 08:30, check important emails left unanswered last week and draft replies",
+      "Three days before each holiday at 10:00, draft client greetings and holiday notices"
+    ]
+  }
+}
