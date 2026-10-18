@@ -1,0 +1,138 @@
+{
+  "id": "travel-planner",
+  "label": {
+    "zh": "旅行规划专家",
+    "en": "Travel Planner"
+  },
+  "description": {
+    "zh": "按目的地、天数、人数、预算和偏好排出顺路不赶的逐日行程，安排住宿区域和交通衔接，导出行程表、每日费用和分类预算 Excel，检查时间冲突和缺住宿，按天气和出行类型生成行李清单。",
+    "en": "Plans day-by-day itineraries grouped by area with sensible pacing, suggests where to stay and how to get around, exports itinerary and budget workbooks with conflict checks, and builds packing lists by climate and trip type."
+  },
+  "welcome_message": {
+    "zh": "告诉我去哪、玩几天、几个人、预算多少",
+    "en": "Tell me where, how many days, how many people and your budget"
+  },
+  "icon_name": "map-pin",
+  "color": "#0284C7",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "排行程",
+        "en": "Plan a trip"
+      },
+      "description": {
+        "zh": "逐日安排",
+        "en": "Day by day"
+      },
+      "prompt": {
+        "zh": "帮我规划 ___ 天的 ___ 行程，___ 人，预算 ___ 元，喜欢 ___。",
+        "en": "Plan a ___-day trip to ___ for ___ people, budget ___, interested in ___."
+      },
+      "color": "#e8f4ff",
+      "icon_name": "map-pin"
+    },
+    {
+      "title": {
+        "zh": "亲子出行",
+        "en": "Family trip"
+      },
+      "description": {
+        "zh": "带孩子不累",
+        "en": "Kid-friendly pace"
+      },
+      "prompt": {
+        "zh": "带 ___ 岁的孩子去 ___ 玩 ___ 天，帮我排一个轻松的行程。",
+        "en": "Plan a relaxed ___-day trip to ___ with a ___-year-old."
+      },
+      "color": "#fef3c7",
+      "icon_name": "baby"
+    },
+    {
+      "title": {
+        "zh": "周末短途",
+        "en": "Weekend getaway"
+      },
+      "description": {
+        "zh": "两天一夜",
+        "en": "Two days, one night"
+      },
+      "prompt": {
+        "zh": "我在 ___，周末想去周边玩两天一夜，推荐目的地并排行程。",
+        "en": "I live in ___. Suggest a two-day weekend getaway nearby and plan it."
+      },
+      "color": "#dcfce7",
+      "icon_name": "coffee"
+    },
+    {
+      "title": {
+        "zh": "导出行程表",
+        "en": "Export sheets"
+      },
+      "description": {
+        "zh": "行程 + 预算 Excel",
+        "en": "Itinerary + budget"
+      },
+      "prompt": {
+        "zh": "把刚才的行程导出成 Excel，算一下总花费和人均。",
+        "en": "Export the itinerary to Excel with total and per-person cost."
+      },
+      "color": "#f1f5f9",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": {
+        "zh": "行李清单",
+        "en": "Packing list"
+      },
+      "description": {
+        "zh": "按天气准备",
+        "en": "By weather"
+      },
+      "prompt": {
+        "zh": "___ 天去 ___，天气 ___，帮我列一份行李清单。",
+        "en": "Make a packing list for ___ days in ___ with ___ weather."
+      },
+      "color": "#cffafe",
+      "icon_name": "shopping-bag"
+    },
+    {
+      "title": {
+        "zh": "优化行程",
+        "en": "Improve plan"
+      },
+      "description": {
+        "zh": "顺路、不赶",
+        "en": "Smoother route"
+      },
+      "prompt": {
+        "zh": "我自己排了一个行程 ___，帮我检查是否顺路、时间是否太赶。",
+        "en": "Here's my plan ___. Check the routing and whether it's too rushed."
+      },
+      "color": "#ffe4e6",
+      "icon_name": "refresh-cw"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "出发前 7 天「20:00」提醒核实景点预约、门票和交通班次",
+      "出发前 3 天「19:00」根据天气预报更新行李清单",
+      "出发前 1 天「21:00」发送第二天的行程和集合时间",
+      "旅行期间每天「07:30」发送当天行程和注意事项",
+      "旅行期间每天「22:00」提醒记录当天花费，更新预算",
+      "返程后第 2 天「10:00」汇总旅行实际花费，对比预算"
+    ],
+    "en": [
+      "7 days before departure at 20:00, remind to confirm reservations, tickets and transport",
+      "3 days before departure at 19:00, update the packing list from the weather forecast",
+      "The day before departure at 21:00, send tomorrow's plan and meeting time",
+      "Every day during the trip at 07:30, send today's schedule and tips",
+      "Every day during the trip at 22:00, remind to log spending and update the budget",
+      "Two days after returning at 10:00, summarize actual spending against the budget"
+    ]
+  }
+}

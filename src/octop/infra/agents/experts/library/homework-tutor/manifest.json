@@ -1,0 +1,138 @@
+{
+  "id": "homework-tutor",
+  "label": {
+    "zh": "作业辅导老师",
+    "en": "Homework Tutor"
+  },
+  "description": {
+    "zh": "陪中小学生弄懂作业：用提问和分级提示引导孩子自己解题，而不是直接给答案；把错题整理成错题本，按遗忘曲线安排复习、统计薄弱知识点；按题型生成口算和计算练习卷，答案由程序计算，导出 Word 打印。",
+    "en": "Helps K-12 students understand homework by guiding with questions and graded hints instead of handing out answers; keeps a mistake book with spaced reviews and weak-spot stats; generates printable math drills with program-verified answers."
+  },
+  "welcome_message": {
+    "zh": "把不会的题发给我，告诉我是几年级",
+    "en": "Send me the question and tell me the grade"
+  },
+  "icon_name": "book-open",
+  "color": "#7E22CE",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "讲一道题",
+        "en": "Explain a problem"
+      },
+      "description": {
+        "zh": "一步步引导",
+        "en": "Step by step"
+      },
+      "prompt": {
+        "zh": "___ 年级 ___ 题：___。请一步步引导我，不要直接告诉答案。",
+        "en": "Grade ___, ___: ___. Guide me step by step without giving the answer."
+      },
+      "color": "#f3e8ff",
+      "icon_name": "book-open"
+    },
+    {
+      "title": {
+        "zh": "记错题",
+        "en": "Log mistakes"
+      },
+      "description": {
+        "zh": "整理进错题本",
+        "en": "Add to mistake book"
+      },
+      "prompt": {
+        "zh": "这几道题做错了：___，帮我分析错因并记进错题本。",
+        "en": "I got these wrong: ___. Analyze why and add them to my mistake book."
+      },
+      "color": "#ffe4e6",
+      "icon_name": "file-text"
+    },
+    {
+      "title": {
+        "zh": "今天复习",
+        "en": "Today's review"
+      },
+      "description": {
+        "zh": "遗忘曲线提醒",
+        "en": "Spaced review"
+      },
+      "prompt": {
+        "zh": "今天错题本里有哪些题该复习了？",
+        "en": "Which mistakes should I review today?"
+      },
+      "color": "#fef3c7",
+      "icon_name": "bell"
+    },
+    {
+      "title": {
+        "zh": "口算练习",
+        "en": "Mental math"
+      },
+      "description": {
+        "zh": "打印练习卷",
+        "en": "Printable drill"
+      },
+      "prompt": {
+        "zh": "出 ___ 道 ___ 年级的 ___（如进位加法、乘法口诀）练习，导出 Word。",
+        "en": "Make ___ grade-___ ___ (e.g. carry addition, times tables) drills as Word."
+      },
+      "color": "#dcfce7",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": {
+        "zh": "薄弱点",
+        "en": "Weak spots"
+      },
+      "description": {
+        "zh": "错得最多的知识点",
+        "en": "Most-missed topics"
+      },
+      "prompt": {
+        "zh": "根据错题本看看孩子哪些知识点最薄弱，怎么补？",
+        "en": "Which topics are weakest in the mistake book, and how to fix them?"
+      },
+      "color": "#e8f4ff",
+      "icon_name": "trending-up"
+    },
+    {
+      "title": {
+        "zh": "作文思路",
+        "en": "Essay ideas"
+      },
+      "description": {
+        "zh": "列提纲、不代写",
+        "en": "Outline, not ghostwrite"
+      },
+      "prompt": {
+        "zh": "___ 年级作文题目「___」，帮我想思路、列提纲。",
+        "en": "Grade ___ essay topic \"___\": help me brainstorm and outline."
+      },
+      "color": "#cffafe",
+      "icon_name": "pen-tool"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每天「19:00」列出今天该复习的错题",
+      "每天「18:30」生成一张 20 道题的口算练习卷",
+      "每周日「20:00」统计本周错题，找出最薄弱的 3 个知识点",
+      "每周六「10:00」针对薄弱知识点出一张专项练习卷",
+      "每月最后一天「20:00」生成本月错题本和复习完成情况",
+      "考试前 3 天「19:00」汇总该科目未掌握的错题，安排复习"
+    ],
+    "en": [
+      "Every day at 19:00, list the mistakes due for review",
+      "Every day at 18:30, generate a 20-question mental math sheet",
+      "Every Sunday at 20:00, summarize this week's mistakes and the 3 weakest topics",
+      "Every Saturday at 10:00, make a targeted drill for the weakest topic",
+      "On the last day of each month at 20:00, update the mistake book and review progress",
+      "3 days before an exam at 19:00, gather unmastered mistakes in that subject for review"
+    ]
+  }
+}
