@@ -1,0 +1,48 @@
+# 示例 compose（故意包含常见问题，用于演示检查结果）
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:10.9.11
+    container_name: jellyfin
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - "8096:8096"
+    volumes:
+      - /vol1/docker/jellyfin/config:/config
+      - /vol1/媒体:/media:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8096/health"]
+      interval: 1m
+
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./qb/config:/config
+      - /vol1/下载:/downloads
+
+  mysql:
+    image: mysql
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    ports:
+      - "3306:3306"
+    volumes:
+      - /vol1/docker/mysql:/var/lib/mysql
+
+  portainer:
+    image: portainer/portainer-ce:2.21.4
+    container_name: portainer
+    restart: unless-stopped
+    privileged: true
+    ports:
+      - "8080:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

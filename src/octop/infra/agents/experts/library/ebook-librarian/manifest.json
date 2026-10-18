@@ -1,0 +1,138 @@
+{
+  "id": "ebook-librarian",
+  "label": {
+    "zh": "电子书整理专家",
+    "en": "Ebook Librarian"
+  },
+  "description": {
+    "zh": "把五花八门的电子书整理成干净的书库：读取 epub、mobi、azw3、pdf 的书名作者，缺失时从文件名推断，统一命名为“作者 - 书名”并按作者归档，同书多格式放在一起，找出完全相同的重复文件，生成可记录已读和评分的书单。",
+    "en": "Turns a messy ebook pile into a clean library: reads titles and authors from epub, mobi, azw3 and pdf (falling back to file names), renames to \"Author - Title\" grouped by author, keeps formats together, finds exact duplicates and builds a trackable reading list."
+  },
+  "welcome_message": {
+    "zh": "告诉我电子书放在哪个文件夹",
+    "en": "Tell me which folder holds your ebooks"
+  },
+  "icon_name": "book-open",
+  "color": "#92400E",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "盘点书库",
+        "en": "Scan library"
+      },
+      "description": {
+        "zh": "格式和缺失信息",
+        "en": "Formats and gaps"
+      },
+      "prompt": {
+        "zh": "盘点一下 ___ 里的电子书：多少本、什么格式、哪些识别不出作者。",
+        "en": "Scan ebooks in ___: how many, which formats, which lack authors."
+      },
+      "color": "#fef3c7",
+      "icon_name": "book-open"
+    },
+    {
+      "title": {
+        "zh": "统一命名",
+        "en": "Rename"
+      },
+      "description": {
+        "zh": "作者 - 书名",
+        "en": "Author - Title"
+      },
+      "prompt": {
+        "zh": "把 ___ 里的电子书按“作者 - 书名”整理到 ___，先给我看方案。",
+        "en": "Organize ebooks in ___ as \"Author - Title\" into ___. Show the plan first."
+      },
+      "color": "#e8f4ff",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": {
+        "zh": "找重复",
+        "en": "Find duplicates"
+      },
+      "description": {
+        "zh": "完全相同的文件",
+        "en": "Identical files"
+      },
+      "prompt": {
+        "zh": "找出书库里重复的电子书。",
+        "en": "Find duplicate ebooks in my library."
+      },
+      "color": "#ffe4e6",
+      "icon_name": "refresh-cw"
+    },
+    {
+      "title": {
+        "zh": "生成书单",
+        "en": "Reading list"
+      },
+      "description": {
+        "zh": "Excel 书单",
+        "en": "Excel catalog"
+      },
+      "prompt": {
+        "zh": "给 ___ 生成一份书单 Excel，可以记录已读和评分。",
+        "en": "Build an Excel reading list for ___ with read and rating columns."
+      },
+      "color": "#dcfce7",
+      "icon_name": "file-text"
+    },
+    {
+      "title": {
+        "zh": "阅读计划",
+        "en": "Reading plan"
+      },
+      "description": {
+        "zh": "按时间估算",
+        "en": "Time-based"
+      },
+      "prompt": {
+        "zh": "我每天能读 ___ 分钟，从书单里帮我排一个 ___ 月的阅读计划。",
+        "en": "I read ___ minutes a day. Plan ___ months of reading from my list."
+      },
+      "color": "#cffafe",
+      "icon_name": "activity"
+    },
+    {
+      "title": {
+        "zh": "格式和阅读器",
+        "en": "Formats & devices"
+      },
+      "description": {
+        "zh": "Kindle/iPad",
+        "en": "Kindle/iPad"
+      },
+      "prompt": {
+        "zh": "我用 ___ 看书，书库里的格式该怎么选？txt 乱码怎么办？",
+        "en": "I read on ___. Which formats should I keep? How do I fix garbled txt?"
+      },
+      "color": "#f1f5f9",
+      "icon_name": "monitor"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每月 1 日「10:00」盘点 inbound 中新增的电子书，生成整理方案",
+      "每月最后一天「20:00」统计本月读完的书，更新书单",
+      "每周日「21:00」提醒记录本周阅读进度和笔记",
+      "每季度第一天「10:00」检查书库中的重复文件",
+      "每年 1 月 2 日「10:00」生成上一年的阅读总结",
+      "每月 1 日「09:00」从待读书单中推荐本月 3 本书"
+    ],
+    "en": [
+      "On the 1st of each month at 10:00, scan new ebooks in inbound and plan their placement",
+      "On the last day of each month at 20:00, update the list with books finished this month",
+      "Every Sunday at 21:00, remind to log reading progress and notes",
+      "On the first day of each quarter at 10:00, check the library for duplicates",
+      "On January 2 at 10:00, write last year's reading summary",
+      "On the 1st of each month at 09:00, suggest 3 books from the to-read list"
+    ]
+  }
+}

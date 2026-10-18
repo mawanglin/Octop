@@ -1,0 +1,18 @@
+{
+  "device": {"name": "/dev/nvme0", "type": "nvme"},
+  "model_name": "Samsung SSD 980 PRO 1TB",
+  "serial_number": "S5GXNX0R000001",
+  "user_capacity": {"bytes": 1000204886016},
+  "smart_status": {"passed": true},
+  "temperature": {"current": 41},
+  "power_on_time": {"hours": 5432},
+  "nvme_smart_health_information_log": {
+    "critical_warning": 0,
+    "temperature": 41,
+    "available_spare": 100,
+    "available_spare_threshold": 10,
+    "percentage_used": 3,
+    "unsafe_shutdowns": 12,
+    "media_errors": 0
+  }
+}

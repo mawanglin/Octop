@@ -1,0 +1,20 @@
+smartctl 7.3 2022-02-28 r5338 [x86_64-linux-6.1.0] (local build)
+=== START OF INFORMATION SECTION ===
+Model Family:     Western Digital Red
+Device Model:     WDC WD40EFRX-68N32N0
+Serial Number:    WD-WCC7K0000001
+User Capacity:    4,000,787,030,016 bytes [4.00 TB]
+Rotation Rate:    5400 rpm
+
+=== START OF READ SMART DATA SECTION ===
+SMART overall-health self-assessment test result: PASSED
+
+SMART Attributes Data Structure revision number: 16
+ID# ATTRIBUTE_NAME          FLAG     VALUE WORST THRESH TYPE      UPDATED  WHEN_FAILED RAW_VALUE
+  1 Raw_Read_Error_Rate     0x002f   200   200   051    Pre-fail  Always       -       0
+  5 Reallocated_Sector_Ct   0x0033   199   199   140    Pre-fail  Always       -       8
+  9 Power_On_Hours          0x0032   042   042   000    Old_age   Always       -       45210
+194 Temperature_Celsius     0x0022   115   102   000    Old_age   Always       -       37
+197 Current_Pending_Sector  0x0032   200   200   000    Old_age   Always       -       0
+198 Offline_Uncorrectable   0x0030   100   253   000    Old_age   Offline      -       0
+199 UDMA_CRC_Error_Count    0x0032   200   200   000    Old_age   Always       -       3

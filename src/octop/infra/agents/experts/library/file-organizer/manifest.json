@@ -1,0 +1,138 @@
+{
+  "id": "file-organizer",
+  "label": {
+    "zh": "文件整理专家",
+    "en": "File Organizer"
+  },
+  "description": {
+    "zh": "收拾乱成一团的下载目录、桌面和共享盘：体检空间被什么占了，按内容找出完全相同的重复文件，按类型或日期生成整理方案，确认后执行，随时一键撤销。从不删除、从不覆盖文件。",
+    "en": "Tidies messy downloads, desktops and shared drives: scans what's using space, finds byte-identical duplicates, and builds type- or date-based plans you approve before anything moves, with one-step undo. Never deletes or overwrites."
+  },
+  "welcome_message": {
+    "zh": "告诉我哪个文件夹需要整理",
+    "en": "Tell me which folder needs tidying"
+  },
+  "icon_name": "list-todo",
+  "color": "#4D7C0F",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "目录体检",
+        "en": "Scan a folder"
+      },
+      "description": {
+        "zh": "空间都去哪了",
+        "en": "Where space went"
+      },
+      "prompt": {
+        "zh": "帮我看看 ___ 文件夹里都是什么，哪些最占空间。",
+        "en": "Scan ___ and show what's taking up the most space."
+      },
+      "color": "#ecfccb",
+      "icon_name": "activity"
+    },
+    {
+      "title": {
+        "zh": "找重复文件",
+        "en": "Find duplicates"
+      },
+      "description": {
+        "zh": "内容完全相同",
+        "en": "Byte-identical"
+      },
+      "prompt": {
+        "zh": "找出 ___ 里内容完全相同的重复文件，算算能省多少空间。",
+        "en": "Find byte-identical duplicates in ___ and how much space they waste."
+      },
+      "color": "#ffe4e6",
+      "icon_name": "refresh-cw"
+    },
+    {
+      "title": {
+        "zh": "按类型整理",
+        "en": "By type"
+      },
+      "description": {
+        "zh": "文档图片分开",
+        "en": "Docs, images, ..."
+      },
+      "prompt": {
+        "zh": "把 ___ 按文件类型整理到 ___，先给我看方案。",
+        "en": "Organize ___ by file type into ___. Show me the plan first."
+      },
+      "color": "#e8f4ff",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": {
+        "zh": "清理下载目录",
+        "en": "Clean downloads"
+      },
+      "description": {
+        "zh": "只动旧文件",
+        "en": "Old files only"
+      },
+      "prompt": {
+        "zh": "把下载目录里 ___ 天前的文件按类型和年份归档。",
+        "en": "Archive files in Downloads older than ___ days by type and year."
+      },
+      "color": "#fef3c7",
+      "icon_name": "shopping-bag"
+    },
+    {
+      "title": {
+        "zh": "设计目录结构",
+        "en": "Folder structure"
+      },
+      "description": {
+        "zh": "命名规范",
+        "en": "Naming rules"
+      },
+      "prompt": {
+        "zh": "帮我为 ___（家庭资料/团队共享盘）设计文件夹结构和命名规则。",
+        "en": "Design a folder structure and naming rules for ___ (family files/team share)."
+      },
+      "color": "#dcfce7",
+      "icon_name": "home"
+    },
+    {
+      "title": {
+        "zh": "撤销整理",
+        "en": "Undo"
+      },
+      "description": {
+        "zh": "恢复原样",
+        "en": "Restore"
+      },
+      "prompt": {
+        "zh": "刚才的整理不满意，帮我恢复原样。",
+        "en": "I don't like the last reorganization. Put everything back."
+      },
+      "color": "#f1f5f9",
+      "icon_name": "refresh-cw"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每月 1 日「10:00」体检下载目录，生成 30 天前文件的整理方案",
+      "每周五「18:00」检查桌面文件数量，超过 50 个时提醒整理",
+      "每月 15 日「10:00」查找共享盘中的重复文件并汇总可释放空间",
+      "每季度第一天「10:00」列出一年以上未修改的大文件，供归档参考",
+      "每年 1 月 5 日「10:00」把上一年的资料生成归档方案",
+      "每次整理后第 7 天「10:00」提醒确认并处理“重复文件待确认”目录"
+    ],
+    "en": [
+      "On the 1st of each month at 10:00, scan Downloads and plan files older than 30 days",
+      "Every Friday at 18:00, remind to tidy the desktop when it has over 50 files",
+      "On the 15th of each month at 10:00, find duplicates on the shared drive",
+      "On the first day of each quarter at 10:00, list large files untouched for a year",
+      "On January 5 at 10:00, build an archive plan for last year's files",
+      "7 days after each cleanup at 10:00, remind to review the parked duplicates folder"
+    ]
+  }
+}
