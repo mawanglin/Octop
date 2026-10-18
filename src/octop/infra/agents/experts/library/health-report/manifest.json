@@ -1,0 +1,138 @@
+{
+  "id": "health-report",
+  "label": {
+    "zh": "体检报告解读",
+    "en": "Checkup Report Helper"
+  },
+  "description": {
+    "zh": "帮你看懂体检报告：把历年指标整理成对比表，标出超出参考范围、连续异常和越来越偏离的项目，用通俗的话解释指标含义，告诉你哪些需要复查、可以挂什么科、生活上能做什么。不做诊断，不能代替医生。",
+    "en": "Makes sense of checkup reports: organizes results year over year, flags out-of-range, persistent and worsening items, explains each in plain words, and suggests follow-ups, departments and lifestyle steps. Not a diagnosis or a substitute for a doctor."
+  },
+  "welcome_message": {
+    "zh": "把体检报告上的指标发给我，我帮你整理和解读",
+    "en": "Send me your checkup results and I'll organize and explain them"
+  },
+  "icon_name": "activity",
+  "color": "#BE123C",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "解读报告",
+        "en": "Explain report"
+      },
+      "description": {
+        "zh": "哪些要注意",
+        "en": "What matters"
+      },
+      "prompt": {
+        "zh": "这是我今年的体检结果 ___，帮我看看哪些需要注意。",
+        "en": "Here are this year's results ___. What should I pay attention to?"
+      },
+      "color": "#ffe4e6",
+      "icon_name": "activity"
+    },
+    {
+      "title": {
+        "zh": "历年对比",
+        "en": "Compare years"
+      },
+      "description": {
+        "zh": "看趋势",
+        "en": "See trends"
+      },
+      "prompt": {
+        "zh": "这是我 ___ 年到 ___ 年的体检数据，帮我做个对比表看趋势。",
+        "en": "Here are my results from ___ to ___. Build a comparison and show trends."
+      },
+      "color": "#e8f4ff",
+      "icon_name": "trending-up"
+    },
+    {
+      "title": {
+        "zh": "这个指标",
+        "en": "This marker"
+      },
+      "description": {
+        "zh": "什么意思",
+        "en": "What it means"
+      },
+      "prompt": {
+        "zh": "___ 偏高 / 偏低是什么意思？要紧吗？",
+        "en": "What does a high/low ___ mean? Is it serious?"
+      },
+      "color": "#fef3c7",
+      "icon_name": "file-text"
+    },
+    {
+      "title": {
+        "zh": "挂什么科",
+        "en": "Which department"
+      },
+      "description": {
+        "zh": "复查建议",
+        "en": "Follow-up"
+      },
+      "prompt": {
+        "zh": "我的 ___ 异常，应该挂什么科？多久复查？",
+        "en": "My ___ is abnormal. Which department and when to recheck?"
+      },
+      "color": "#dcfce7",
+      "icon_name": "map-pin"
+    },
+    {
+      "title": {
+        "zh": "生活调整",
+        "en": "Lifestyle"
+      },
+      "description": {
+        "zh": "饮食运动",
+        "en": "Diet & exercise"
+      },
+      "prompt": {
+        "zh": "血脂和尿酸偏高，日常饮食和运动要怎么调整？",
+        "en": "My lipids and uric acid are high. How should I adjust diet and exercise?"
+      },
+      "color": "#cffafe",
+      "icon_name": "heart"
+    },
+    {
+      "title": {
+        "zh": "就诊准备",
+        "en": "Prepare a visit"
+      },
+      "description": {
+        "zh": "问医生什么",
+        "en": "Questions to ask"
+      },
+      "prompt": {
+        "zh": "下周去看 ___ 科，我该带什么、问医生哪些问题？",
+        "en": "I'm seeing ___ next week. What should I bring and ask?"
+      },
+      "color": "#f1f5f9",
+      "icon_name": "list-todo"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每年体检后第 3 天「20:00」提醒录入本年体检数据并生成对比表",
+      "异常指标复查前 7 天「10:00」提醒预约复查",
+      "每月 1 日「09:00」提醒记录体重和家庭血压",
+      "每季度第一天「10:00」回顾需要持续关注的指标和生活方式执行情况",
+      "就诊前一天「20:00」整理历年报告和想问医生的问题",
+      "每年 11 月 1 日「10:00」提醒预约明年的年度体检"
+    ],
+    "en": [
+      "3 days after each annual checkup at 20:00, remind to enter results and build the comparison",
+      "7 days before a recheck at 10:00, remind to book it",
+      "On the 1st of each month at 09:00, remind to log weight and home blood pressure",
+      "On the first day of each quarter at 10:00, review markers to watch and lifestyle progress",
+      "The day before a doctor's visit at 20:00, gather past reports and questions",
+      "On November 1 at 10:00, remind to book next year's checkup"
+    ]
+  }
+}
