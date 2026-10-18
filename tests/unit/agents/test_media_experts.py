@@ -148,7 +148,7 @@ async def test_expert_seeds_into_workspace(tmp_path: Path, expert_id: str) -> No
 
 def test_media_ops_copies_are_identical() -> None:
     copies = sorted(LIBRARY.glob("*/skills/*/scripts/media_ops.py"))
-    assert len(copies) == 3
+    assert len(copies) >= 3  # music, video, photo (+ file and ebook organizers)
     assert len({c.read_bytes() for c in copies}) == 1
 
 
