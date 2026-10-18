@@ -14,6 +14,10 @@ name: Fork Release
 # 不做的事：不发 PyPI；不构建 Docker 镜像；不打飞牛 Docker 版 FPK（它的 compose 写死拉取
 # ghcr.io/tencentcloud/octop 官方镜像，装上去不含 fork 的改动）；不上传 COS。
 #
+# 仓库 Actions 设置为“只允许指定 Action”，白名单就是本文件用到的 7 个（checkout@v4、cache@v4、
+# setup-python@v5、setup-node@v4、upload-artifact@v4、download-artifact@v4、astral-sh/setup-uv@v4），
+# 用来阻止官方的发布、Docker、CodeQL 等 workflow 在 fork 上运行。修改本文件用到的 Action 时同步更新该设置。
+#
 # 首次在 fork 上启用 Actions 时，GitHub 只会在推送修改了 workflow 文件的提交后登记 workflow。
 #
 # 飞牛原生版打包步骤复制自官方 fnos-build-fpk.yml 的 native / native-arm64 job，
