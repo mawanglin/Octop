@@ -3,7 +3,8 @@ name: Fork Release
 # Fork 专用发布流水线（与官方 release.yml / docker-publish.yml / fnos-build-fpk.yml 无关）。
 #
 # 触发：
-#   - 推送 v*.post* 标签（例如 v1.0.2b9.post1；版本号 = 官方版本 + .postN）
+#   - 推送 fork-v* 标签（例如 fork-v1.0.2b9.post6；版本号 = 官方版本 + .postN）
+#     不用 v* 标签：官方 release / docker-publish / octop-desktop 都监听 v*，会被一起触发。
 #   - 或在 Actions 页面手动运行，填写已存在的标签
 #
 # 产物（全部挂到同名 GitHub Release）：
@@ -21,11 +22,11 @@ name: Fork Release
 on:
   push:
     tags:
-      - "v*.post*"
+      - "fork-v*"
   workflow_dispatch:
     inputs:
       tag:
-        description: "要发布的已有标签，例如 v1.0.2b9.post1"
+        description: "要发布的已有标签，例如 fork-v1.0.2b9.post6"
         required: true
         type: string
       skip_tests:
@@ -65,10 +66,10 @@ jobs:
         run: |
           set -euo pipefail
           case "$TAG" in
-            v*) ;;
-            *) echo "::error::标签必须以 v 开头，收到 $TAG"; exit 1 ;;
+            fork-v*) ;;
+            *) echo "::error::标签必须以 fork-v 开头，收到 $TAG"; exit 1 ;;
           esac
-          VER="${TAG#v}"
+          VER="${TAG#fork-v}"
           PYVER=$(sed -nE 's/^version[[:space:]]*=[[:space:]]*"([^"]+)".*/\1/p' pyproject.toml | head -1)
           if [ "$VER" != "$PYVER" ]; then
             echo "::error::标签 $TAG 与 pyproject.toml 版本 $PYVER 不一致"
@@ -155,7 +156,7 @@ jobs:
             ' CHANGELOG.fork.md > .release-notes.md
           fi
           if [ ! -s .release-notes.md ]; then
-            PREV=$(git tag --list 'v*.post*' --sort=-version:refname | grep -vx "$TAG" | head -1 || true)
+            PREV=$(git tag --list 'fork-v*' --sort=-version:refname | grep -vx "$TAG" | head -1 || true)
             {
               echo "## 变更"
               echo
