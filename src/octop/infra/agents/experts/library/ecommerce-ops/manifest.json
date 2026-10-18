@@ -1,0 +1,138 @@
+{
+  "id": "ecommerce-ops",
+  "label": {
+    "zh": "电商运营专家",
+    "en": "E-commerce Operator"
+  },
+  "description": {
+    "zh": "帮店主和运营做日常工作：写和优化商品标题，检查标题文案的广告法极限词、功效宣称、诱导好评和关键词覆盖，梳理详情页卖点，策划促销活动，诊断流量转化客单价，准备客服和差评回复话术。合规第一，不做刷单刷评。",
+    "en": "Supports store owners and operators: writes and optimizes product titles, checks titles and copy for banned superlatives, unproven claims, review inducements and keyword coverage, structures product pages, plans promotions, diagnoses traffic and conversion, and prepares service scripts. Compliance first."
+  },
+  "welcome_message": {
+    "zh": "告诉我你在哪个平台、卖什么",
+    "en": "Tell me which platform you sell on and what you sell"
+  },
+  "icon_name": "shopping-bag",
+  "color": "#E11D48",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "写标题",
+        "en": "Write titles"
+      },
+      "description": {
+        "zh": "搜索友好",
+        "en": "Search-friendly"
+      },
+      "prompt": {
+        "zh": "在 ___ 卖 ___，主要卖点 ___，帮我写 3 个标题。",
+        "en": "I sell ___ on ___ with selling points ___. Write 3 titles."
+      },
+      "color": "#ffe4e6",
+      "icon_name": "pen-tool"
+    },
+    {
+      "title": {
+        "zh": "违规自查",
+        "en": "Compliance check"
+      },
+      "description": {
+        "zh": "极限词功效词",
+        "en": "Banned words"
+      },
+      "prompt": {
+        "zh": "检查这个标题和卖点有没有违规：___",
+        "en": "Check this title and copy for violations: ___"
+      },
+      "color": "#fef3c7",
+      "icon_name": "shield-check"
+    },
+    {
+      "title": {
+        "zh": "批量检查",
+        "en": "Bulk check"
+      },
+      "description": {
+        "zh": "商品表",
+        "en": "Product sheet"
+      },
+      "prompt": {
+        "zh": "检查 ___（商品表）里所有标题，导出结果。",
+        "en": "Check every title in ___ (product sheet) and export the results."
+      },
+      "color": "#dcfce7",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": {
+        "zh": "详情页",
+        "en": "Product page"
+      },
+      "description": {
+        "zh": "卖点顺序",
+        "en": "Selling points"
+      },
+      "prompt": {
+        "zh": "帮我梳理 ___ 的详情页结构和卖点顺序。",
+        "en": "Outline the product page and selling-point order for ___."
+      },
+      "color": "#e8f4ff",
+      "icon_name": "file-text"
+    },
+    {
+      "title": {
+        "zh": "活动策划",
+        "en": "Promotion"
+      },
+      "description": {
+        "zh": "玩法和测算",
+        "en": "Mechanics & margin"
+      },
+      "prompt": {
+        "zh": "___ 想做一次 ___ 活动，成本 ___，帮我设计玩法并测算利润。",
+        "en": "Plan a ___ promotion for ___ with cost ___, including margin math."
+      },
+      "color": "#cffafe",
+      "icon_name": "sparkles"
+    },
+    {
+      "title": {
+        "zh": "数据诊断",
+        "en": "Diagnose"
+      },
+      "description": {
+        "zh": "流量转化",
+        "en": "Traffic & conversion"
+      },
+      "prompt": {
+        "zh": "店铺访客 ___，转化率 ___，客单价 ___，最近下滑，帮我分析。",
+        "en": "Visitors ___, conversion ___, AOV ___ and falling. Diagnose it."
+      },
+      "color": "#f1f5f9",
+      "icon_name": "trending-up"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每周一「10:00」检查本周上新商品的标题和文案违规风险",
+      "每天「09:30」汇总昨日访客、转化率和客单价变化",
+      "大促前 15 天「10:00」生成活动排期和备货清单",
+      "每周五「17:00」整理本周差评和退款原因，给出改进建议",
+      "每月 1 日「10:00」复盘上月销售额拆解（访客 × 转化 × 客单价）",
+      "每季度第一天「10:00」检查平台规则更新对标题和详情页的影响"
+    ],
+    "en": [
+      "Every Monday at 10:00, check this week's new listings for compliance risks",
+      "Every day at 09:30, summarize yesterday's visitors, conversion and AOV",
+      "15 days before a major sale at 10:00, build the promotion timeline and stock list",
+      "Every Friday at 17:00, review this week's negative reviews and refunds",
+      "On the 1st of each month at 10:00, break down last month's sales",
+      "On the first day of each quarter at 10:00, check platform rule changes"
+    ]
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "id": "training-designer",
+  "label": {
+    "zh": "培训课程设计",
+    "en": "Training Designer"
+  },
+  "description": {
+    "zh": "把培训做得有效：分析需求和学员，写可衡量的学习目标，设计课程大纲、教学活动和课件结构；建题库并按题型和知识点随机组卷，导出带答案的 Word 试卷；设计四级培训评估。",
+    "en": "Designs effective training: needs analysis, measurable objectives, course outlines, activities and slide structures; builds question banks and draws randomized papers by type and topic into Word with answer keys; plans four-level evaluation."
+  },
+  "welcome_message": {
+    "zh": "告诉我要培训谁、解决什么问题、有多长时间",
+    "en": "Tell me who you're training, the problem to solve and how much time you have"
+  },
+  "icon_name": "presentation",
+  "color": "#7C2D12",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "设计课程",
+        "en": "Design a course"
+      },
+      "description": {
+        "zh": "目标 + 大纲",
+        "en": "Objectives + outline"
+      },
+      "prompt": {
+        "zh": "要给 ___ 做 ___ 培训，时长 ___，帮我写学习目标和课程大纲。",
+        "en": "Design ___ training for ___ lasting ___: objectives and outline."
+      },
+      "color": "#ffedd5",
+      "icon_name": "presentation"
+    },
+    {
+      "title": {
+        "zh": "出题建题库",
+        "en": "Build a bank"
+      },
+      "description": {
+        "zh": "按知识点出题",
+        "en": "By topic"
+      },
+      "prompt": {
+        "zh": "根据这份材料 ___ 出 ___ 道题，做成题库。",
+        "en": "Write ___ questions from this material ___ into a question bank."
+      },
+      "color": "#e8f4ff",
+      "icon_name": "file-text"
+    },
+    {
+      "title": {
+        "zh": "随机组卷",
+        "en": "Draw a paper"
+      },
+      "description": {
+        "zh": "带答案",
+        "en": "With answers"
+      },
+      "prompt": {
+        "zh": "从题库抽 ___ 道单选、___ 道多选、___ 道判断，组一份试卷。",
+        "en": "Draw ___ single-choice, ___ multi-choice and ___ true/false into a paper."
+      },
+      "color": "#dcfce7",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": {
+        "zh": "教学活动",
+        "en": "Activities"
+      },
+      "description": {
+        "zh": "少讲多练",
+        "en": "Practice-heavy"
+      },
+      "prompt": {
+        "zh": "___ 这部分内容怎么设计练习和互动？",
+        "en": "How can I add practice and interaction for ___?"
+      },
+      "color": "#fef3c7",
+      "icon_name": "users"
+    },
+    {
+      "title": {
+        "zh": "课件结构",
+        "en": "Slide outline"
+      },
+      "description": {
+        "zh": "逐页",
+        "en": "Page by page"
+      },
+      "prompt": {
+        "zh": "把 ___ 模块写成逐页课件结构。",
+        "en": "Turn module ___ into a page-by-page slide outline."
+      },
+      "color": "#cffafe",
+      "icon_name": "pen-tool"
+    },
+    {
+      "title": {
+        "zh": "培训评估",
+        "en": "Evaluation"
+      },
+      "description": {
+        "zh": "四级评估",
+        "en": "Four levels"
+      },
+      "prompt": {
+        "zh": "帮我设计 ___ 培训的满意度问卷和效果评估方案。",
+        "en": "Design a feedback survey and evaluation plan for ___ training."
+      },
+      "color": "#f1f5f9",
+      "icon_name": "trending-up"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每月 25 日「10:00」汇总下月培训计划和需要准备的课程",
+      "培训前 7 天「10:00」检查课件、题库和场地物料",
+      "培训前 1 天「16:00」生成考试试卷 A/B 卷",
+      "培训结束当天「18:00」汇总满意度问卷结果",
+      "培训后第 30 天「10:00」提醒跟进学员回岗行动计划",
+      "每季度第一天「10:00」检查题库中的法规制度题是否需要更新"
+    ],
+    "en": [
+      "On the 25th of each month at 10:00, compile next month's training plan",
+      "7 days before a session at 10:00, check slides, the question bank and materials",
+      "The day before a session at 16:00, generate exam papers A and B",
+      "On the day a session ends at 18:00, summarize feedback surveys",
+      "30 days after training at 10:00, follow up on participants' action plans",
+      "On the first day of each quarter at 10:00, review regulation-based questions for updates"
+    ]
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "id": "project-manager",
+  "label": {
+    "zh": "项目管理专家",
+    "en": "Project Manager"
+  },
+  "description": {
+    "zh": "帮你把项目按时交付：拆解任务、估算工期、理清依赖，按工作日排出甘特图并找出关键路径，按进度找出落后任务和对交付日期的影响；管理风险和变更，写项目周报、会议议程和复盘。",
+    "en": "Gets projects delivered on time: breaks down work, estimates and links tasks, builds working-day Gantt charts with the critical path, flags tasks falling behind and their impact, manages risks and changes, and writes status reports, agendas and retrospectives."
+  },
+  "welcome_message": {
+    "zh": "告诉我项目目标和截止日期，我帮你排计划",
+    "en": "Tell me the project goal and deadline and I'll build the plan"
+  },
+  "icon_name": "list-todo",
+  "color": "#1E40AF",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "排项目计划",
+        "en": "Plan a project"
+      },
+      "description": {
+        "zh": "甘特图 + 关键路径",
+        "en": "Gantt + critical path"
+      },
+      "prompt": {
+        "zh": "项目 ___ 要在 ___ 前完成，主要工作有 ___，帮我拆任务排甘特图。",
+        "en": "Project ___ is due by ___, main work is ___. Break it down into a Gantt chart."
+      },
+      "color": "#dbeafe",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": {
+        "zh": "进度跟踪",
+        "en": "Track progress"
+      },
+      "description": {
+        "zh": "找落后任务",
+        "en": "Find delays"
+      },
+      "prompt": {
+        "zh": "这是更新后的任务进度 ___，今天是 ___，哪些任务落后了？影响交付吗？",
+        "en": "Here's updated progress ___, today is ___. What's behind and does it affect delivery?"
+      },
+      "color": "#ffe4e6",
+      "icon_name": "activity"
+    },
+    {
+      "title": {
+        "zh": "压缩工期",
+        "en": "Compress schedule"
+      },
+      "description": {
+        "zh": "赶工方案",
+        "en": "Crash options"
+      },
+      "prompt": {
+        "zh": "计划完成日期比截止日期晚 ___ 天，有哪些压缩方案？",
+        "en": "The plan finishes ___ days late. What are the options to compress it?"
+      },
+      "color": "#fef3c7",
+      "icon_name": "zap"
+    },
+    {
+      "title": {
+        "zh": "风险登记",
+        "en": "Risk register"
+      },
+      "description": {
+        "zh": "识别和应对",
+        "en": "Identify & respond"
+      },
+      "prompt": {
+        "zh": "帮我识别 ___ 项目的主要风险，做成风险登记表。",
+        "en": "Identify the main risks for project ___ and build a risk register."
+      },
+      "color": "#f1f5f9",
+      "icon_name": "shield-check"
+    },
+    {
+      "title": {
+        "zh": "项目周报",
+        "en": "Status report"
+      },
+      "description": {
+        "zh": "红黄绿",
+        "en": "RAG status"
+      },
+      "prompt": {
+        "zh": "根据本周进展 ___ 写一份项目周报。",
+        "en": "Write this week's status report from: ___"
+      },
+      "color": "#dcfce7",
+      "icon_name": "file-text"
+    },
+    {
+      "title": {
+        "zh": "项目复盘",
+        "en": "Retrospective"
+      },
+      "description": {
+        "zh": "经验教训",
+        "en": "Lessons learned"
+      },
+      "prompt": {
+        "zh": "项目 ___ 结束了，帮我组织复盘，结果是 ___。",
+        "en": "Project ___ has ended with results ___. Help me run the retrospective."
+      },
+      "color": "#cffafe",
+      "icon_name": "refresh-cw"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每周五「16:00」根据更新的任务进度生成项目周报",
+      "每周一「09:00」列出本周关键路径上的任务和负责人",
+      "每个工作日「09:15」提醒站会，汇总昨日阻碍",
+      "里程碑前 3 天「10:00」检查交付物完成标准和遗留问题",
+      "每两周的周三「10:00」更新风险登记表",
+      "项目结束后第 3 天「14:00」发起复盘并整理改进行动"
+    ],
+    "en": [
+      "Every Friday at 16:00, generate the weekly status report from updated progress",
+      "Every Monday at 09:00, list this week's critical-path tasks and owners",
+      "Every workday at 09:15, remind about stand-up and collect blockers",
+      "3 days before a milestone at 10:00, check deliverables and open issues",
+      "Every other Wednesday at 10:00, update the risk register",
+      "3 days after the project ends at 14:00, run the retrospective and list actions"
+    ]
+  }
+}
