@@ -1,0 +1,102 @@
+{
+  "id": "music-librarian",
+  "label": {
+    "zh": "音乐整理专家",
+    "en": "Music Librarian"
+  },
+  "description": {
+    "zh": "整理本地音乐库：体检格式、码率、缺失和乱码标签、封面与歌词，查出重复歌曲（保留音质最好的），按文件名补全标签，统一成“艺术家/专辑/音轨 - 标题”目录并生成歌单。先出方案、确认后执行、可一键撤销，永不删除文件。",
+    "en": "Organizes local music: checks formats, bitrates, missing or garbled tags, covers, and lyrics; finds duplicates (keeping the best quality); fills tags from file names; arranges Artist/Album/Track - Title folders and builds playlists. Plan first, apply on confirmation, undo anytime — never deletes files."
+  },
+  "welcome_message": {
+    "zh": "告诉我音乐放在哪个文件夹，我先帮你做个体检",
+    "en": "Tell me where your music is — I'll start with a health check"
+  },
+  "icon_name": "heart",
+  "color": "#DB2777",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": { "zh": "音乐库体检", "en": "Library check" },
+      "description": { "zh": "格式、音质、缺标签、乱码", "en": "Formats, quality, tags" },
+      "prompt": {
+        "zh": "帮我体检一下 ___ 这个文件夹里的音乐，看看有哪些问题。",
+        "en": "Check the music in ___ and tell me what's wrong."
+      },
+      "color": "#fce7f3",
+      "icon_name": "activity"
+    },
+    {
+      "title": { "zh": "找重复歌曲", "en": "Find duplicates" },
+      "description": { "zh": "保留音质最好的一份", "en": "Keep the best copy" },
+      "prompt": {
+        "zh": "找出 ___ 里重复的歌，保留音质最好的，其余先移到一边让我确认。",
+        "en": "Find duplicate songs in ___, keep the best quality, and set the rest aside for review."
+      },
+      "color": "#fef3c7",
+      "icon_name": "refresh-cw"
+    },
+    {
+      "title": { "zh": "修复标签", "en": "Fix tags" },
+      "description": { "zh": "按文件名补全、修乱码", "en": "From file names, fix garbling" },
+      "prompt": {
+        "zh": "___ 里很多歌没有歌手和歌名标签，文件名格式是“歌手 - 歌名”，帮我补上。",
+        "en": "Many songs in ___ lack artist/title tags; file names are \"Artist - Title\". Fill them in."
+      },
+      "color": "#e8f4ff",
+      "icon_name": "pen-tool"
+    },
+    {
+      "title": { "zh": "按歌手专辑整理", "en": "Organize folders" },
+      "description": { "zh": "艺术家/专辑/音轨 - 标题", "en": "Artist/Album/Track - Title" },
+      "prompt": {
+        "zh": "把 ___ 里的音乐按“歌手/专辑/曲目”整理到 ___，先给我看方案。",
+        "en": "Organize the music in ___ into Artist/Album/Track under ___. Show me the plan first."
+      },
+      "color": "#dcfce7",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": { "zh": "生成歌单", "en": "Make playlists" },
+      "description": { "zh": "按歌手、年代、流派", "en": "By artist, year, genre" },
+      "prompt": {
+        "zh": "按 ___（歌手/年份/流派）给 ___ 里的音乐生成歌单。",
+        "en": "Build playlists for ___ grouped by ___ (artist/year/genre)."
+      },
+      "color": "#f3e8ff",
+      "icon_name": "heart"
+    },
+    {
+      "title": { "zh": "撤销整理", "en": "Undo" },
+      "description": { "zh": "恢复到整理前", "en": "Restore previous layout" },
+      "prompt": {
+        "zh": "刚才的整理不满意，帮我撤销，恢复原来的位置。",
+        "en": "I don't like the last reorganization. Undo it and restore the original locations."
+      },
+      "color": "#f1f5f9",
+      "icon_name": "refresh-cw"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每周日「22:00」检查下载目录新增的音乐，生成整理方案发给我确认",
+      "每月 1 日「10:00」体检整个音乐库，汇报缺标签、低码率和重复歌曲",
+      "每周一「09:00」把上周新增的歌曲按歌手更新到歌单",
+      "每天「23:00」检查下载目录有没有带乱码标签的新歌",
+      "每季度第一天「10:00」统计音乐库容量和格式分布",
+      "每月 15 日「20:00」提醒我确认 _重复文件待确认 目录里的文件"
+    ],
+    "en": [
+      "Every Sunday at 22:00, check new music in Downloads and send me an organizing plan",
+      "On the 1st of each month at 10:00, health-check the whole library: missing tags, low bitrates, duplicates",
+      "Every Monday at 09:00, add last week's new songs to artist playlists",
+      "Every day at 23:00, check Downloads for new songs with garbled tags",
+      "On the first day of each quarter at 10:00, report library size and format mix",
+      "On the 15th of each month at 20:00, remind me to review files in the duplicates folder"
+    ]
+  }
+}

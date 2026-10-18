@@ -1,0 +1,102 @@
+{
+  "id": "photo-organizer",
+  "label": {
+    "zh": "照片整理专家",
+    "en": "Photo Organizer"
+  },
+  "description": {
+    "zh": "整理照片和手机视频：按拍摄时间（EXIF、文件名、修改时间）归档到“年/年-月”，可按拍摄时间重命名，截图和微信图片单独归档，实况照片视频和编辑记录跟随，找出重复备份的照片。先出方案、确认后执行、可一键撤销，不删除也不修改任何照片。",
+    "en": "Organizes photos and phone videos by date taken (EXIF, file name, or modified time) into Year/Year-Month folders, optionally renames by timestamp, separates screenshots and WeChat images, keeps Live Photo pairs together, and finds duplicate backups. Plan first, undo anytime — never deletes or edits photos."
+  },
+  "welcome_message": {
+    "zh": "告诉我照片放在哪个文件夹，我先帮你看看分布情况",
+    "en": "Tell me where your photos are — I'll start with an overview"
+  },
+  "icon_name": "sparkles",
+  "color": "#EA580C",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": { "zh": "照片体检", "en": "Photo check" },
+      "description": { "zh": "数量、年份、日期来源", "en": "Counts, years, date sources" },
+      "prompt": {
+        "zh": "帮我看看 ___ 里有多少照片，分布在哪些年份，有什么问题。",
+        "en": "How many photos are in ___, which years do they span, and what issues are there?"
+      },
+      "color": "#ffedd5",
+      "icon_name": "activity"
+    },
+    {
+      "title": { "zh": "按时间归档", "en": "Archive by date" },
+      "description": { "zh": "年/年-月 文件夹", "en": "Year/Year-Month folders" },
+      "prompt": {
+        "zh": "把 ___ 里的照片按拍摄时间整理到 ___，按“年/年-月”分文件夹，先给我看方案。",
+        "en": "Archive photos in ___ into ___ by date taken (Year/Year-Month). Show the plan first."
+      },
+      "color": "#e8f4ff",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": { "zh": "整理手机备份", "en": "Phone backup" },
+      "description": { "zh": "重命名、实况照片跟随", "en": "Rename, keep Live Photos" },
+      "prompt": {
+        "zh": "整理手机备份目录 ___：按拍摄时间重命名，截图和微信图片单独放。",
+        "en": "Organize the phone backup in ___: rename by date taken and separate screenshots and WeChat images."
+      },
+      "color": "#dcfce7",
+      "icon_name": "monitor"
+    },
+    {
+      "title": { "zh": "找重复照片", "en": "Find duplicates" },
+      "description": { "zh": "多次备份的同一张", "en": "Same photo backed up twice" },
+      "prompt": {
+        "zh": "找出 ___ 里重复备份的照片，先移到一边让我确认。",
+        "en": "Find photos backed up more than once in ___ and set them aside for review."
+      },
+      "color": "#ffe4e6",
+      "icon_name": "refresh-cw"
+    },
+    {
+      "title": { "zh": "清理截图", "en": "Screenshots" },
+      "description": { "zh": "单独归档便于清理", "en": "Set them apart for cleanup" },
+      "prompt": {
+        "zh": "把 ___ 里的截图和微信图片挑出来单独归档，按年份分好。",
+        "en": "Pull screenshots and WeChat images out of ___ and archive them by year."
+      },
+      "color": "#fef3c7",
+      "icon_name": "zap"
+    },
+    {
+      "title": { "zh": "撤销整理", "en": "Undo" },
+      "description": { "zh": "恢复到整理前", "en": "Restore previous layout" },
+      "prompt": {
+        "zh": "刚才的照片整理不满意，帮我撤销。",
+        "en": "I don't like the last photo reorganization. Undo it."
+      },
+      "color": "#f1f5f9",
+      "icon_name": "refresh-cw"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每周日「22:00」检查手机备份目录的新照片，生成归档方案发给我确认",
+      "每月 1 日「10:00」体检照片库，报告新增数量和只能按修改时间归档的照片",
+      "每月最后一天「21:00」把本月截图单独归档，列出数量",
+      "每季度第一天「10:00」查找重复备份的照片，生成待确认清单",
+      "每年 1 月 1 日「10:00」统计去年各月的照片数量",
+      "每月 15 日「20:00」提醒我确认 _重复文件待确认 目录里的照片"
+    ],
+    "en": [
+      "Every Sunday at 22:00, check new phone backup photos and send me an archiving plan",
+      "On the 1st of each month at 10:00, health-check the photo library: new photos and those dated by modified time",
+      "On the last day of each month at 21:00, archive this month's screenshots and report the count",
+      "On the first day of each quarter at 10:00, find duplicate backups for review",
+      "On January 1 each year at 10:00, count last year's photos by month",
+      "On the 15th of each month at 20:00, remind me to review photos in the duplicates folder"
+    ]
+  }
+}

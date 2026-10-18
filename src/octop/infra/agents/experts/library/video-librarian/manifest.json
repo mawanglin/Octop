@@ -1,0 +1,102 @@
+{
+  "id": "video-librarian",
+  "label": {
+    "zh": "影视整理专家",
+    "en": "Video Librarian"
+  },
+  "description": {
+    "zh": "整理本地电影和剧集：识别片名、年份、季集和分辨率，按 Jellyfin、Emby、Plex、飞牛影视通用规范命名归类，字幕跟随视频并标注语言，查出重复文件，统计容量画质。先出方案、确认后执行、可一键撤销，永不删除文件。",
+    "en": "Organizes local movies and TV: parses titles, years, seasons, episodes, and resolutions; names and files them for Jellyfin, Emby, Plex, and fnOS; moves subtitles with language tags; finds duplicates. Plan first, apply on confirmation, undo anytime — never deletes files."
+  },
+  "welcome_message": {
+    "zh": "告诉我电影剧集放在哪里、用的什么媒体服务器",
+    "en": "Tell me where your movies and shows are and which media server you use"
+  },
+  "icon_name": "video",
+  "color": "#7C2D12",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": { "zh": "影视库体检", "en": "Library check" },
+      "description": { "zh": "数量、画质、字幕、识别问题", "en": "Counts, quality, subtitles" },
+      "prompt": {
+        "zh": "帮我体检一下 ___ 里的电影和剧集。",
+        "en": "Check the movies and shows in ___."
+      },
+      "color": "#ffedd5",
+      "icon_name": "activity"
+    },
+    {
+      "title": { "zh": "整理下载目录", "en": "Sort downloads" },
+      "description": { "zh": "按刮削规范归到片库", "en": "File into the library" },
+      "prompt": {
+        "zh": "把下载目录 ___ 里的电影整理到 ___，剧集整理到 ___，我用的是 ___，先给我看方案。",
+        "en": "Sort downloads in ___: movies to ___, shows to ___. I use ___. Show the plan first."
+      },
+      "color": "#e8f4ff",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": { "zh": "修复刮削", "en": "Fix scraping" },
+      "description": { "zh": "海报不对、季号错乱", "en": "Wrong posters, season mix-ups" },
+      "prompt": {
+        "zh": "Jellyfin/飞牛影视里 ___ 刮削不对（___），帮我看看文件名和目录哪里有问题。",
+        "en": "___ is scraped wrongly in my media server (___). What's wrong with the names or folders?"
+      },
+      "color": "#fef3c7",
+      "icon_name": "wrench"
+    },
+    {
+      "title": { "zh": "字幕匹配", "en": "Match subtitles" },
+      "description": { "zh": "改名、加语言后缀", "en": "Rename with language tags" },
+      "prompt": {
+        "zh": "___ 里的字幕和视频名字对不上，帮我匹配改名并标注中英文。",
+        "en": "Subtitles in ___ don't match the videos. Match, rename, and tag languages."
+      },
+      "color": "#dcfce7",
+      "icon_name": "message-square"
+    },
+    {
+      "title": { "zh": "找重复", "en": "Find duplicates" },
+      "description": { "zh": "腾出硬盘空间", "en": "Free up disk space" },
+      "prompt": {
+        "zh": "找出 ___ 里重复的视频文件，先移到一边让我确认。",
+        "en": "Find duplicate videos in ___ and set them aside for review."
+      },
+      "color": "#ffe4e6",
+      "icon_name": "hard-drive"
+    },
+    {
+      "title": { "zh": "识别文件名", "en": "Parse a name" },
+      "description": { "zh": "看看能不能被正确识别", "en": "Check how a name is parsed" },
+      "prompt": {
+        "zh": "这些文件名会被识别成什么？\n\n",
+        "en": "How would these file names be recognized?\n\n"
+      },
+      "color": "#f1f5f9",
+      "icon_name": "file-text"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每天「23:30」检查下载目录新完成的视频，生成整理方案发给我确认",
+      "每周日「21:00」体检影视库，列出无字幕、缺年份和无法识别的文件",
+      "每月 1 日「10:00」统计影视库容量、分辨率分布和增长情况",
+      "每周一「09:00」列出上周新增的剧集更新",
+      "每月 15 日「20:00」提醒我确认 _重复文件待确认 目录里的视频",
+      "每季度第一天「10:00」找出体积最大的 20 个视频，评估是否需要清理"
+    ],
+    "en": [
+      "Every day at 23:30, check finished downloads and send me an organizing plan",
+      "Every Sunday at 21:00, health-check the library: no subtitles, missing years, unrecognized files",
+      "On the 1st of each month at 10:00, report library size, resolution mix, and growth",
+      "Every Monday at 09:00, list last week's new episodes",
+      "On the 15th of each month at 20:00, remind me to review videos in the duplicates folder",
+      "On the first day of each quarter at 10:00, list the 20 largest videos for cleanup review"
+    ]
+  }
+}
