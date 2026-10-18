@@ -13,6 +13,8 @@ name: Fork Release
 # 不做的事：不发 PyPI；不构建 Docker 镜像；不打飞牛 Docker 版 FPK（它的 compose 写死拉取
 # ghcr.io/tencentcloud/octop 官方镜像，装上去不含 fork 的改动）；不上传 COS。
 #
+# 首次在 fork 上启用 Actions 时，GitHub 只会在推送修改了 workflow 文件的提交后登记 workflow。
+#
 # 飞牛原生版打包步骤复制自官方 fnos-build-fpk.yml 的 native / native-arm64 job，
 # 官方调整那边的依赖钉版本（mcp、langchain-mcp-adapters）时需要同步到这里。
 
