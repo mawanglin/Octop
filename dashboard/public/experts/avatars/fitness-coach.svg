@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="健身教练">
+  <defs>
+    <linearGradient id="bg-fitness-coach" x1="20" y1="8" x2="110" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D1FAE5"/>
+      <stop offset="1" stop-color="#6EE7B7"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="32" fill="url(#bg-fitness-coach)"/>
+  <!-- shoulders and collar -->
+  <path d="M26 118 Q28 94 48 88 Q64 84 80 88 Q100 94 102 118 Z" fill="#059669"/>
+  <path d="M48 88 Q64 96 80 88 L78 118 H50 Z" fill="#064E3B" opacity="0.28"/>
+  <path d="M48 90 L64 99 L56 107 Z M80 90 L64 99 L72 107 Z" fill="#FFFFFF"/>
+  <!-- hair, neck and head -->
+  <path d="M32 58 Q28 24 62 20 Q96 20 96 58 L90 68 H38 Z" fill="#111827"/>
+  <rect x="56" y="86" width="16" height="14" rx="6" fill="#D9A982"/>
+  <ellipse cx="64" cy="64" rx="27" ry="29" fill="#D9A982"/>
+  <ellipse cx="37" cy="66" rx="5" ry="7" fill="#D9A982"/>
+  <ellipse cx="91" cy="66" rx="5" ry="7" fill="#D9A982"/>
+  <path d="M37 53 Q42 30 64 30 Q84 30 91 51 Q74 47 66 38 Q56 50 37 53 Z" fill="#111827"/>
+  <!-- face -->
+  <ellipse cx="53" cy="63" rx="3.2" ry="3.8" fill="#111827"/>
+  <ellipse cx="75" cy="63" rx="3.2" ry="3.8" fill="#111827"/>
+  <circle cx="54.2" cy="61.8" r="1.1" fill="#fff" opacity="0.95"/>
+  <circle cx="76.2" cy="61.8" r="1.1" fill="#fff" opacity="0.95"/>
+  <path d="M47 55 Q53 52 59 55 M69 55 Q75 52 81 55" fill="none" stroke="#111827" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+  <path d="M64 65 Q66 70 62 72" fill="none" stroke="#C08457" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+  <path d="M54 76 Q64 83 74 76" fill="none" stroke="#B45309" stroke-width="2.4" stroke-linecap="round"/>
+  <circle cx="45" cy="73" r="4" fill="#F9A8D4" opacity="0.32"/>
+  <circle cx="83" cy="73" r="4" fill="#F9A8D4" opacity="0.32"/>
+  <!-- prop -->
+  <rect x="84" y="96" width="32" height="5" rx="2" fill="#374151"/>
+  <rect x="80" y="87" width="7" height="23" rx="2" fill="#1F2937"/>
+  <rect x="113" y="87" width="7" height="23" rx="2" fill="#1F2937"/>
+  <rect x="76" y="91" width="5" height="15" rx="2" fill="#4B5563"/>
+  <rect x="119" y="91" width="5" height="15" rx="2" fill="#4B5563"/>
+</svg>

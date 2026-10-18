@@ -1,0 +1,138 @@
+{
+  "id": "home-bookkeeper",
+  "label": {
+    "zh": "家庭记账专家",
+    "en": "Home Bookkeeper"
+  },
+  "description": {
+    "zh": "把支付宝、微信、银行卡账单合并成一本家庭账本：自动识别格式、去重、分类，按月生成收支报告，找出订阅扣费、大额支出和超预算类别，帮你定预算、做月度复盘。",
+    "en": "Merges Alipay, WeChat and bank statements into one household ledger: auto-detects formats, dedupes and categorizes, builds monthly reports, flags subscriptions, large expenses and over-budget categories, and helps set and review budgets."
+  },
+  "welcome_message": {
+    "zh": "把支付宝、微信或银行导出的账单发给我",
+    "en": "Send me your Alipay, WeChat or bank statement exports"
+  },
+  "icon_name": "shopping-bag",
+  "color": "#CA8A04",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "导入账单",
+        "en": "Import bills"
+      },
+      "description": {
+        "zh": "合并成一本账",
+        "en": "Merge into one ledger"
+      },
+      "prompt": {
+        "zh": "我上传了 ___ 的账单（支付宝/微信/银行），帮我合并成账本并自动分类。",
+        "en": "I uploaded ___ statements (Alipay/WeChat/bank). Merge them into a ledger and categorize."
+      },
+      "color": "#fef3c7",
+      "icon_name": "file-text"
+    },
+    {
+      "title": {
+        "zh": "月度报告",
+        "en": "Monthly report"
+      },
+      "description": {
+        "zh": "钱花在哪了",
+        "en": "Where the money went"
+      },
+      "prompt": {
+        "zh": "根据账本生成 ___ 月的收支报告，告诉我花得最多的几类。",
+        "en": "Build the income/expense report for ___ and show my top spending categories."
+      },
+      "color": "#e8f4ff",
+      "icon_name": "trending-up"
+    },
+    {
+      "title": {
+        "zh": "查订阅扣费",
+        "en": "Find subscriptions"
+      },
+      "description": {
+        "zh": "会员、自动续费",
+        "en": "Memberships, auto-renewals"
+      },
+      "prompt": {
+        "zh": "帮我找出账本里每月自动扣费的订阅和会员。",
+        "en": "Find recurring subscriptions and memberships in my ledger."
+      },
+      "color": "#ffe4e6",
+      "icon_name": "refresh-cw"
+    },
+    {
+      "title": {
+        "zh": "定预算",
+        "en": "Set a budget"
+      },
+      "description": {
+        "zh": "按实际支出制定",
+        "en": "Based on real spending"
+      },
+      "prompt": {
+        "zh": "我每月税后收入约 ___ 元，想存下 ___，根据过去的支出帮我定一份预算。",
+        "en": "My monthly take-home is about ___ and I want to save ___. Set a budget from my past spending."
+      },
+      "color": "#dcfce7",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": {
+        "zh": "预算对比",
+        "en": "Budget check"
+      },
+      "description": {
+        "zh": "哪些类别超了",
+        "en": "Which categories are over"
+      },
+      "prompt": {
+        "zh": "对比我的预算 ___，看本月哪些类别超支了、超了多少。",
+        "en": "Compare this month with my budget ___ and show which categories are over."
+      },
+      "color": "#f1f5f9",
+      "icon_name": "activity"
+    },
+    {
+      "title": {
+        "zh": "省钱建议",
+        "en": "Saving tips"
+      },
+      "description": {
+        "zh": "具体可执行",
+        "en": "Concrete actions"
+      },
+      "prompt": {
+        "zh": "看看我的账本，给我 3 条具体的省钱建议，算出每月能省多少。",
+        "en": "Review my ledger and give 3 concrete saving actions with monthly amounts."
+      },
+      "color": "#cffafe",
+      "icon_name": "sparkles"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每月 1 日「09:00」读取 inbound 里的新账单，合并到家庭账本",
+      "每月 2 日「20:00」生成上月收支报告并对比预算",
+      "每周日「21:00」汇总本周支出，提醒接近预算上限的类别",
+      "每月 5 日「10:00」列出疑似订阅扣费，提醒确认是否还在使用",
+      "每季度第一天「09:00」生成季度收支趋势和储蓄率变化",
+      "每年 1 月 3 日「10:00」生成上一年的家庭年度账单总结"
+    ],
+    "en": [
+      "On the 1st of each month at 09:00, merge new statements in inbound into the household ledger",
+      "On the 2nd of each month at 20:00, build last month's report and compare with the budget",
+      "Every Sunday at 21:00, summarize this week's spending and flag categories near their limit",
+      "On the 5th of each month at 10:00, list suspected subscriptions to confirm",
+      "On the first day of each quarter at 09:00, report quarterly trends and savings rate",
+      "On January 3 at 10:00, produce last year's household spending summary"
+    ]
+  }
+}

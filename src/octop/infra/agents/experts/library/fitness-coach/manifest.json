@@ -1,0 +1,138 @@
+{
+  "id": "fitness-coach",
+  "label": {
+    "zh": "健身教练",
+    "en": "Fitness Coach"
+  },
+  "description": {
+    "zh": "按目标、身体情况、器械条件和每周时间制定循序渐进的训练计划，讲清动作要点和替代动作；估算每日热量和三大营养素、一餐吃了多少热量，导出每周训练打卡表。所有计算均为估算，不替代医生建议。",
+    "en": "Builds progressive training plans around your goal, equipment and schedule with form cues and alternatives; estimates daily calories, macros and meal totals, and exports weekly workout logs. Estimates only, not medical advice."
+  },
+  "welcome_message": {
+    "zh": "告诉我你的目标、身高体重和每周能练几次",
+    "en": "Tell me your goal, height, weight and how often you can train"
+  },
+  "icon_name": "activity",
+  "color": "#059669",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "训练计划",
+        "en": "Training plan"
+      },
+      "description": {
+        "zh": "按目标和器械",
+        "en": "By goal and equipment"
+      },
+      "prompt": {
+        "zh": "我想 ___（减脂/增肌/提升体能），每周能练 ___ 天，每次 ___ 分钟，器械：___。",
+        "en": "I want to ___ (lose fat/build muscle/get fit), can train ___ days a week for ___ minutes, equipment: ___."
+      },
+      "color": "#dcfce7",
+      "icon_name": "activity"
+    },
+    {
+      "title": {
+        "zh": "每天吃多少",
+        "en": "Daily calories"
+      },
+      "description": {
+        "zh": "热量和营养素",
+        "en": "Calories and macros"
+      },
+      "prompt": {
+        "zh": "我 ___ 岁，___（男/女），身高 ___ cm，体重 ___ kg，目标 ___，每天该吃多少？",
+        "en": "I'm ___ years old, ___ (male/female), ___ cm, ___ kg, goal ___. How much should I eat?"
+      },
+      "color": "#fef3c7",
+      "icon_name": "utensils"
+    },
+    {
+      "title": {
+        "zh": "这顿多少热量",
+        "en": "Meal estimate"
+      },
+      "description": {
+        "zh": "估算一餐",
+        "en": "Estimate a meal"
+      },
+      "prompt": {
+        "zh": "我今天中午吃了 ___，估算一下热量和蛋白质。",
+        "en": "For lunch I had ___. Estimate the calories and protein."
+      },
+      "color": "#ffe4e6",
+      "icon_name": "coffee"
+    },
+    {
+      "title": {
+        "zh": "居家训练",
+        "en": "Home workout"
+      },
+      "description": {
+        "zh": "徒手也能练",
+        "en": "No equipment"
+      },
+      "prompt": {
+        "zh": "在家没有器械，帮我安排一套 ___ 分钟的全身训练。",
+        "en": "No equipment at home. Give me a ___-minute full-body workout."
+      },
+      "color": "#e8f4ff",
+      "icon_name": "home"
+    },
+    {
+      "title": {
+        "zh": "动作要点",
+        "en": "Form check"
+      },
+      "description": {
+        "zh": "做对更安全",
+        "en": "Train safely"
+      },
+      "prompt": {
+        "zh": "___ 这个动作要注意什么？我做的时候 ___ 有点不舒服。",
+        "en": "What should I watch for in ___? I feel some discomfort in ___."
+      },
+      "color": "#f1f5f9",
+      "icon_name": "shield-check"
+    },
+    {
+      "title": {
+        "zh": "打卡表",
+        "en": "Workout log"
+      },
+      "description": {
+        "zh": "每周记录",
+        "en": "Weekly tracking"
+      },
+      "prompt": {
+        "zh": "把我的训练计划做成 ___ 周的打卡表。",
+        "en": "Turn my plan into a ___-week workout log."
+      },
+      "color": "#cffafe",
+      "icon_name": "list-todo"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每周一、三、五「07:00」发送今天的训练内容和热身动作",
+      "每天「21:30」提醒记录今天的饮食和训练完成情况",
+      "每周日「20:00」根据本周打卡情况调整下周训练",
+      "每周一「08:00」提醒晨起空腹称重并记录",
+      "每 4 周的周日「10:00」复盘体重趋势和训练进步，安排减量周",
+      "每月 1 日「09:00」更新每日热量建议（按最新体重计算）"
+    ],
+    "en": [
+      "Every Monday, Wednesday and Friday at 07:00, send today's workout and warm-up",
+      "Every day at 21:30, remind to log meals and completed training",
+      "Every Sunday at 20:00, adjust next week's plan from this week's log",
+      "Every Monday at 08:00, remind to weigh in before breakfast",
+      "Every 4th Sunday at 10:00, review weight trend and progress and plan a deload week",
+      "On the 1st of each month at 09:00, recalculate daily calories from the latest weight"
+    ]
+  }
+}
