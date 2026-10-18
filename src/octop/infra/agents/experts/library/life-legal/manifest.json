@@ -1,0 +1,138 @@
+{
+  "id": "life-legal",
+  "label": {
+    "zh": "生活法律助手",
+    "en": "Everyday Legal Helper"
+  },
+  "description": {
+    "zh": "用通俗的话帮你弄清日常法律问题：被辞退、欠薪、加班、网购纠纷、租房押金、借钱不还；计算经济补偿、加班费和仲裁上诉等期限，梳理证据，起草仲裁申请书、起诉状和投诉信，告诉你该找哪个部门。仅供参考，不构成法律意见。",
+    "en": "Explains everyday legal issues in plain words: dismissals, unpaid wages, overtime, online shopping disputes, rental deposits and unpaid loans; calculates severance, overtime and legal deadlines, organizes evidence, drafts claims and complaints, and points you to the right office. Not legal advice."
+  },
+  "welcome_message": {
+    "zh": "把遇到的事情经过告诉我，我帮你理清楚",
+    "en": "Tell me what happened and I'll help you sort it out"
+  },
+  "icon_name": "shield-check",
+  "color": "#B45309",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "被辞退了",
+        "en": "I was dismissed"
+      },
+      "description": {
+        "zh": "能拿多少补偿",
+        "en": "What I'm owed"
+      },
+      "prompt": {
+        "zh": "我 ___ 入职，___ 被公司辞退，离职前月均工资 ___，能拿多少补偿？",
+        "en": "I joined on ___ and was dismissed on ___, average monthly pay ___. What compensation am I owed?"
+      },
+      "color": "#fef3c7",
+      "icon_name": "shield-check"
+    },
+    {
+      "title": {
+        "zh": "算加班费",
+        "en": "Overtime pay"
+      },
+      "description": {
+        "zh": "150%/200%/300%",
+        "en": "150%/200%/300%"
+      },
+      "prompt": {
+        "zh": "月薪 ___，这个月工作日加班 ___ 小时，周末 ___ 小时，加班费该是多少？",
+        "en": "Monthly pay ___, ___ weekday overtime hours and ___ weekend hours. What's my overtime pay?"
+      },
+      "color": "#e8f4ff",
+      "icon_name": "activity"
+    },
+    {
+      "title": {
+        "zh": "还来得及吗",
+        "en": "Am I in time?"
+      },
+      "description": {
+        "zh": "法定期限",
+        "en": "Legal deadlines"
+      },
+      "prompt": {
+        "zh": "我 ___ 收到 ___（判决书/仲裁裁决），最晚什么时候要上诉/起诉？",
+        "en": "I received the ___ (judgment/award) on ___. What's my deadline to appeal or sue?"
+      },
+      "color": "#ffe4e6",
+      "icon_name": "bell"
+    },
+    {
+      "title": {
+        "zh": "网购维权",
+        "en": "Shopping dispute"
+      },
+      "description": {
+        "zh": "投诉信",
+        "en": "Complaint letter"
+      },
+      "prompt": {
+        "zh": "我在 ___ 买的 ___ 出现 ___ 问题，商家不给退，怎么维权？帮我写投诉。",
+        "en": "I bought ___ on ___ and it has ___; the seller won't refund. How do I complain?"
+      },
+      "color": "#dcfce7",
+      "icon_name": "shopping-bag"
+    },
+    {
+      "title": {
+        "zh": "押金不退",
+        "en": "Deposit dispute"
+      },
+      "description": {
+        "zh": "租房纠纷",
+        "en": "Rental issue"
+      },
+      "prompt": {
+        "zh": "退租后房东以 ___ 为由不退押金 ___ 元，我该怎么办？",
+        "en": "After moving out, the landlord keeps my ___ deposit citing ___. What can I do?"
+      },
+      "color": "#f1f5f9",
+      "icon_name": "home"
+    },
+    {
+      "title": {
+        "zh": "写申请书",
+        "en": "Draft a filing"
+      },
+      "description": {
+        "zh": "仲裁 / 起诉",
+        "en": "Arbitration / lawsuit"
+      },
+      "prompt": {
+        "zh": "帮我起草一份 ___（劳动仲裁申请书/起诉状），事实是 ___。",
+        "en": "Draft a ___ (labor arbitration claim/civil complaint). The facts are ___."
+      },
+      "color": "#cffafe",
+      "icon_name": "file-text"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "仲裁或上诉期限前 7 天「09:00」提醒准备材料",
+      "期限前 1 天「09:00」再次提醒最后期限",
+      "每周一「10:00」汇总进行中的维权事项和下一步",
+      "投诉提交后第 7 天「10:00」提醒查看处理进度",
+      "开庭前 3 天「19:00」整理证据清单和陈述要点",
+      "每月 1 日「10:00」检查借条、欠款的诉讼时效是否需要催告"
+    ],
+    "en": [
+      "7 days before an arbitration or appeal deadline at 09:00, remind to prepare documents",
+      "The day before the deadline at 09:00, remind again",
+      "Every Monday at 10:00, summarize open disputes and next steps",
+      "7 days after filing a complaint at 10:00, remind to check its status",
+      "3 days before a hearing at 19:00, compile the evidence list and key statements",
+      "On the 1st of each month at 10:00, check whether any debt claims need a written demand"
+    ]
+  }
+}

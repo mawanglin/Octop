@@ -1,0 +1,138 @@
+{
+  "id": "kitchen-chef",
+  "label": {
+    "zh": "厨房菜谱",
+    "en": "Home Kitchen"
+  },
+  "description": {
+    "zh": "解决“今天吃什么”：按人数、口味和忌口排出荤素搭配、一周不重样的菜单，自动合并成分好类的买菜清单；讲清家常菜的用量、火候和替代食材，帮你用冰箱里现有的食材做饭，兼顾孩子、老人和减脂需求，提醒食品安全。",
+    "en": "Answers \"what's for dinner\": balanced weekly menus without repeats for your household, tastes and allergies, merged and categorized shopping lists, clear quantities and techniques for home dishes, substitutions, fridge clean-out ideas and food-safety tips."
+  },
+  "welcome_message": {
+    "zh": "告诉我家里几口人、爱吃什么、有什么忌口",
+    "en": "Tell me how many people, what you like and any allergies"
+  },
+  "icon_name": "utensils",
+  "color": "#C2410C",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "一周菜单",
+        "en": "Weekly menu"
+      },
+      "description": {
+        "zh": "荤素搭配",
+        "en": "Balanced"
+      },
+      "prompt": {
+        "zh": "家里 ___ 口人，帮我排一周午饭和晚饭，不吃 ___。",
+        "en": "___ people at home. Plan lunch and dinner for a week; we don't eat ___."
+      },
+      "color": "#ffedd5",
+      "icon_name": "utensils"
+    },
+    {
+      "title": {
+        "zh": "买菜清单",
+        "en": "Shopping list"
+      },
+      "description": {
+        "zh": "按类别合并",
+        "en": "Merged by category"
+      },
+      "prompt": {
+        "zh": "按这个菜单生成 ___ 人份的买菜清单：___",
+        "en": "Make a shopping list for ___ people from this menu: ___"
+      },
+      "color": "#dcfce7",
+      "icon_name": "shopping-bag"
+    },
+    {
+      "title": {
+        "zh": "这道菜怎么做",
+        "en": "How to cook"
+      },
+      "description": {
+        "zh": "用量和火候",
+        "en": "Quantities & heat"
+      },
+      "prompt": {
+        "zh": "___ 怎么做？___ 人份，写清楚用量和火候。",
+        "en": "How do I make ___ for ___ people? Include amounts and heat."
+      },
+      "color": "#fef3c7",
+      "icon_name": "coffee"
+    },
+    {
+      "title": {
+        "zh": "冰箱清库存",
+        "en": "Use up the fridge"
+      },
+      "description": {
+        "zh": "现有食材",
+        "en": "What's on hand"
+      },
+      "prompt": {
+        "zh": "冰箱里有 ___，能做什么菜？",
+        "en": "I have ___ in the fridge. What can I cook?"
+      },
+      "color": "#e8f4ff",
+      "icon_name": "home"
+    },
+    {
+      "title": {
+        "zh": "快手菜",
+        "en": "Quick meals"
+      },
+      "description": {
+        "zh": "20 分钟搞定",
+        "en": "20 minutes"
+      },
+      "prompt": {
+        "zh": "下班只有 20 分钟，推荐几个 ___ 人份的快手菜。",
+        "en": "I only have 20 minutes after work. Suggest quick dishes for ___."
+      },
+      "color": "#cffafe",
+      "icon_name": "zap"
+    },
+    {
+      "title": {
+        "zh": "做失败了",
+        "en": "It went wrong"
+      },
+      "description": {
+        "zh": "找原因",
+        "en": "Find the cause"
+      },
+      "prompt": {
+        "zh": "我做的 ___ 出现了 ___（太咸/肉老/出水），是哪里出了问题？",
+        "en": "My ___ turned out ___ (salty/tough/watery). What went wrong?"
+      },
+      "color": "#ffe4e6",
+      "icon_name": "wrench"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每周日「18:00」生成下周菜单和买菜清单",
+      "每周三「20:00」提醒第二次采购生鲜",
+      "每天「16:30」发送今晚的菜品和准备步骤（解冻、腌制）",
+      "每天「21:00」提醒剩菜放凉后冷藏",
+      "每月 1 日「10:00」检查冰箱冷冻室食材，列出快到期的",
+      "每月最后一个周末「10:00」推荐 2 道新菜加入菜单"
+    ],
+    "en": [
+      "Every Sunday at 18:00, plan next week's menu and shopping list",
+      "Every Wednesday at 20:00, remind to restock fresh produce",
+      "Every day at 16:30, send tonight's dishes and prep steps (thawing, marinating)",
+      "Every day at 21:00, remind to refrigerate leftovers once cooled",
+      "On the 1st of each month at 10:00, check the freezer and list items to use soon",
+      "On the last weekend of each month at 10:00, suggest 2 new dishes to try"
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="厨房菜谱">
+  <defs>
+    <linearGradient id="bg-kitchen-chef" x1="20" y1="8" x2="110" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFEDD5"/>
+      <stop offset="1" stop-color="#FDBA74"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="32" fill="url(#bg-kitchen-chef)"/>
+  <!-- shoulders and collar -->
+  <path d="M26 118 Q28 94 48 88 Q64 84 80 88 Q100 94 102 118 Z" fill="#C2410C"/>
+  <path d="M48 88 Q64 96 80 88 L78 118 H50 Z" fill="#7C2D12" opacity="0.28"/>
+  <path d="M48 90 L64 99 L56 107 Z M80 90 L64 99 L72 107 Z" fill="#FFFFFF"/>
+  <!-- hair, neck and head -->
+  <path d="M32 58 Q28 26 62 22 Q96 24 96 58 L90 66 H38 Z" fill="#2B1B12"/>
+  <rect x="56" y="86" width="16" height="14" rx="6" fill="#F1C7A6"/>
+  <ellipse cx="64" cy="64" rx="27" ry="29" fill="#F1C7A6"/>
+  <ellipse cx="37" cy="66" rx="5" ry="7" fill="#F1C7A6"/>
+  <ellipse cx="91" cy="66" rx="5" ry="7" fill="#F1C7A6"/>
+  <path d="M34 48 Q38 24 64 24 Q90 24 94 48 Z" fill="#FFFFFF"/>
+  <path d="M64 46 H104 Q104 52 96 52 H64 Z" fill="#FFFFFF"/>
+  <!-- face -->
+  <ellipse cx="53" cy="63" rx="3.2" ry="3.8" fill="#2B1B12"/>
+  <ellipse cx="75" cy="63" rx="3.2" ry="3.8" fill="#2B1B12"/>
+  <circle cx="54.2" cy="61.8" r="1.1" fill="#fff" opacity="0.95"/>
+  <circle cx="76.2" cy="61.8" r="1.1" fill="#fff" opacity="0.95"/>
+  <path d="M47 55 Q53 52 59 55 M69 55 Q75 52 81 55" fill="none" stroke="#2B1B12" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+  <path d="M64 65 Q66 70 62 72" fill="none" stroke="#C08457" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+  <path d="M54 76 Q64 83 74 76" fill="none" stroke="#B45309" stroke-width="2.4" stroke-linecap="round"/>
+  <circle cx="45" cy="73" r="4" fill="#F9A8D4" opacity="0.32"/>
+  <circle cx="83" cy="73" r="4" fill="#F9A8D4" opacity="0.32"/>
+  <!-- prop -->
+  <path d="M80 98 H120 Q120 114 100 114 Q80 114 80 98 Z" fill="#374151"/>
+  <path d="M120 100 H128" stroke="#374151" stroke-width="3" stroke-linecap="round"/>
+  <path d="M90 92 Q88 87 91 83 M100 92 Q98 86 101 81 M110 92 Q108 87 111 83" stroke="#9CA3AF" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <ellipse cx="100" cy="99" rx="16" ry="2.4" fill="#F97316"/>
+</svg>

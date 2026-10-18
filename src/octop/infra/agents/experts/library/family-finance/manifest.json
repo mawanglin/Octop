@@ -1,0 +1,138 @@
+{
+  "id": "family-finance",
+  "label": {
+    "zh": "家庭财税计算",
+    "en": "Family Finance Calculator"
+  },
+  "description": {
+    "zh": "把和钱有关的账算清楚：房贷等额本息和等额本金对比、提前还款能省多少利息，工资每月个税和专项附加扣除、年终奖单独计税还是并入更划算，五险一金个人和公积金各交多少，并解释年度汇算和还贷决策。结果为估算，以最新政策为准。",
+    "en": "Works out the family numbers: mortgage repayment comparisons and prepayment savings, monthly income tax with special deductions, whether to tax the annual bonus separately, social insurance and housing fund contributions, plus guidance on annual filing and loan decisions. Estimates only."
+  },
+  "welcome_message": {
+    "zh": "告诉我贷款或工资情况，我帮你算清楚",
+    "en": "Tell me about your loan or salary and I'll do the math"
+  },
+  "icon_name": "candlestick-chart",
+  "color": "#0F766E",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "房贷月供",
+        "en": "Mortgage payment"
+      },
+      "description": {
+        "zh": "两种方式对比",
+        "en": "Compare methods"
+      },
+      "prompt": {
+        "zh": "贷款 ___ 万，利率 ___%，___ 年，等额本息和等额本金各还多少？",
+        "en": "Loan ___, rate ___%, ___ years. Compare equal-payment and equal-principal."
+      },
+      "color": "#ccfbf1",
+      "icon_name": "home"
+    },
+    {
+      "title": {
+        "zh": "提前还款",
+        "en": "Prepay"
+      },
+      "description": {
+        "zh": "省多少利息",
+        "en": "Interest saved"
+      },
+      "prompt": {
+        "zh": "已经还了 ___ 期，打算提前还 ___ 万，缩短年限和减少月供哪个划算？",
+        "en": "I've paid ___ months and plan to prepay ___. Shorten the term or lower the payment?"
+      },
+      "color": "#dcfce7",
+      "icon_name": "trending-up"
+    },
+    {
+      "title": {
+        "zh": "每月个税",
+        "en": "Monthly tax"
+      },
+      "description": {
+        "zh": "专项附加扣除",
+        "en": "Special deductions"
+      },
+      "prompt": {
+        "zh": "月薪 ___，社保公积金个人交 ___，有 ___ 个孩子、___（赡养老人/房贷），每月扣多少税？",
+        "en": "Salary ___, personal insurance ___, ___ children, ___ (elderly/mortgage). Monthly tax?"
+      },
+      "color": "#e8f4ff",
+      "icon_name": "activity"
+    },
+    {
+      "title": {
+        "zh": "年终奖",
+        "en": "Annual bonus"
+      },
+      "description": {
+        "zh": "怎么计税更省",
+        "en": "Cheapest option"
+      },
+      "prompt": {
+        "zh": "年终奖 ___，月薪 ___，单独计税和并入综合所得哪个省？",
+        "en": "Bonus ___, salary ___. Separate or combined taxation—which saves more?"
+      },
+      "color": "#fef3c7",
+      "icon_name": "sparkles"
+    },
+    {
+      "title": {
+        "zh": "五险一金",
+        "en": "Social insurance"
+      },
+      "description": {
+        "zh": "个人交多少",
+        "en": "My contribution"
+      },
+      "prompt": {
+        "zh": "缴费基数 ___，公积金 ___%，我每月个人交多少？",
+        "en": "Contribution base ___, housing fund ___%. What do I pay each month?"
+      },
+      "color": "#f1f5f9",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": {
+        "zh": "年度汇算",
+        "en": "Annual filing"
+      },
+      "description": {
+        "zh": "退税补税",
+        "en": "Refund or pay"
+      },
+      "prompt": {
+        "zh": "我去年 ___（年中换工作/有大病医疗），年度汇算要注意什么？",
+        "en": "Last year I ___ (changed jobs/had medical costs). What should I watch in annual filing?"
+      },
+      "color": "#ffe4e6",
+      "icon_name": "file-text"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每年 3 月 1 日「10:00」提醒办理上一年度个税汇算",
+      "每年 12 月 1 日「10:00」提醒确认下一年度专项附加扣除信息",
+      "每月 5 日「20:00」核对本月工资条的个税和社保扣款",
+      "每年 7 月 1 日「10:00」提醒查看社保公积金新年度缴费基数",
+      "每季度第一天「10:00」复核房贷利率调整和提前还款计划",
+      "发年终奖前一个月「10:00」测算两种计税方式"
+    ],
+    "en": [
+      "On March 1 at 10:00, remind to file last year's annual tax reconciliation",
+      "On December 1 at 10:00, remind to confirm next year's special deductions",
+      "On the 5th of each month at 20:00, check tax and insurance deductions on the payslip",
+      "On July 1 at 10:00, remind to check the new social insurance contribution base",
+      "On the first day of each quarter at 10:00, review mortgage rate changes and prepayment plans",
+      "A month before the annual bonus at 10:00, compare the two tax methods"
+    ]
+  }
+}
