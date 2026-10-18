@@ -1,0 +1,138 @@
+{
+  "id": "bid-writer",
+  "label": {
+    "zh": "投标文件专家",
+    "en": "Bid Writer"
+  },
+  "description": {
+    "zh": "读懂招标文件、做好投标响应：提取关键时间、保证金、资格要求、★ 实质性条款、否决投标情形和评分标准，生成逐条响应矩阵；按评分点组织技术方案和偏离表；递交前自查占位符、他司名称、编号、日期和金额大小写，避免低级错误废标。",
+    "en": "Reads tender documents and builds responses: extracts deadlines, deposits, qualifications, mandatory clauses, rejection conditions and scoring into a response matrix; structures technical proposals by scoring item; checks bids for placeholders, stray company names, numbers, dates and amount-in-words errors."
+  },
+  "welcome_message": {
+    "zh": "把招标文件发给我，我先帮你整理要点和风险",
+    "en": "Send me the tender document and I'll summarize key points and risks"
+  },
+  "icon_name": "file-text",
+  "color": "#1E3A8A",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "解析招标文件",
+        "en": "Analyze tender"
+      },
+      "description": {
+        "zh": "要点 + 响应矩阵",
+        "en": "Key points + matrix"
+      },
+      "prompt": {
+        "zh": "这是招标文件 ___，帮我提取关键信息、★ 条款和评分标准，生成响应矩阵。",
+        "en": "Here's the tender ___. Extract key facts, mandatory clauses and scoring into a response matrix."
+      },
+      "color": "#dbeafe",
+      "icon_name": "file-text"
+    },
+    {
+      "title": {
+        "zh": "能不能投",
+        "en": "Go / no-go"
+      },
+      "description": {
+        "zh": "资格逐条核对",
+        "en": "Check qualifications"
+      },
+      "prompt": {
+        "zh": "对照招标文件的资格要求和 ★ 条款，我们公司 ___ 是否满足？",
+        "en": "Against the qualifications and mandatory clauses, does our company ___ qualify?"
+      },
+      "color": "#ffe4e6",
+      "icon_name": "shield-check"
+    },
+    {
+      "title": {
+        "zh": "技术方案目录",
+        "en": "Proposal outline"
+      },
+      "description": {
+        "zh": "按评分点",
+        "en": "By scoring item"
+      },
+      "prompt": {
+        "zh": "根据评分标准，帮我搭技术方案的目录，并说明每章的得分要点。",
+        "en": "Build the technical proposal outline from the scoring criteria with key points per chapter."
+      },
+      "color": "#dcfce7",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": {
+        "zh": "点对点应答",
+        "en": "Point-by-point"
+      },
+      "description": {
+        "zh": "偏离表",
+        "en": "Deviation table"
+      },
+      "prompt": {
+        "zh": "把技术要求 ___ 逐条写成应答和偏离表。",
+        "en": "Turn technical requirements ___ into point-by-point responses and a deviation table."
+      },
+      "color": "#fef3c7",
+      "icon_name": "activity"
+    },
+    {
+      "title": {
+        "zh": "投标自查",
+        "en": "Bid check"
+      },
+      "description": {
+        "zh": "防低级错误",
+        "en": "Catch errors"
+      },
+      "prompt": {
+        "zh": "检查投标文件 ___，公司全称 ___，项目编号 ___，截止日期 ___。",
+        "en": "Check bid ___ for company ___, project no. ___, deadline ___."
+      },
+      "color": "#f1f5f9",
+      "icon_name": "refresh-cw"
+    },
+    {
+      "title": {
+        "zh": "材料清单",
+        "en": "Document list"
+      },
+      "description": {
+        "zh": "分工倒排",
+        "en": "Owners and dates"
+      },
+      "prompt": {
+        "zh": "根据招标文件列出需要准备的材料、负责人和完成时间。",
+        "en": "List required documents, owners and due dates from the tender."
+      },
+      "color": "#cffafe",
+      "icon_name": "users"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每个工作日「09:00」检查 inbound 中新的招标文件并生成要点摘要",
+      "投标截止前 7 天「10:00」核对响应矩阵完成度，列出未完成的材料",
+      "投标截止前 3 天「15:00」运行投标文件自查，列出需要修改的问题",
+      "投标截止前 1 天「16:00」发送递交清单（签章、份数、保证金、电子标）",
+      "答疑截止前 2 天「10:00」整理需要向采购人提问的条款",
+      "每月 1 日「09:00」汇总上月投标项目、结果和失分原因"
+    ],
+    "en": [
+      "Every workday at 09:00, check inbound for new tenders and summarize key points",
+      "7 days before the bid deadline at 10:00, review matrix completion and missing documents",
+      "3 days before the deadline at 15:00, run the bid check and list fixes",
+      "The day before the deadline at 16:00, send the submission checklist",
+      "2 days before the clarification deadline at 10:00, list clauses to query",
+      "On the 1st of each month at 09:00, summarize last month's bids, results and lost points"
+    ]
+  }
+}

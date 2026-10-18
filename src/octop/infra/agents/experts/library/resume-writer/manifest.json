@@ -1,0 +1,138 @@
+{
+  "id": "resume-writer",
+  "label": {
+    "zh": "求职简历专家",
+    "en": "Resume Writer"
+  },
+  "description": {
+    "zh": "把经历写成让招聘方愿意约面试的简历：挖掘并量化成果，对照岗位描述检查关键词覆盖和学历年限要求，体检简历常见问题，导出 3 种版式的 Word 简历，再准备自我介绍和行为面试回答。不编造经历和数据。",
+    "en": "Turns your experience into a resume that gets interviews: quantifies achievements, checks keyword coverage against job descriptions, flags common issues, exports Word resumes in three layouts, and prepares self-introductions and behavioral answers. Never fabricates."
+  },
+  "welcome_message": {
+    "zh": "把你的简历和想投的岗位描述发给我",
+    "en": "Send me your resume and the job description you're targeting"
+  },
+  "icon_name": "user",
+  "color": "#1D4ED8",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "优化简历",
+        "en": "Improve resume"
+      },
+      "description": {
+        "zh": "量化成果",
+        "en": "Quantify results"
+      },
+      "prompt": {
+        "zh": "这是我的简历 ___，目标岗位是 ___，帮我逐条优化。",
+        "en": "Here's my resume ___. Target role: ___. Improve it line by line."
+      },
+      "color": "#e8f4ff",
+      "icon_name": "file-text"
+    },
+    {
+      "title": {
+        "zh": "对照 JD",
+        "en": "Match a JD"
+      },
+      "description": {
+        "zh": "关键词覆盖",
+        "en": "Keyword coverage"
+      },
+      "prompt": {
+        "zh": "这是岗位描述 ___，看看我的简历还缺哪些关键要求。",
+        "en": "Here's the job description ___. What key requirements is my resume missing?"
+      },
+      "color": "#dcfce7",
+      "icon_name": "trending-up"
+    },
+    {
+      "title": {
+        "zh": "从零写简历",
+        "en": "Write from scratch"
+      },
+      "description": {
+        "zh": "一步步问",
+        "en": "Guided questions"
+      },
+      "prompt": {
+        "zh": "我没有简历，___ 年 ___ 经验，想投 ___，帮我写一份。",
+        "en": "I have no resume, ___ years in ___, targeting ___. Help me write one."
+      },
+      "color": "#fef3c7",
+      "icon_name": "pen-tool"
+    },
+    {
+      "title": {
+        "zh": "导出 Word",
+        "en": "Export to Word"
+      },
+      "description": {
+        "zh": "三种版式",
+        "en": "Three layouts"
+      },
+      "prompt": {
+        "zh": "把简历导出成 Word，用 ___（经典/现代/紧凑）版式，控制在一页。",
+        "en": "Export my resume to Word in the ___ (classic/modern/compact) layout, one page."
+      },
+      "color": "#f1f5f9",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": {
+        "zh": "自我介绍",
+        "en": "Self-introduction"
+      },
+      "description": {
+        "zh": "1 分钟版",
+        "en": "1-minute version"
+      },
+      "prompt": {
+        "zh": "根据我的简历和 ___ 岗位，写一个 1 分钟自我介绍。",
+        "en": "Write a 1-minute self-introduction for the ___ role based on my resume."
+      },
+      "color": "#ffe4e6",
+      "icon_name": "message-square"
+    },
+    {
+      "title": {
+        "zh": "模拟面试",
+        "en": "Mock interview"
+      },
+      "description": {
+        "zh": "逐题反馈",
+        "en": "Feedback per answer"
+      },
+      "prompt": {
+        "zh": "模拟 ___ 岗位的面试，一次问我一个问题，回答后给反馈。",
+        "en": "Run a mock interview for ___. Ask one question at a time and give feedback."
+      },
+      "color": "#cffafe",
+      "icon_name": "users"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每周一「09:00」整理本周要投递的岗位，针对每个 JD 生成匹配报告",
+      "每天「20:00」汇总今天的投递记录和面试进展",
+      "面试前一天「19:00」根据岗位和简历生成可能的面试问题",
+      "每周五「18:00」复盘本周面试，更新简历中被追问较多的条目",
+      "每月 1 日「10:00」根据新完成的项目更新简历",
+      "每季度第一天「10:00」检查简历时间线和技能栏是否需要更新"
+    ],
+    "en": [
+      "Every Monday at 09:00, list this week's target roles and run a JD match for each",
+      "Every day at 20:00, summarize today's applications and interview progress",
+      "The day before an interview at 19:00, prepare likely questions for that role",
+      "Every Friday at 18:00, review this week's interviews and refine resume items that drew questions",
+      "On the 1st of each month at 10:00, update the resume with newly completed projects",
+      "On the first day of each quarter at 10:00, check the timeline and skills section"
+    ]
+  }
+}

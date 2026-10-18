@@ -1,0 +1,138 @@
+{
+  "id": "hr-recruiter",
+  "label": {
+    "zh": "招聘专家",
+    "en": "HR Recruiter"
+  },
+  "description": {
+    "zh": "帮 HR 和用人经理把招聘做得又快又公平：写合规的岗位说明书，制定评分标准批量初筛简历并排序，设计结构化面试题和评估表，汇总多位面试官打分并标出分歧，起草面试邀约和录用、婉拒通知。拒绝歧视性筛选条件。",
+    "en": "Helps HR and hiring managers recruit quickly and fairly: compliant job descriptions, criteria-based resume screening and ranking, structured interview questions and scorecards, multi-interviewer score roll-ups with disagreement flags, and candidate notices. Refuses discriminatory criteria."
+  },
+  "welcome_message": {
+    "zh": "告诉我要招什么岗位，或把一批简历发给我",
+    "en": "Tell me the role you're hiring for, or send me a batch of resumes"
+  },
+  "icon_name": "users",
+  "color": "#C2410C",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "写 JD",
+        "en": "Write a JD"
+      },
+      "description": {
+        "zh": "职责和要求",
+        "en": "Duties and requirements"
+      },
+      "prompt": {
+        "zh": "我们要招 ___，汇报给 ___，主要负责 ___，帮我写一份岗位说明书。",
+        "en": "We're hiring a ___ reporting to ___, responsible for ___. Write a job description."
+      },
+      "color": "#ffedd5",
+      "icon_name": "file-text"
+    },
+    {
+      "title": {
+        "zh": "批量初筛",
+        "en": "Screen resumes"
+      },
+      "description": {
+        "zh": "打分排序",
+        "en": "Score and rank"
+      },
+      "prompt": {
+        "zh": "inbound/简历 里有一批 ___ 岗位的简历，按 ___ 这些要求帮我初筛排序。",
+        "en": "inbound/简历 has resumes for ___. Screen and rank them against: ___."
+      },
+      "color": "#dcfce7",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": {
+        "zh": "面试题",
+        "en": "Interview questions"
+      },
+      "description": {
+        "zh": "结构化 + 评分锚点",
+        "en": "Structured with anchors"
+      },
+      "prompt": {
+        "zh": "为 ___ 岗位设计一套结构化面试题，考察 ___，并生成评估表。",
+        "en": "Design structured interview questions for ___ covering ___, with a scorecard."
+      },
+      "color": "#e8f4ff",
+      "icon_name": "users"
+    },
+    {
+      "title": {
+        "zh": "汇总打分",
+        "en": "Roll up scores"
+      },
+      "description": {
+        "zh": "多位面试官",
+        "en": "Multiple interviewers"
+      },
+      "prompt": {
+        "zh": "面试官填好的评估表在 ___，帮我汇总并看看哪些候选人分歧大。",
+        "en": "Completed scorecards are in ___. Roll them up and flag disagreements."
+      },
+      "color": "#fef3c7",
+      "icon_name": "activity"
+    },
+    {
+      "title": {
+        "zh": "检查 JD",
+        "en": "Check a JD"
+      },
+      "description": {
+        "zh": "有无歧视用语",
+        "en": "Discriminatory wording"
+      },
+      "prompt": {
+        "zh": "检查这份 JD 有没有不合规或歧视性的表述：___",
+        "en": "Check this JD for non-compliant or discriminatory wording: ___"
+      },
+      "color": "#ffe4e6",
+      "icon_name": "shield-check"
+    },
+    {
+      "title": {
+        "zh": "候选人通知",
+        "en": "Candidate notice"
+      },
+      "description": {
+        "zh": "邀约 / 录用 / 婉拒",
+        "en": "Invite / offer / decline"
+      },
+      "prompt": {
+        "zh": "给候选人 ___ 写一封 ___（面试邀约/录用/婉拒）通知。",
+        "en": "Write a ___ (interview invite/offer/decline) notice for candidate ___."
+      },
+      "color": "#cffafe",
+      "icon_name": "mail"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每个工作日「09:30」初筛 inbound 中新收到的简历，更新排序表",
+      "每周一「10:00」汇总各岗位的简历数、初筛通过数和面试安排",
+      "每周五「17:00」汇总本周面试评估表，列出待决策的候选人",
+      "面试前一天「16:00」给面试官发送候选人简历要点和面试题",
+      "每月 1 日「09:00」统计上月招聘漏斗：投递、初筛、面试、录用",
+      "每季度第一天「10:00」检查在招岗位的 JD 是否需要更新"
+    ],
+    "en": [
+      "Every workday at 09:30, screen new resumes in inbound and update the ranking",
+      "Every Monday at 10:00, summarize resumes, passes and interviews per role",
+      "Every Friday at 17:00, roll up this week's scorecards and list pending decisions",
+      "The day before an interview at 16:00, send interviewers the resume highlights and questions",
+      "On the 1st of each month at 09:00, report last month's hiring funnel",
+      "On the first day of each quarter at 10:00, review open JDs for updates"
+    ]
+  }
+}
