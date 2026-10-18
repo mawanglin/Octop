@@ -1,0 +1,138 @@
+{
+  "id": "pet-care",
+  "label": {
+    "zh": "宠物照护",
+    "en": "Pet Care"
+  },
+  "description": {
+    "zh": "帮猫狗主人做好日常照顾：按出生日期或上次记录排出疫苗和驱虫日程并导出手机提醒，讲解喂养换粮、洗护、绝育和正向训练，列出有毒食物和需要立即就医的危险信号。不诊断、不开药，健康问题以兽医为准。",
+    "en": "Helps cat and dog owners with everyday care: vaccine and deworming schedules from birth dates or past records with phone reminders, feeding and food transitions, grooming, neutering and positive training, plus toxic foods and red flags that need a vet. No diagnoses or prescriptions."
+  },
+  "welcome_message": {
+    "zh": "告诉我你家毛孩子是猫还是狗、多大了",
+    "en": "Tell me whether you have a cat or a dog and how old they are"
+  },
+  "icon_name": "heart",
+  "color": "#A16207",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "疫苗日程",
+        "en": "Vaccine plan"
+      },
+      "description": {
+        "zh": "按年龄排",
+        "en": "By age"
+      },
+      "prompt": {
+        "zh": "我家 ___（猫/狗）___ 出生，帮我排疫苗和驱虫日程。",
+        "en": "My ___ (cat/dog) was born on ___. Plan vaccines and deworming."
+      },
+      "color": "#fef3c7",
+      "icon_name": "bell"
+    },
+    {
+      "title": {
+        "zh": "下次打针",
+        "en": "Next shot"
+      },
+      "description": {
+        "zh": "按上次记录",
+        "en": "From past records"
+      },
+      "prompt": {
+        "zh": "上次打疫苗是 ___，驱虫是 ___，下次什么时候？",
+        "en": "Last vaccine ___, last deworming ___. When is the next?"
+      },
+      "color": "#e8f4ff",
+      "icon_name": "activity"
+    },
+    {
+      "title": {
+        "zh": "误食了",
+        "en": "It ate something"
+      },
+      "description": {
+        "zh": "要不要去医院",
+        "en": "Need a vet?"
+      },
+      "prompt": {
+        "zh": "我家 ___ 吃了 ___，现在 ___，要去医院吗？",
+        "en": "My ___ ate ___ and is now ___. Should we see a vet?"
+      },
+      "color": "#ffe4e6",
+      "icon_name": "shield-check"
+    },
+    {
+      "title": {
+        "zh": "换粮喂养",
+        "en": "Feeding"
+      },
+      "description": {
+        "zh": "换粮和喂量",
+        "en": "Switching food"
+      },
+      "prompt": {
+        "zh": "___ 个月的 ___，一天喂几次？怎么换粮？",
+        "en": "A ___-month-old ___: how often to feed and how to switch food?"
+      },
+      "color": "#dcfce7",
+      "icon_name": "utensils"
+    },
+    {
+      "title": {
+        "zh": "行为训练",
+        "en": "Training"
+      },
+      "description": {
+        "zh": "正向奖励",
+        "en": "Positive methods"
+      },
+      "prompt": {
+        "zh": "我家 ___ 总是 ___（乱尿/扑人/咬东西），怎么训练？",
+        "en": "My ___ keeps ___ (peeing indoors/jumping/chewing). How do I train it?"
+      },
+      "color": "#cffafe",
+      "icon_name": "sparkles"
+    },
+    {
+      "title": {
+        "zh": "导出提醒",
+        "en": "Reminders"
+      },
+      "description": {
+        "zh": "手机日历",
+        "en": "Phone calendar"
+      },
+      "prompt": {
+        "zh": "把 ___ 的疫苗驱虫日程导出到手机日历。",
+        "en": "Export ___'s vaccine and deworming schedule to my phone calendar."
+      },
+      "color": "#f1f5f9",
+      "icon_name": "monitor"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每月 1 日「09:00」列出本月的疫苗和驱虫待办",
+      "疫苗接种前 3 天「20:00」提醒预约宠物医院",
+      "每月体外驱虫日「09:00」提醒用药并记录",
+      "每周日「10:00」提醒称体重并记录",
+      "每年 3 月 1 日「10:00」提醒做年度体检和狂犬疫苗",
+      "每季度第一天「10:00」检查宠物食品、驱虫药库存和保质期"
+    ],
+    "en": [
+      "On the 1st of each month at 09:00, list this month's vaccines and deworming",
+      "3 days before a vaccination at 20:00, remind to book the vet",
+      "On each monthly external deworming day at 09:00, remind to apply and log it",
+      "Every Sunday at 10:00, remind to weigh and log",
+      "On March 1 at 10:00, remind about the annual checkup and rabies shot",
+      "On the first day of each quarter at 10:00, check food and medicine stock and expiry"
+    ]
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "id": "english-coach",
+  "label": {
+    "zh": "英语学习教练",
+    "en": "English Coach"
+  },
+  "description": {
+    "zh": "陪你天天学英语：生词整理进单词本，按遗忘曲线安排复习、出默写测验；逐句批改英文邮件、作文和简历并讲清原因；讲解语法和易混词，用英文陪练口语和面试，按目标和时间制定学习计划。",
+    "en": "Daily English coaching: a vocabulary book with spaced review and printable quizzes, sentence-by-sentence feedback on emails, essays and resumes, grammar and word-choice explanations, speaking and interview practice, and study plans fitted to your goals."
+  },
+  "welcome_message": {
+    "zh": "把今天的生词或想改的英文发给我",
+    "en": "Send me today's new words or the English you want polished"
+  },
+  "icon_name": "globe",
+  "color": "#4F46E5",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "加生词",
+        "en": "Add words"
+      },
+      "description": {
+        "zh": "整理进单词本",
+        "en": "Into the word book"
+      },
+      "prompt": {
+        "zh": "今天读到这些生词：___，帮我整理进单词本。",
+        "en": "I came across these words today: ___. Add them to my word book."
+      },
+      "color": "#e0e7ff",
+      "icon_name": "book-open"
+    },
+    {
+      "title": {
+        "zh": "今天背什么",
+        "en": "Today's review"
+      },
+      "description": {
+        "zh": "遗忘曲线",
+        "en": "Spaced review"
+      },
+      "prompt": {
+        "zh": "今天单词本里有哪些词要复习？",
+        "en": "Which words are due for review today?"
+      },
+      "color": "#fef3c7",
+      "icon_name": "bell"
+    },
+    {
+      "title": {
+        "zh": "默写测验",
+        "en": "Quiz me"
+      },
+      "description": {
+        "zh": "打印默写卷",
+        "en": "Printable quiz"
+      },
+      "prompt": {
+        "zh": "从单词本出 ___ 道默写题，看中文写英文。",
+        "en": "Make a ___-question quiz from my word book, Chinese to English."
+      },
+      "color": "#dcfce7",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": {
+        "zh": "批改写作",
+        "en": "Correct my writing"
+      },
+      "description": {
+        "zh": "逐句讲原因",
+        "en": "Explain each fix"
+      },
+      "prompt": {
+        "zh": "帮我批改这段英文，并说明为什么要改：___",
+        "en": "Correct this English and explain each change: ___"
+      },
+      "color": "#ffe4e6",
+      "icon_name": "pen-tool"
+    },
+    {
+      "title": {
+        "zh": "口语陪练",
+        "en": "Speaking practice"
+      },
+      "description": {
+        "zh": "英文对话",
+        "en": "Conversation"
+      },
+      "prompt": {
+        "zh": "Let's practice speaking about ___. 请用英文和我对话，并纠正我的错误。",
+        "en": "Let's practice speaking about ___. Correct my mistakes as we go."
+      },
+      "color": "#cffafe",
+      "icon_name": "message-square"
+    },
+    {
+      "title": {
+        "zh": "学习计划",
+        "en": "Study plan"
+      },
+      "description": {
+        "zh": "按目标排",
+        "en": "Goal-based"
+      },
+      "prompt": {
+        "zh": "我想在 ___ 之前达到 ___（考试/工作），每天能学 ___ 分钟，帮我排计划。",
+        "en": "I want to reach ___ (exam/work) by ___ with ___ minutes a day. Make a plan."
+      },
+      "color": "#f1f5f9",
+      "icon_name": "trending-up"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每天「07:30」列出今天要复习的单词",
+      "每天「21:00」提醒把今天遇到的生词发给我整理",
+      "每周日「20:00」生成本周生词默写卷",
+      "每周三「20:00」发一个英文话题进行口语练习",
+      "每月最后一天「20:00」统计单词本新增和已掌握数量，调整计划",
+      "考试前 30 天「09:00」切换为真题和错题复习计划"
+    ],
+    "en": [
+      "Every day at 07:30, list today's words to review",
+      "Every day at 21:00, remind to send today's new words",
+      "Every Sunday at 20:00, generate this week's vocabulary quiz",
+      "Every Wednesday at 20:00, send a topic for speaking practice",
+      "On the last day of each month at 20:00, report new and mastered words and adjust the plan",
+      "30 days before the exam at 09:00, switch to past papers and error review"
+    ]
+  }
+}
