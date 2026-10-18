@@ -1,0 +1,138 @@
+{
+  "id": "doc-translator",
+  "label": {
+    "zh": "文档翻译专家",
+    "en": "Document Translator"
+  },
+  "description": {
+    "zh": "翻译合同、报告、产品说明、论文和商务材料：Word 文档抽取—翻译—回填，保留样式、编号、表格、页眉页脚和加粗颜色；建立术语表统一译法，自动检查漏译、数字缺失、格式标签和术语不一致，交付前逐段自查。",
+    "en": "Translates contracts, reports, manuals, papers and business documents: extracts, translates and refills Word files keeping styles, numbering, tables, headers and inline formatting; builds glossaries and checks for omissions, missing numbers, tag mismatches and inconsistent terms."
+  },
+  "welcome_message": {
+    "zh": "把要翻译的 Word 文档或文字发给我，告诉我译成什么语言",
+    "en": "Send me a Word file or text and tell me the target language"
+  },
+  "icon_name": "globe",
+  "color": "#0E7490",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "翻译 Word",
+        "en": "Translate Word"
+      },
+      "description": {
+        "zh": "保留排版",
+        "en": "Keep the layout"
+      },
+      "prompt": {
+        "zh": "把 ___ 翻译成 ___，保留原文排版，用于 ___。",
+        "en": "Translate ___ into ___, keeping the layout. It's for ___."
+      },
+      "color": "#cffafe",
+      "icon_name": "globe"
+    },
+    {
+      "title": {
+        "zh": "建术语表",
+        "en": "Build glossary"
+      },
+      "description": {
+        "zh": "统一译法",
+        "en": "Consistent terms"
+      },
+      "prompt": {
+        "zh": "先通读 ___，列出专有名词和术语的建议译法，我确认后再翻译。",
+        "en": "Read ___ first and propose translations for names and terms; I'll confirm before you translate."
+      },
+      "color": "#dcfce7",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": {
+        "zh": "合同翻译",
+        "en": "Contract"
+      },
+      "description": {
+        "zh": "严谨准确",
+        "en": "Precise wording"
+      },
+      "prompt": {
+        "zh": "把这份合同翻译成 ___，按法律文件的译法，存疑处标出来。",
+        "en": "Translate this contract into ___ using legal conventions; flag anything uncertain."
+      },
+      "color": "#f1f5f9",
+      "icon_name": "shield-check"
+    },
+    {
+      "title": {
+        "zh": "校对译文",
+        "en": "Review translation"
+      },
+      "description": {
+        "zh": "对照原文",
+        "en": "Against the source"
+      },
+      "prompt": {
+        "zh": "这是原文 ___ 和译文 ___，帮我逐段校对，指出漏译和错译。",
+        "en": "Here's the source ___ and translation ___. Review paragraph by paragraph for errors."
+      },
+      "color": "#ffe4e6",
+      "icon_name": "file-text"
+    },
+    {
+      "title": {
+        "zh": "营销文案",
+        "en": "Marketing copy"
+      },
+      "description": {
+        "zh": "本地化",
+        "en": "Localized"
+      },
+      "prompt": {
+        "zh": "把这段宣传文案翻译成 ___，要地道，给 2 个版本。",
+        "en": "Translate this marketing copy into ___, natural and local, in 2 versions."
+      },
+      "color": "#fef3c7",
+      "icon_name": "sparkles"
+    },
+    {
+      "title": {
+        "zh": "论文摘要",
+        "en": "Paper abstract"
+      },
+      "description": {
+        "zh": "学术规范",
+        "en": "Academic style"
+      },
+      "prompt": {
+        "zh": "把我的论文摘要和关键词翻译成英文：___",
+        "en": "Translate my paper abstract and keywords into English: ___"
+      },
+      "color": "#e8f4ff",
+      "icon_name": "book-open"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每个工作日「09:00」检查 inbound 中新上传的待翻译文档并估算字数",
+      "每天「18:00」汇报进行中的翻译任务进度",
+      "每周五「17:00」整理本周新增术语，更新术语表",
+      "交付前一天「15:00」对译稿运行一致性检查，列出待确认项",
+      "每月 1 日「10:00」汇总上月翻译的文档和字数",
+      "每季度第一天「10:00」复核术语表中长期未使用或有争议的译法"
+    ],
+    "en": [
+      "Every workday at 09:00, check inbound for new documents and estimate word counts",
+      "Every day at 18:00, report progress on active translation jobs",
+      "Every Friday at 17:00, add this week's new terms to the glossary",
+      "The day before delivery at 15:00, run consistency checks and list open questions",
+      "On the 1st of each month at 10:00, summarize last month's documents and word counts",
+      "On the first day of each quarter at 10:00, review unused or disputed glossary entries"
+    ]
+  }
+}

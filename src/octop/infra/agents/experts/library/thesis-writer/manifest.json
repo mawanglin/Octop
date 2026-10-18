@@ -1,0 +1,138 @@
+{
+  "id": "thesis-writer",
+  "label": {
+    "zh": "论文写作专家",
+    "en": "Thesis Writer"
+  },
+  "description": {
+    "zh": "陪你完成学位论文和期刊论文：梳理选题和研究问题，搭建章节结构，指导摘要、综述、方法、结果、讨论的写法，把参考文献整理成 GB/T 7714 格式，检查章节编号、图表编号和引用对应关系。坚持学术诚信，不代写、不编造文献。",
+    "en": "Guides theses and journal papers: research questions, chapter outlines, how to write each section, GB/T 7714 reference formatting, and checks for heading, figure, table and citation numbering. Upholds academic integrity: no ghostwriting or fabricated references."
+  },
+  "welcome_message": {
+    "zh": "告诉我你的论文题目、学科和现在的进度",
+    "en": "Tell me your thesis topic, field and current progress"
+  },
+  "icon_name": "book-open",
+  "color": "#4338CA",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "搭提纲",
+        "en": "Build outline"
+      },
+      "description": {
+        "zh": "章节结构",
+        "en": "Chapter structure"
+      },
+      "prompt": {
+        "zh": "我的论文题目是 ___（___ 专业 ___ 学位），帮我搭一个到二级标题的提纲。",
+        "en": "My thesis is ___ (___ field, ___ degree). Draft an outline to second-level headings."
+      },
+      "color": "#e0e7ff",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": {
+        "zh": "改摘要",
+        "en": "Revise abstract"
+      },
+      "description": {
+        "zh": "四要素",
+        "en": "Four elements"
+      },
+      "prompt": {
+        "zh": "帮我修改摘要，指出缺了哪些要素：___",
+        "en": "Revise my abstract and point out missing elements: ___"
+      },
+      "color": "#e8f4ff",
+      "icon_name": "pen-tool"
+    },
+    {
+      "title": {
+        "zh": "文献综述",
+        "en": "Literature review"
+      },
+      "description": {
+        "zh": "按主题组织",
+        "en": "Organize by theme"
+      },
+      "prompt": {
+        "zh": "我读了这些文献 ___，帮我设计综述的结构和每段的论点。",
+        "en": "I've read ___. Help me structure the review and each paragraph's argument."
+      },
+      "color": "#dcfce7",
+      "icon_name": "book-open"
+    },
+    {
+      "title": {
+        "zh": "参考文献",
+        "en": "References"
+      },
+      "description": {
+        "zh": "GB/T 7714",
+        "en": "GB/T 7714"
+      },
+      "prompt": {
+        "zh": "把 ___（BibTeX 文件）整理成 GB/T 7714 格式，列出缺少的信息。",
+        "en": "Format ___ (BibTeX) to GB/T 7714 and list missing fields."
+      },
+      "color": "#fef3c7",
+      "icon_name": "file-text"
+    },
+    {
+      "title": {
+        "zh": "格式检查",
+        "en": "Format check"
+      },
+      "description": {
+        "zh": "编号和引用",
+        "en": "Numbering & citations"
+      },
+      "prompt": {
+        "zh": "检查 ___（论文 Word）的章节编号、图表编号和参考文献引用。",
+        "en": "Check headings, figure/table numbering and citations in ___."
+      },
+      "color": "#ffe4e6",
+      "icon_name": "shield-check"
+    },
+    {
+      "title": {
+        "zh": "答辩准备",
+        "en": "Defense prep"
+      },
+      "description": {
+        "zh": "常见问题",
+        "en": "Likely questions"
+      },
+      "prompt": {
+        "zh": "我下周答辩，题目 ___，帮我准备答辩提纲和可能的提问。",
+        "en": "My defense is next week on ___. Prepare an outline and likely questions."
+      },
+      "color": "#cffafe",
+      "icon_name": "presentation"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每周一「09:00」根据论文进度计划列出本周写作任务",
+      "每天「21:00」提醒记录今天完成的写作字数和遇到的问题",
+      "每周日「20:00」检查本周新增文献，更新参考文献列表",
+      "每两周的周五「16:00」运行格式检查，列出编号和引用问题",
+      "提交截止前 7 天「10:00」生成定稿检查清单",
+      "答辩前 3 天「19:00」整理答辩提纲和常见问题"
+    ],
+    "en": [
+      "Every Monday at 09:00, list this week's writing tasks from the thesis plan",
+      "Every day at 21:00, remind to log today's word count and blockers",
+      "Every Sunday at 20:00, add newly read papers to the reference list",
+      "Every other Friday at 16:00, run the format check and list numbering and citation issues",
+      "7 days before the deadline at 10:00, produce the final submission checklist",
+      "3 days before the defense at 19:00, prepare the defense outline and likely questions"
+    ]
+  }
+}
