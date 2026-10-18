@@ -1,0 +1,138 @@
+{
+  "id": "nas-manager",
+  "label": {
+    "zh": "NAS 管家",
+    "en": "NAS Manager"
+  },
+  "description": {
+    "zh": "让 NAS 用得稳、用得安全：解读硬盘 SMART 报告并按正常/关注/警告/危险分级，统计容量并预测多久写满，检查 docker-compose 的端口冲突、权限和明文密码，制定 3-2-1 备份方案和巡检计划。只读诊断，改动由你确认后执行。",
+    "en": "Keeps your NAS healthy and safe: graded SMART reports, capacity forecasts, docker-compose checks for port clashes, risky privileges and plaintext secrets, plus 3-2-1 backup plans and routine checkups. Read-only diagnostics; you approve every change."
+  },
+  "welcome_message": {
+    "zh": "告诉我 NAS 的系统和型号，或把 SMART 报告、compose 文件发给我",
+    "en": "Tell me your NAS system, or send me SMART reports and compose files"
+  },
+  "icon_name": "hard-drive",
+  "color": "#334155",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "硬盘体检",
+        "en": "Disk health"
+      },
+      "description": {
+        "zh": "SMART 分级",
+        "en": "Graded SMART"
+      },
+      "prompt": {
+        "zh": "这是我 NAS 硬盘的 smartctl 输出 ___，帮我看看有没有风险。",
+        "en": "Here's smartctl output for my NAS disks ___. Any risks?"
+      },
+      "color": "#f1f5f9",
+      "icon_name": "hard-drive"
+    },
+    {
+      "title": {
+        "zh": "空间预测",
+        "en": "Capacity forecast"
+      },
+      "description": {
+        "zh": "多久会满",
+        "en": "When it fills up"
+      },
+      "prompt": {
+        "zh": "统计 ___ 的容量，并帮我设置每周记录，预测多久会满。",
+        "en": "Report capacity for ___ and set up weekly records to forecast when it fills."
+      },
+      "color": "#e8f4ff",
+      "icon_name": "trending-up"
+    },
+    {
+      "title": {
+        "zh": "检查 compose",
+        "en": "Check compose"
+      },
+      "description": {
+        "zh": "安全和冲突",
+        "en": "Safety and clashes"
+      },
+      "prompt": {
+        "zh": "检查这个 docker-compose 文件有没有问题：___",
+        "en": "Check this docker-compose file for problems: ___"
+      },
+      "color": "#cffafe",
+      "icon_name": "shield-check"
+    },
+    {
+      "title": {
+        "zh": "备份方案",
+        "en": "Backup plan"
+      },
+      "description": {
+        "zh": "3-2-1",
+        "en": "3-2-1"
+      },
+      "prompt": {
+        "zh": "我有 ___ TB 照片和文档，预算 ___，帮我设计备份方案。",
+        "en": "I have ___ TB of photos and documents, budget ___. Design a backup plan."
+      },
+      "color": "#dcfce7",
+      "icon_name": "refresh-cw"
+    },
+    {
+      "title": {
+        "zh": "换硬盘",
+        "en": "Replace a disk"
+      },
+      "description": {
+        "zh": "重建前准备",
+        "en": "Before rebuilding"
+      },
+      "prompt": {
+        "zh": "我的 ___ 硬盘报警了，存储池是 ___，怎么安全更换？",
+        "en": "My ___ disk is warning; pool type ___. How do I replace it safely?"
+      },
+      "color": "#ffe4e6",
+      "icon_name": "wrench"
+    },
+    {
+      "title": {
+        "zh": "远程访问",
+        "en": "Remote access"
+      },
+      "description": {
+        "zh": "安全方案",
+        "en": "Safe options"
+      },
+      "prompt": {
+        "zh": "我想在外面访问 NAS 上的 ___，怎么做比较安全？",
+        "en": "I want to reach ___ on my NAS from outside. What's the safe way?"
+      },
+      "color": "#fef3c7",
+      "icon_name": "wifi"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每月 1 日「09:00」读取 inbound 中的 SMART 报告，与上月对比关键属性",
+      "每周日「22:00」记录各存储卷容量，更新写满预测",
+      "每周一「09:00」检查最近一次备份是否成功",
+      "每季度第一天「10:00」提醒做一次恢复演练",
+      "每月 15 日「10:00」检查 compose 文件和镜像版本是否需要更新",
+      "每半年「10:00」检查 UPS、风扇和机箱散热"
+    ],
+    "en": [
+      "On the 1st of each month at 09:00, compare new SMART reports in inbound with last month",
+      "Every Sunday at 22:00, record volume usage and update the fill-up forecast",
+      "Every Monday at 09:00, check that the latest backup succeeded",
+      "On the first day of each quarter at 10:00, remind to run a restore drill",
+      "On the 15th of each month at 10:00, review compose files and image versions",
+      "Every six months at 10:00, check the UPS, fans and cooling"
+    ]
+  }
+}
