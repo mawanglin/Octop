@@ -1,0 +1,138 @@
+{
+  "id": "home-docs",
+  "label": {
+    "zh": "家庭文档管家",
+    "en": "Household Documents"
+  },
+  "description": {
+    "zh": "管好一家人的身份证、护照、驾驶证、保单、租房合同和保修卡：建台账记清存放位置和到期日，提前提醒续办续保，导出手机日历提醒，并给出换证、续保、补办的材料清单和办理渠道。证件号只保留后 4 位。",
+    "en": "Keeps track of the family's IDs, passports, licenses, insurance policies, leases and warranties: a ledger of where each is kept and when it expires, early reminders, calendar exports, and checklists for renewals and replacements. Stores only the last 4 digits of numbers."
+  },
+  "welcome_message": {
+    "zh": "告诉我家里有哪些证件和重要文件，我帮你建台账",
+    "en": "Tell me which documents your family has and I'll build a ledger"
+  },
+  "icon_name": "file-text",
+  "color": "#0369A1",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "建台账",
+        "en": "Build ledger"
+      },
+      "description": {
+        "zh": "证件保单合同",
+        "en": "IDs, policies, leases"
+      },
+      "prompt": {
+        "zh": "帮我建一张家庭证件和重要文件台账，家里有 ___。",
+        "en": "Build a ledger of our documents. We have ___."
+      },
+      "color": "#e0f2fe",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": {
+        "zh": "快到期的",
+        "en": "Expiring soon"
+      },
+      "description": {
+        "zh": "提前提醒",
+        "en": "Early reminders"
+      },
+      "prompt": {
+        "zh": "看看台账里 ___ 天内有哪些要到期的。",
+        "en": "What expires in the next ___ days?"
+      },
+      "color": "#ffe4e6",
+      "icon_name": "bell"
+    },
+    {
+      "title": {
+        "zh": "日历提醒",
+        "en": "Calendar reminders"
+      },
+      "description": {
+        "zh": "导入手机",
+        "en": "Import to phone"
+      },
+      "prompt": {
+        "zh": "把台账的到期提醒导出到手机日历。",
+        "en": "Export the ledger's reminders to my phone calendar."
+      },
+      "color": "#dcfce7",
+      "icon_name": "monitor"
+    },
+    {
+      "title": {
+        "zh": "换证材料",
+        "en": "Renewal checklist"
+      },
+      "description": {
+        "zh": "带什么去哪办",
+        "en": "What & where"
+      },
+      "prompt": {
+        "zh": "___（护照/驾驶证/身份证）快到期了，换证要带什么、去哪里办？",
+        "en": "My ___ (passport/license/ID) is expiring. What do I bring and where do I go?"
+      },
+      "color": "#fef3c7",
+      "icon_name": "file-text"
+    },
+    {
+      "title": {
+        "zh": "证件丢了",
+        "en": "Lost document"
+      },
+      "description": {
+        "zh": "补办步骤",
+        "en": "Replacement steps"
+      },
+      "prompt": {
+        "zh": "我的 ___ 丢了，现在该做什么？",
+        "en": "I lost my ___. What should I do now?"
+      },
+      "color": "#f1f5f9",
+      "icon_name": "shield-check"
+    },
+    {
+      "title": {
+        "zh": "出行检查",
+        "en": "Trip check"
+      },
+      "description": {
+        "zh": "证件和保险",
+        "en": "Documents & insurance"
+      },
+      "prompt": {
+        "zh": "我们 ___ 要去 ___，出发前要检查哪些证件和保险？",
+        "en": "We're going to ___ on ___. Which documents and insurance should we check?"
+      },
+      "color": "#cffafe",
+      "icon_name": "map-pin"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每月 1 日「09:00」列出 60 天内到期的证件、保单和合同",
+      "每周一「09:00」提醒已过期但尚未处理的项目",
+      "车险到期前 30 天「10:00」提醒比价续保",
+      "护照到期前 180 天「10:00」提醒预约换发",
+      "租房合同到期前 60 天「10:00」提醒和房东商量续租",
+      "每年 1 月 2 日「10:00」提醒检查一遍台账并更新存放位置"
+    ],
+    "en": [
+      "On the 1st of each month at 09:00, list documents, policies and leases expiring within 60 days",
+      "Every Monday at 09:00, remind about expired items still pending",
+      "30 days before car insurance expires at 10:00, remind to compare quotes",
+      "180 days before a passport expires at 10:00, remind to book a renewal",
+      "60 days before the lease ends at 10:00, remind to discuss renewal",
+      "On January 2 at 10:00, remind to review the ledger and storage locations"
+    ]
+  }
+}
