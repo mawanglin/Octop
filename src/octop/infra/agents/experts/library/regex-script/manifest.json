@@ -1,0 +1,138 @@
+{
+  "id": "regex-script",
+  "label": {
+    "zh": "正则与脚本助手",
+    "en": "Regex & Script Helper"
+  },
+  "description": {
+    "zh": "解决批量处理的小问题：写和讲解正则（提取手机号、邮箱、日期、金额，校验格式，批量替换），用正反样例验证并发现回溯陷阱；写批量改名、整理文件、合并表格、转换编码、定时备份等 Python、PowerShell、Bash 小脚本，默认先预览再执行。",
+    "en": "Solves batch-processing chores: writes and explains regexes (extract phones, emails, dates, amounts; validate; replace), verifies them with positive and negative samples and catches backtracking traps; writes Python, PowerShell and Bash scripts for renaming, tidying, merging sheets, re-encoding and backups, preview-first."
+  },
+  "welcome_message": {
+    "zh": "把样例和想要的结果发给我",
+    "en": "Send me samples and the result you want"
+  },
+  "icon_name": "terminal",
+  "color": "#15803D",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "写正则",
+        "en": "Write a regex"
+      },
+      "description": {
+        "zh": "提取或校验",
+        "en": "Extract or validate"
+      },
+      "prompt": {
+        "zh": "从这些文字里提取 ___：___",
+        "en": "Extract ___ from this text: ___"
+      },
+      "color": "#dcfce7",
+      "icon_name": "terminal"
+    },
+    {
+      "title": {
+        "zh": "验证正则",
+        "en": "Test a regex"
+      },
+      "description": {
+        "zh": "正反样例",
+        "en": "Positive and negative"
+      },
+      "prompt": {
+        "zh": "我写的正则 ___，应该匹配 ___，不应该匹配 ___，对吗？",
+        "en": "My regex ___ should match ___ and not ___. Is it right?"
+      },
+      "color": "#e8f4ff",
+      "icon_name": "shield-check"
+    },
+    {
+      "title": {
+        "zh": "批量替换",
+        "en": "Batch replace"
+      },
+      "description": {
+        "zh": "查找替换",
+        "en": "Find and replace"
+      },
+      "prompt": {
+        "zh": "把 ___ 里所有 ___ 替换成 ___，在 ___（VS Code / Excel / Python）里用。",
+        "en": "Replace every ___ with ___ in ___ (VS Code / Excel / Python)."
+      },
+      "color": "#fef3c7",
+      "icon_name": "refresh-cw"
+    },
+    {
+      "title": {
+        "zh": "批量改名",
+        "en": "Batch rename"
+      },
+      "description": {
+        "zh": "先预览",
+        "en": "Preview first"
+      },
+      "prompt": {
+        "zh": "把 ___ 文件夹里的文件按 ___ 规则批量改名，系统是 ___。",
+        "en": "Rename files in ___ by rule ___ on ___."
+      },
+      "color": "#ffe4e6",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": {
+        "zh": "合并表格",
+        "en": "Merge sheets"
+      },
+      "description": {
+        "zh": "多个 Excel/CSV",
+        "en": "Many Excel/CSV"
+      },
+      "prompt": {
+        "zh": "把 ___ 里的多个 Excel 合并成一个，加一列来源文件名。",
+        "en": "Merge the Excel files in ___ into one with a source column."
+      },
+      "color": "#cffafe",
+      "icon_name": "file-text"
+    },
+    {
+      "title": {
+        "zh": "定时备份",
+        "en": "Scheduled backup"
+      },
+      "description": {
+        "zh": "脚本 + 定时",
+        "en": "Script + schedule"
+      },
+      "prompt": {
+        "zh": "每天 ___ 把 ___ 目录备份到 ___，保留最近 ___ 份。",
+        "en": "Back up ___ to ___ every day at ___, keeping ___ copies."
+      },
+      "color": "#f1f5f9",
+      "icon_name": "hard-drive"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每天「02:00」执行目录备份脚本并汇报结果",
+      "每周一「09:00」整理 inbound 中的新文件并按规则改名",
+      "每月 1 日「10:00」合并各部门上报的表格",
+      "每周五「17:00」清理下载目录中超过 30 天的临时文件（先预览）",
+      "每天「08:00」从日志中提取错误行并汇总",
+      "每季度第一天「10:00」检查常用脚本是否仍能正常运行"
+    ],
+    "en": [
+      "Every day at 02:00, run the backup script and report results",
+      "Every Monday at 09:00, rename new files in inbound by the agreed rule",
+      "On the 1st of each month at 10:00, merge spreadsheets from each team",
+      "Every Friday at 17:00, preview cleanup of downloads older than 30 days",
+      "Every day at 08:00, extract and summarize error lines from logs",
+      "On the first day of each quarter at 10:00, check common scripts still work"
+    ]
+  }
+}

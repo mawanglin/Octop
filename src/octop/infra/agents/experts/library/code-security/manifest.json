@@ -1,0 +1,138 @@
+{
+  "id": "code-security",
+  "label": {
+    "zh": "代码安全扫描",
+    "en": "Code Security Scanner"
+  },
+  "description": {
+    "zh": "发版和开源前的安全体检：找出代码和配置里泄露的密钥、Token、密码，不该提交的 .env、私钥和凭证文件，以及拼接 SQL、eval、shell 注入、不安全反序列化、关闭证书校验等危险写法，按风险分级，给出修复方法、密钥作废和历史清理步骤。结果中的密钥一律打码。",
+    "en": "Security check before release or open-sourcing: leaked keys, tokens and passwords, committed .env, private keys and credentials, plus risky patterns like concatenated SQL, eval, shell injection, unsafe deserialization and disabled TLS checks — graded, with fixes, key rotation and history cleanup. Secrets are always masked."
+  },
+  "welcome_message": {
+    "zh": "告诉我要扫描的项目目录",
+    "en": "Tell me which project folder to scan"
+  },
+  "icon_name": "fingerprint",
+  "color": "#991B1B",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "安全扫描",
+        "en": "Scan"
+      },
+      "description": {
+        "zh": "密钥和危险写法",
+        "en": "Secrets and risky code"
+      },
+      "prompt": {
+        "zh": "扫描 ___ 目录，看看有没有泄露的密钥和危险写法。",
+        "en": "Scan ___ for leaked secrets and risky code."
+      },
+      "color": "#fee2e2",
+      "icon_name": "fingerprint"
+    },
+    {
+      "title": {
+        "zh": "开源前检查",
+        "en": "Before open source"
+      },
+      "description": {
+        "zh": "敏感信息",
+        "en": "Sensitive data"
+      },
+      "prompt": {
+        "zh": "___ 准备开源，帮我做一遍发布前的安全检查。",
+        "en": "We're open-sourcing ___. Run a pre-release security check."
+      },
+      "color": "#fef3c7",
+      "icon_name": "shield-check"
+    },
+    {
+      "title": {
+        "zh": "密钥泄露了",
+        "en": "Key leaked"
+      },
+      "description": {
+        "zh": "怎么处理",
+        "en": "What to do"
+      },
+      "prompt": {
+        "zh": "我不小心把 ___ 的密钥提交到了仓库，现在该怎么办？",
+        "en": "I committed a ___ key to the repo. What now?"
+      },
+      "color": "#ffe4e6",
+      "icon_name": "bell"
+    },
+    {
+      "title": {
+        "zh": "修复写法",
+        "en": "Fix code"
+      },
+      "description": {
+        "zh": "安全改法",
+        "en": "Safe rewrite"
+      },
+      "prompt": {
+        "zh": "这段代码有安全问题吗？怎么改：___",
+        "en": "Is this code safe? How should I fix it: ___"
+      },
+      "color": "#dcfce7",
+      "icon_name": "wrench"
+    },
+    {
+      "title": {
+        "zh": "提交前检查",
+        "en": "Pre-commit"
+      },
+      "description": {
+        "zh": "自动拦截",
+        "en": "Block leaks"
+      },
+      "prompt": {
+        "zh": "帮我配置提交前自动扫描密钥。",
+        "en": "Set up a pre-commit secret scan for me."
+      },
+      "color": "#e8f4ff",
+      "icon_name": "refresh-cw"
+    },
+    {
+      "title": {
+        "zh": ".gitignore",
+        "en": ".gitignore"
+      },
+      "description": {
+        "zh": "敏感文件规则",
+        "en": "Sensitive files"
+      },
+      "prompt": {
+        "zh": "帮我检查并完善项目的 .gitignore，避免提交敏感文件。",
+        "en": "Review and improve my .gitignore to keep sensitive files out."
+      },
+      "color": "#f1f5f9",
+      "icon_name": "file-text"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每个工作日「18:00」扫描主仓库新增的高风险问题",
+      "每次发版前「15:00」执行完整安全扫描并导出报告",
+      "每周一「10:00」汇总未处理的中高风险问题",
+      "每月 1 日「10:00」提醒运行依赖漏洞检查（pip-audit / npm audit）",
+      "每季度第一天「10:00」提醒轮换长期使用的访问密钥",
+      "开源发布前一天「14:00」做一次全量敏感信息检查"
+    ],
+    "en": [
+      "Every workday at 18:00, scan the main repo for new high-risk issues",
+      "Before each release at 15:00, run a full scan and export the report",
+      "Every Monday at 10:00, summarize open medium and high issues",
+      "On the 1st of each month at 10:00, remind to run dependency audits",
+      "On the first day of each quarter at 10:00, remind to rotate long-lived access keys",
+      "The day before open-sourcing at 14:00, run a full sensitive-data check"
+    ]
+  }
+}
