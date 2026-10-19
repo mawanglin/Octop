@@ -50,6 +50,7 @@ _FALLBACK_BUNDLED_AVATAR_IDS = frozenset(
         "cvm-ai-doctor",
         "cvm-cluster-doctor",
         "default",
+        "fullstack-dev",
         "general-assistant",
         "git-helper",
         "karpathy-knowledge-base",
