@@ -1,0 +1,77 @@
+openapi: 3.0.3
+info:
+  title: 示例图书接口
+  version: 1.0.0
+security:
+  - bearerAuth: []
+paths:
+  /health:
+    get:
+      summary: 健康检查
+      security: []
+      responses:
+        "200": {description: ok}
+  /books:
+    get:
+      summary: 图书列表
+      parameters:
+        - name: page
+          in: query
+          schema: {type: integer, default: 1}
+        - name: keyword
+          in: query
+          schema: {type: string}
+      responses:
+        "200": {description: ok}
+        "401": {description: 未登录}
+    post:
+      summary: 新增图书
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: "#/components/schemas/Book"}
+      responses:
+        "201": {description: created}
+        "422": {description: 参数错误}
+  /books/{book_id}:
+    get:
+      summary: 图书详情
+      parameters:
+        - name: book_id
+          in: path
+          required: true
+          schema: {type: integer, example: 1}
+      responses:
+        "200": {description: ok}
+        "404": {description: 不存在}
+    delete:
+      summary: 删除图书
+      parameters:
+        - name: book_id
+          in: path
+          required: true
+          schema: {type: integer}
+      responses:
+        "204": {description: deleted}
+  /authors/{author_id}/books:
+    get:
+      summary: 作者的图书
+      parameters:
+        - name: author_id
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200": {description: ok}
+components:
+  securitySchemes:
+    bearerAuth: {type: http, scheme: bearer}
+  schemas:
+    Book:
+      type: object
+      required: [title, price]
+      properties:
+        title: {type: string, example: 三体}
+        price: {type: number, example: 23.5}
+        tags: {type: array, items: {type: string}}

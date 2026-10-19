@@ -1,0 +1,138 @@
+{
+  "id": "repo-navigator",
+  "label": {
+    "zh": "代码仓库导读",
+    "en": "Repo Navigator"
+  },
+  "description": {
+    "zh": "快速看懂一个陌生代码仓库：统计语言和代码量、目录结构、依赖和框架、入口文件、测试和 CI，生成模块依赖图，整理上手文档，回答“某个功能在哪里实现”。只读分析，不修改代码。",
+    "en": "Understand an unfamiliar codebase fast: languages and size, layout, dependencies and frameworks, entry points, tests and CI, module dependency graphs, onboarding docs, and where a feature lives. Read-only."
+  },
+  "welcome_message": {
+    "zh": "告诉我项目在哪个目录，我先帮你摸清全貌",
+    "en": "Tell me where the project is and I'll map it out"
+  },
+  "icon_name": "network",
+  "color": "#3730A3",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "项目速览",
+        "en": "Quick overview"
+      },
+      "description": {
+        "zh": "语言、框架、入口",
+        "en": "Stack and entry points"
+      },
+      "prompt": {
+        "zh": "帮我看一下 ___ 这个项目：用什么语言和框架、入口在哪、有没有测试。",
+        "en": "Give me an overview of ___: languages, frameworks, entry points and tests."
+      },
+      "color": "#e0e7ff",
+      "icon_name": "network"
+    },
+    {
+      "title": {
+        "zh": "模块关系",
+        "en": "Module graph"
+      },
+      "description": {
+        "zh": "谁依赖谁",
+        "en": "Who depends on whom"
+      },
+      "prompt": {
+        "zh": "画出 ___ 的模块依赖关系，哪些是核心模块，有没有循环依赖？",
+        "en": "Map module dependencies in ___: core modules and any cycles?"
+      },
+      "color": "#e8f4ff",
+      "icon_name": "activity"
+    },
+    {
+      "title": {
+        "zh": "功能在哪",
+        "en": "Find a feature"
+      },
+      "description": {
+        "zh": "定位到文件行号",
+        "en": "File and line"
+      },
+      "prompt": {
+        "zh": "___ 这个功能是在哪里实现的？请求是怎么流转的？",
+        "en": "Where is ___ implemented and how does the request flow?"
+      },
+      "color": "#fef3c7",
+      "icon_name": "map-pin"
+    },
+    {
+      "title": {
+        "zh": "上手文档",
+        "en": "Onboarding guide"
+      },
+      "description": {
+        "zh": "给新人看",
+        "en": "For newcomers"
+      },
+      "prompt": {
+        "zh": "为 ___ 写一份新人上手指南，包括本地运行和核心流程。",
+        "en": "Write an onboarding guide for ___ with local setup and core flows."
+      },
+      "color": "#dcfce7",
+      "icon_name": "file-text"
+    },
+    {
+      "title": {
+        "zh": "技术栈评估",
+        "en": "Stack review"
+      },
+      "description": {
+        "zh": "依赖和风险",
+        "en": "Dependencies and risks"
+      },
+      "prompt": {
+        "zh": "评估 ___ 的技术栈和依赖，有哪些过时或风险点？",
+        "en": "Assess the stack and dependencies of ___: anything outdated or risky?"
+      },
+      "color": "#ffe4e6",
+      "icon_name": "shield-check"
+    },
+    {
+      "title": {
+        "zh": "目录结构",
+        "en": "Directory tree"
+      },
+      "description": {
+        "zh": "带文件数",
+        "en": "With file counts"
+      },
+      "prompt": {
+        "zh": "列出 ___ 的目录结构，说明每个主要目录是做什么的。",
+        "en": "Show the directory tree of ___ and explain each main folder."
+      },
+      "color": "#f1f5f9",
+      "icon_name": "list-todo"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每周一「10:00」扫描主仓库，汇总代码量、依赖和 TODO 变化",
+      "新成员入职当天「09:30」生成项目上手指南",
+      "每月 1 日「10:00」更新模块依赖图，标出新增的相互引用",
+      "每月 15 日「10:00」列出代码行最多的文件，供重构评估",
+      "每次发版前「15:00」检查依赖清单变化",
+      "每季度第一天「10:00」复核技术栈和过时依赖"
+    ],
+    "en": [
+      "Every Monday at 10:00, scan the main repo and summarize size, dependencies and TODO changes",
+      "On a new teammate's first day at 09:30, generate the onboarding guide",
+      "On the 1st of each month at 10:00, refresh the module graph and flag new mutual imports",
+      "On the 15th of each month at 10:00, list the largest files for refactoring review",
+      "Before each release at 15:00, check dependency changes",
+      "On the first day of each quarter at 10:00, review the stack and outdated dependencies"
+    ]
+  }
+}

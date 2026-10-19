@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>待办清单</title>
+<style>
+  :root { --bg: #f8fafc; --card: #ffffff; --text: #0f172a; --muted: #64748b; --accent: #2563eb; --border: #e2e8f0; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0f172a; --card: #1e293b; --text: #e2e8f0; --muted: #94a3b8; --accent: #60a5fa; --border: #334155; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 24px 16px; background: var(--bg); color: var(--text); font: 16px/1.6 system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; }
+  main { max-width: 560px; margin: 0 auto; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  h1 { font-size: 20px; margin: 0 0 12px; }
+  form { display: flex; gap: 8px; }
+  input[type=text] { flex: 1; min-width: 0; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: transparent; color: inherit; font: inherit; }
+  button { padding: 10px 14px; border: 0; border-radius: 8px; background: var(--accent); color: #fff; font: inherit; cursor: pointer; }
+  ul { list-style: none; padding: 0; margin: 16px 0 0; }
+  li { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); overflow-wrap: anywhere; }
+  li.done span { text-decoration: line-through; color: var(--muted); }
+  li span { flex: 1; }
+  .del { background: transparent; color: var(--muted); padding: 4px 8px; }
+  footer { display: flex; justify-content: space-between; margin-top: 12px; color: var(--muted); font-size: 14px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+</style>
+</head>
+<body>
+<main>
+  <h1>待办清单</h1>
+  <form id="add">
+    <label for="text" class="sr-only">新的待办</label>
+    <input id="text" type="text" placeholder="输入待办，回车添加" maxlength="200" required>
+    <button type="submit">添加</button>
+  </form>
+  <ul id="list"></ul>
+  <footer><span id="count">0 项</span><button type="button" class="del" id="export">导出 JSON</button></footer>
+</main>
+<script>
+  const KEY = "todo-items";
+  const load = () => { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch { return []; } };
+  const save = (items) => { try { localStorage.setItem(KEY, JSON.stringify(items)); } catch {} };
+  let items = load();
+  const list = document.getElementById("list");
+  function render() {
+    list.replaceChildren(...items.map((it, i) => {
+      const li = document.createElement("li");
+      li.className = it.done ? "done" : "";
+      const box = document.createElement("input");
+      box.type = "checkbox"; box.checked = it.done; box.setAttribute("aria-label", "完成");
+      box.onchange = () => { items[i].done = box.checked; save(items); render(); };
+      const span = document.createElement("span");
+      span.textContent = it.text;
+      const del = document.createElement("button");
+      del.className = "del"; del.textContent = "删除"; del.type = "button";
+      del.onclick = () => { items.splice(i, 1); save(items); render(); };
+      li.append(box, span, del);
+      return li;
+    }));
+    document.getElementById("count").textContent = `${items.filter(x => !x.done).length} 项未完成 / 共 ${items.length} 项`;
+  }
+  document.getElementById("add").onsubmit = (e) => {
+    e.preventDefault();
+    const input = document.getElementById("text");
+    const text = input.value.trim();
+    if (!text) return;
+    items.push({ text, done: false }); save(items); input.value = ""; render();
+  };
+  document.getElementById("export").onclick = () => {
+    const blob = new Blob([JSON.stringify(items, null, 2)], { type: "application/json" });
+    const a = Object.assign(document.createElement("a"), { href: URL.createObjectURL(blob), download: "todo.json" });
+    a.click(); URL.revokeObjectURL(a.href);
+  };
+  render();
+</script>
+</body>
+</html>

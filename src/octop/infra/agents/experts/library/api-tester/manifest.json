@@ -1,0 +1,138 @@
+{
+  "id": "api-tester",
+  "label": {
+    "zh": "接口测试专家",
+    "en": "API Tester"
+  },
+  "description": {
+    "zh": "把 HTTP 接口测清楚：解析 OpenAPI / Swagger 文档整理接口清单，自动生成测试用例表，对测试环境做只读的冒烟测试，把 curl 转成代码，按等价类和边界值补充业务用例并写成 pytest 自动化测试，整理缺陷报告。",
+    "en": "Tests HTTP APIs properly: endpoint lists from OpenAPI / Swagger, generated test case sheets, read-only smoke tests against test environments, curl-to-code conversion, business cases by equivalence and boundary analysis, pytest automation and defect reports."
+  },
+  "welcome_message": {
+    "zh": "把接口文档或 curl 命令发给我",
+    "en": "Send me your API spec or curl commands"
+  },
+  "icon_name": "zap",
+  "color": "#6D28D9",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "接口清单",
+        "en": "Endpoint list"
+      },
+      "description": {
+        "zh": "读懂文档",
+        "en": "Read the spec"
+      },
+      "prompt": {
+        "zh": "解析这份接口文档 ___，列出所有接口和参数。",
+        "en": "Parse this API spec ___ and list all endpoints and parameters."
+      },
+      "color": "#ede9fe",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": {
+        "zh": "生成用例",
+        "en": "Test cases"
+      },
+      "description": {
+        "zh": "Excel 用例表",
+        "en": "Excel sheet"
+      },
+      "prompt": {
+        "zh": "根据接口文档 ___ 生成测试用例表。",
+        "en": "Generate a test case sheet from spec ___."
+      },
+      "color": "#dcfce7",
+      "icon_name": "file-text"
+    },
+    {
+      "title": {
+        "zh": "冒烟测试",
+        "en": "Smoke test"
+      },
+      "description": {
+        "zh": "只读 GET",
+        "en": "Read-only GET"
+      },
+      "prompt": {
+        "zh": "对测试环境 ___ 跑一遍冒烟测试，文档是 ___。",
+        "en": "Run a smoke test against ___ using spec ___."
+      },
+      "color": "#fef3c7",
+      "icon_name": "zap"
+    },
+    {
+      "title": {
+        "zh": "curl 转代码",
+        "en": "curl to code"
+      },
+      "description": {
+        "zh": "Python httpx",
+        "en": "Python httpx"
+      },
+      "prompt": {
+        "zh": "把这条 curl 转成 Python 代码：___",
+        "en": "Convert this curl to Python: ___"
+      },
+      "color": "#e8f4ff",
+      "icon_name": "terminal"
+    },
+    {
+      "title": {
+        "zh": "自动化测试",
+        "en": "Automate"
+      },
+      "description": {
+        "zh": "pytest 用例",
+        "en": "pytest cases"
+      },
+      "prompt": {
+        "zh": "为接口 ___ 写 pytest 自动化测试，覆盖正常和异常情况。",
+        "en": "Write pytest tests for ___ covering normal and error cases."
+      },
+      "color": "#cffafe",
+      "icon_name": "refresh-cw"
+    },
+    {
+      "title": {
+        "zh": "缺陷报告",
+        "en": "Bug report"
+      },
+      "description": {
+        "zh": "可复现",
+        "en": "Reproducible"
+      },
+      "prompt": {
+        "zh": "接口 ___ 返回了 ___，预期是 ___，帮我写缺陷报告。",
+        "en": "API ___ returned ___, expected ___. Write a bug report."
+      },
+      "color": "#ffe4e6",
+      "icon_name": "shield-check"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每个工作日「09:30」对测试环境跑一遍只读冒烟测试",
+      "每次接口文档更新后「10:00」重新生成测试用例表",
+      "每周五「17:00」汇总本周失败的接口和缺陷",
+      "每次发版前「14:00」对预发布环境执行冒烟测试",
+      "每月 1 日「10:00」检查接口文档中缺少示例和响应定义的接口",
+      "每天「18:00」汇总自动化测试结果"
+    ],
+    "en": [
+      "Every workday at 09:30, run a read-only smoke test on the test environment",
+      "After each spec update at 10:00, regenerate the test case sheet",
+      "Every Friday at 17:00, summarize this week's failing endpoints and bugs",
+      "Before each release at 14:00, smoke-test staging",
+      "On the 1st of each month at 10:00, list endpoints missing examples or responses",
+      "Every day at 18:00, summarize automated test results"
+    ]
+  }
+}

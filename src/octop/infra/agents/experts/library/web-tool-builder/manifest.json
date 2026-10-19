@@ -1,0 +1,138 @@
+{
+  "id": "web-tool-builder",
+  "label": {
+    "zh": "网页小工具专家",
+    "en": "Web Tool Builder"
+  },
+  "description": {
+    "zh": "不会前端也能快速拥有好用的网页小工具：计算器、换算器、表单、清单、抽签、倒计时、数据看板等，做成双击即可打开的单文件 HTML，适配手机和电脑、支持深色模式、数据存在本地；交付前用无头浏览器检查报错并截图。",
+    "en": "Quickly builds handy single-file web tools — calculators, converters, forms, checklists, pickers, timers, dashboards — that open with a double-click, work on phones and desktops, support dark mode and keep data local; checked in a headless browser with screenshots before delivery."
+  },
+  "welcome_message": {
+    "zh": "告诉我你想要一个什么样的小工具",
+    "en": "Tell me what little tool you want"
+  },
+  "icon_name": "laptop",
+  "color": "#06B6D4",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "做个小工具",
+        "en": "Build a tool"
+      },
+      "description": {
+        "zh": "单文件 HTML",
+        "en": "Single HTML file"
+      },
+      "prompt": {
+        "zh": "帮我做一个 ___ 的网页小工具，主要功能是 ___。",
+        "en": "Build a web tool for ___ that does ___."
+      },
+      "color": "#cffafe",
+      "icon_name": "laptop"
+    },
+    {
+      "title": {
+        "zh": "计算器",
+        "en": "Calculator"
+      },
+      "description": {
+        "zh": "按我的公式",
+        "en": "Custom formula"
+      },
+      "prompt": {
+        "zh": "做一个 ___ 计算器，输入 ___，算出 ___。",
+        "en": "Make a ___ calculator: inputs ___, outputs ___."
+      },
+      "color": "#dcfce7",
+      "icon_name": "candlestick-chart"
+    },
+    {
+      "title": {
+        "zh": "数据看板",
+        "en": "Dashboard"
+      },
+      "description": {
+        "zh": "导入 CSV 出图",
+        "en": "CSV to charts"
+      },
+      "prompt": {
+        "zh": "做一个看板，导入 CSV 后按 ___ 显示图表。",
+        "en": "Make a dashboard that charts a CSV by ___."
+      },
+      "color": "#e8f4ff",
+      "icon_name": "trending-up"
+    },
+    {
+      "title": {
+        "zh": "检查网页",
+        "en": "Check a page"
+      },
+      "description": {
+        "zh": "报错和手机适配",
+        "en": "Errors and mobile"
+      },
+      "prompt": {
+        "zh": "检查这个网页有没有报错、手机上显示是否正常：___",
+        "en": "Check this page for errors and mobile layout: ___"
+      },
+      "color": "#fef3c7",
+      "icon_name": "monitor"
+    },
+    {
+      "title": {
+        "zh": "改样式",
+        "en": "Restyle"
+      },
+      "description": {
+        "zh": "配色和布局",
+        "en": "Colors and layout"
+      },
+      "prompt": {
+        "zh": "把这个页面改成 ___ 风格，并支持深色模式。",
+        "en": "Restyle this page as ___ with dark mode."
+      },
+      "color": "#ffe4e6",
+      "icon_name": "palette"
+    },
+    {
+      "title": {
+        "zh": "加功能",
+        "en": "Add a feature"
+      },
+      "description": {
+        "zh": "导入导出",
+        "en": "Import / export"
+      },
+      "prompt": {
+        "zh": "给这个小工具加上 ___ 功能（如导出 Excel、本地保存）。",
+        "en": "Add ___ (e.g. Excel export, local save) to this tool."
+      },
+      "color": "#f1f5f9",
+      "icon_name": "sparkles"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每周一「10:00」检查已交付的小工具页面是否仍能正常打开",
+      "每月 1 日「10:00」检查小工具引用的外部 CDN 是否可访问",
+      "每次修改页面后「立即」重新检查并截图",
+      "每季度第一天「10:00」整理常用小工具清单和使用说明",
+      "每周五「17:00」汇总用户对小工具的修改需求",
+      "每月 15 日「10:00」提醒导出小工具中保存的本地数据作备份"
+    ],
+    "en": [
+      "Every Monday at 10:00, check delivered tools still open correctly",
+      "On the 1st of each month at 10:00, verify external CDNs are reachable",
+      "After each page change, re-check and screenshot",
+      "On the first day of each quarter at 10:00, update the tool list and guides",
+      "Every Friday at 17:00, collect change requests for tools",
+      "On the 15th of each month at 10:00, remind to export locally stored tool data"
+    ]
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "id": "sql-expert",
+  "label": {
+    "zh": "SQL 数据库专家",
+    "en": "SQL Expert"
+  },
+  "description": {
+    "zh": "写正确高效的 SQL：按需求写查询、讲解复杂 SQL、静态检查常见错误和性能隐患（不带 WHERE 的更新删除、= NULL、SELECT *、索引失效写法），解读执行计划、设计索引和表结构，把建表语句画成表关系图。熟悉 MySQL、PostgreSQL、SQLite、SQL Server、Oracle 的差异。",
+    "en": "Writes correct, efficient SQL: queries from requirements, explanations, linting for common bugs and performance traps, execution plan reading, index and schema design, and ER diagrams from DDL. Knows MySQL, PostgreSQL, SQLite, SQL Server and Oracle differences."
+  },
+  "welcome_message": {
+    "zh": "告诉我数据库类型、表结构和想查什么",
+    "en": "Tell me your database, tables and what you want to query"
+  },
+  "icon_name": "server",
+  "color": "#155E75",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "写 SQL",
+        "en": "Write SQL"
+      },
+      "description": {
+        "zh": "按需求",
+        "en": "From requirements"
+      },
+      "prompt": {
+        "zh": "数据库是 ___，表结构 ___，帮我查 ___。",
+        "en": "Database ___, tables ___. Write a query for ___."
+      },
+      "color": "#cffafe",
+      "icon_name": "server"
+    },
+    {
+      "title": {
+        "zh": "检查 SQL",
+        "en": "Check SQL"
+      },
+      "description": {
+        "zh": "常见错误",
+        "en": "Common mistakes"
+      },
+      "prompt": {
+        "zh": "帮我检查这段 SQL 有没有问题：___",
+        "en": "Check this SQL for problems: ___"
+      },
+      "color": "#ffe4e6",
+      "icon_name": "shield-check"
+    },
+    {
+      "title": {
+        "zh": "慢查询优化",
+        "en": "Slow query"
+      },
+      "description": {
+        "zh": "执行计划",
+        "en": "Execution plan"
+      },
+      "prompt": {
+        "zh": "这条 SQL 很慢 ___，执行计划是 ___，怎么优化？",
+        "en": "This query is slow: ___. Plan: ___. How do I speed it up?"
+      },
+      "color": "#fef3c7",
+      "icon_name": "zap"
+    },
+    {
+      "title": {
+        "zh": "索引设计",
+        "en": "Index design"
+      },
+      "description": {
+        "zh": "常用查询",
+        "en": "For common queries"
+      },
+      "prompt": {
+        "zh": "表 ___ 常用这些查询 ___，应该怎么建索引？",
+        "en": "Table ___ runs these queries ___. What indexes should I add?"
+      },
+      "color": "#dcfce7",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": {
+        "zh": "表关系图",
+        "en": "ER diagram"
+      },
+      "description": {
+        "zh": "建表语句转图",
+        "en": "From DDL"
+      },
+      "prompt": {
+        "zh": "把这些建表语句画成表关系图：___",
+        "en": "Turn these CREATE TABLE statements into an ER diagram: ___"
+      },
+      "color": "#e8f4ff",
+      "icon_name": "network"
+    },
+    {
+      "title": {
+        "zh": "讲解 SQL",
+        "en": "Explain SQL"
+      },
+      "description": {
+        "zh": "逐段说明",
+        "en": "Step by step"
+      },
+      "prompt": {
+        "zh": "这段 SQL 是做什么的？逐段讲给我听：___",
+        "en": "What does this SQL do? Walk me through it: ___"
+      },
+      "color": "#f1f5f9",
+      "icon_name": "book-open"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每周一「09:00」检查 inbound 中新提交的 SQL 脚本",
+      "每天「08:30」汇总前一天的慢查询日志，给出优化建议",
+      "每次发版前「16:00」检查数据库变更脚本中的危险语句",
+      "每月 1 日「10:00」更新数据库表关系图",
+      "每季度第一天「10:00」复核大表索引和未使用的索引",
+      "每周五「17:00」整理本周常用查询，沉淀为模板"
+    ],
+    "en": [
+      "Every Monday at 09:00, check new SQL scripts in inbound",
+      "Every day at 08:30, summarize yesterday's slow query log with suggestions",
+      "Before each release at 16:00, scan migration scripts for dangerous statements",
+      "On the 1st of each month at 10:00, refresh the ER diagram",
+      "On the first day of each quarter at 10:00, review indexes on large tables",
+      "Every Friday at 17:00, turn this week's frequent queries into templates"
+    ]
+  }
+}

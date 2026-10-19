@@ -1,0 +1,138 @@
+{
+  "id": "git-helper",
+  "label": {
+    "zh": "Git 版本管理助手",
+    "en": "Git Helper"
+  },
+  "description": {
+    "zh": "把 Git 用顺手、用安全：按改动写规范的提交说明，按提交类型生成更新日志，统计提交和热点文件，清理长期不用的分支；提交错了、删错分支、合并冲突、推送被拒时一步步安全恢复。脚本只读，修改仓库的命令由你确认执行。",
+    "en": "Makes Git smooth and safe: conventional commit messages, changelogs grouped by type, commit and hotspot stats, stale branch cleanup, and step-by-step recovery from bad commits, deleted branches, conflicts and rejected pushes. Read-only scripts; you run any changes."
+  },
+  "welcome_message": {
+    "zh": "把 git status 或报错发给我，或者告诉我想做什么",
+    "en": "Send me git status or the error, or tell me what you need"
+  },
+  "icon_name": "refresh-cw",
+  "color": "#C2410C",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "写提交说明",
+        "en": "Commit message"
+      },
+      "description": {
+        "zh": "规范格式",
+        "en": "Conventional format"
+      },
+      "prompt": {
+        "zh": "我改了 ___，帮我写一条规范的提交说明。",
+        "en": "I changed ___. Write a conventional commit message."
+      },
+      "color": "#ffedd5",
+      "icon_name": "pen-tool"
+    },
+    {
+      "title": {
+        "zh": "更新日志",
+        "en": "Changelog"
+      },
+      "description": {
+        "zh": "按类型分组",
+        "en": "Grouped by type"
+      },
+      "prompt": {
+        "zh": "整理从 ___ 到现在的更新日志。",
+        "en": "Write the changelog from ___ to now."
+      },
+      "color": "#dcfce7",
+      "icon_name": "file-text"
+    },
+    {
+      "title": {
+        "zh": "误操作恢复",
+        "en": "Undo a mistake"
+      },
+      "description": {
+        "zh": "安全找回",
+        "en": "Recover safely"
+      },
+      "prompt": {
+        "zh": "我执行了 ___，现在 ___，怎么恢复？",
+        "en": "I ran ___ and now ___. How do I recover?"
+      },
+      "color": "#ffe4e6",
+      "icon_name": "refresh-cw"
+    },
+    {
+      "title": {
+        "zh": "合并冲突",
+        "en": "Merge conflict"
+      },
+      "description": {
+        "zh": "一步步解决",
+        "en": "Step by step"
+      },
+      "prompt": {
+        "zh": "合并 ___ 时冲突了，冲突内容是 ___，该怎么处理？",
+        "en": "Merging ___ conflicted with ___. How do I resolve it?"
+      },
+      "color": "#fef3c7",
+      "icon_name": "wrench"
+    },
+    {
+      "title": {
+        "zh": "分支清理",
+        "en": "Clean branches"
+      },
+      "description": {
+        "zh": "已合并和长期未动",
+        "en": "Merged and stale"
+      },
+      "prompt": {
+        "zh": "帮我看看仓库里哪些分支可以删。",
+        "en": "Which branches in my repo can be deleted?"
+      },
+      "color": "#f1f5f9",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": {
+        "zh": "分支规范",
+        "en": "Branching model"
+      },
+      "description": {
+        "zh": "适合团队的",
+        "en": "For your team"
+      },
+      "prompt": {
+        "zh": "我们团队 ___ 人，___（发版方式），用什么分支模型合适？",
+        "en": "Our team has ___ people and ships ___. Which branching model fits?"
+      },
+      "color": "#e8f4ff",
+      "icon_name": "users"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每周五「17:00」统计本周提交和改动最频繁的文件",
+      "每次发版前「15:00」生成上一个标签以来的更新日志",
+      "每月 1 日「10:00」列出已合并和超过 90 天未动的分支",
+      "每天「18:00」提醒推送本地未推送的提交",
+      "每季度第一天「10:00」汇总提交类型分布，检查规范执行情况",
+      "每周一「09:00」检查主分支是否有未关联需求号的提交"
+    ],
+    "en": [
+      "Every Friday at 17:00, summarize this week's commits and hotspot files",
+      "Before each release at 15:00, generate the changelog since the last tag",
+      "On the 1st of each month at 10:00, list merged and 90-day-stale branches",
+      "Every day at 18:00, remind to push unpushed local commits",
+      "On the first day of each quarter at 10:00, review commit type distribution",
+      "Every Monday at 09:00, check main for commits without issue references"
+    ]
+  }
+}
