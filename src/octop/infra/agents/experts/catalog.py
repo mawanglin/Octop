@@ -62,6 +62,7 @@ _FALLBACK_BUNDLED_AVATAR_IDS = frozenset(
         "file-organizer",
         "fitness-coach",
         "flowchart-designer",
+        "fullstack-dev",
         "general-assistant",
         "git-helper",
         "gov-document",

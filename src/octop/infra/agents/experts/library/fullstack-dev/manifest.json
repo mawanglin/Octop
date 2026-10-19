@@ -1,0 +1,138 @@
+{
+  "id": "fullstack-dev",
+  "label": {
+    "zh": "全栈开发专家",
+    "en": "Full-Stack Developer"
+  },
+  "description": {
+    "zh": "按需求直接写出能运行的代码：后端接口（FastAPI / Node.js）、前端页面（React / TypeScript）、命令行工具和自动化脚本，或在已有项目里加功能、修 bug、补测试。可一键生成带测试的项目骨架；写完自动运行语法、规范、类型、测试和构建检查，确认通过再交付，并如实说明验证结果。",
+    "en": "Writes working code from your requirements — backend APIs (FastAPI / Node.js), frontends (React / TypeScript), CLIs and automation scripts — or adds features, fixes bugs and writes tests in existing projects. Generates tested starter projects, then runs syntax, lint, type, test and build checks before delivery and reports results honestly."
+  },
+  "welcome_message": {
+    "zh": "说说你想做的功能或遇到的 bug",
+    "en": "Tell me the feature you want or the bug you hit"
+  },
+  "icon_name": "cpu",
+  "color": "#1D4ED8",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "写个功能",
+        "en": "按需求实现"
+      },
+      "description": {
+        "zh": "Build a feature",
+        "en": "Implement it"
+      },
+      "prompt": {
+        "zh": "帮我实现 ___ 功能，用 ___ 语言，输入是 ___，输出是 ___。",
+        "en": "Implement ___ in ___; input ___, output ___."
+      },
+      "color": "#dbeafe",
+      "icon_name": "sparkles"
+    },
+    {
+      "title": {
+        "zh": "修 bug",
+        "en": "附报错信息"
+      },
+      "description": {
+        "zh": "Fix a bug",
+        "en": "With the error"
+      },
+      "prompt": {
+        "zh": "这段代码报错了，帮我找原因并修好：___",
+        "en": "This code fails — find the cause and fix it: ___"
+      },
+      "color": "#fee2e2",
+      "icon_name": "wrench"
+    },
+    {
+      "title": {
+        "zh": "新建项目",
+        "en": "带测试的骨架"
+      },
+      "description": {
+        "zh": "New project",
+        "en": "Tested starter"
+      },
+      "prompt": {
+        "zh": "帮我新建一个 ___ 项目（如 FastAPI 接口 / React 前端 / 命令行工具），用来 ___。",
+        "en": "Start a ___ project (FastAPI / React / CLI) for ___."
+      },
+      "color": "#dcfce7",
+      "icon_name": "rocket"
+    },
+    {
+      "title": {
+        "zh": "写接口",
+        "en": "增删改查"
+      },
+      "description": {
+        "zh": "Build an API",
+        "en": "CRUD endpoints"
+      },
+      "prompt": {
+        "zh": "帮我写一组 ___ 的增删改查接口，字段有 ___，并写好测试。",
+        "en": "Write CRUD endpoints for ___ with fields ___, plus tests."
+      },
+      "color": "#ede9fe",
+      "icon_name": "server"
+    },
+    {
+      "title": {
+        "zh": "补测试",
+        "en": "提高覆盖"
+      },
+      "description": {
+        "zh": "Add tests",
+        "en": "Raise coverage"
+      },
+      "prompt": {
+        "zh": "给这段代码补上单元测试，覆盖正常和异常情况：___",
+        "en": "Add unit tests for this code, covering normal and error cases: ___"
+      },
+      "color": "#fef3c7",
+      "icon_name": "shield-check"
+    },
+    {
+      "title": {
+        "zh": "检查项目",
+        "en": "跑测试和规范"
+      },
+      "description": {
+        "zh": "Check project",
+        "en": "Lint and tests"
+      },
+      "prompt": {
+        "zh": "帮我检查 ___ 目录下的项目：跑一遍测试和代码规范，汇总问题并修复。",
+        "en": "Check the project in ___: run tests and lint, summarise and fix issues."
+      },
+      "color": "#f1f5f9",
+      "icon_name": "terminal"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每天「9:00」运行项目测试和代码规范检查，失败时汇总报错",
+      "每周一「10:00」检查项目依赖是否有可用的新版本",
+      "每次提交代码前「立即」运行自检并给出修复建议",
+      "每周五「17:00」汇总本周完成的功能和遗留问题",
+      "每月 1 日「10:00」整理项目中的 TODO 和技术债清单",
+      "每季度第一天「10:00」检查运行环境版本是否即将停止支持"
+    ],
+    "en": [
+      "Every day at 9:00, run tests and lint and summarise failures",
+      "Every Monday at 10:00, check dependencies for available updates",
+      "Before each commit, run self-checks and suggest fixes",
+      "Every Friday at 17:00, summarise features done and open issues",
+      "On the 1st of each month at 10:00, list TODOs and tech debt",
+      "On the first day of each quarter at 10:00, check runtimes nearing end of support"
+    ]
+  }
+}
