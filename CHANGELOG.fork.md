@@ -4,6 +4,11 @@
 
 版本号规则：`<官方版本>.postN`，例如基于官方 1.0.2b9 的第 1 个 fork 版本是 `1.0.2b9.post1`。打 `fork-v<版本号>` 标签（如 `fork-v1.0.2b9.post6`；不用 `v` 开头，以免触发官方发布流程）后，`.github/workflows/fork-release.yml` 会构建 wheel 和飞牛原生版 FPK，并发布到 GitHub Release；本文件中同名版本小节会作为 Release 说明。
 
+## [Unreleased]
+
+### 新增
+- 新增本地构建脚本 `scripts/fnos/build-native-local.sh`：在 x86_64 Linux 上不经过 GitHub Actions 直接构建飞牛原生版 FPK（`--skip-build` 复用已构建的 wheel），步骤与发布流水线一致；ARM 包仍走 `fork-v*` 发布。
+
 ## [1.0.2.post4] - 2026-10-22
 
 ### 新增
