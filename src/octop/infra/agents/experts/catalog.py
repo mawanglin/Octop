@@ -50,6 +50,7 @@ _FALLBACK_BUNDLED_AVATAR_IDS = frozenset(
         "clinical-learning-subscription",
         "code-security",
         "contract-reviewer",
+        "copyright-advisor",
         "cvm-ai-doctor",
         "cvm-cluster-doctor",
         "data-analyst",

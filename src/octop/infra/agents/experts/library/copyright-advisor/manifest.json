@@ -1,0 +1,138 @@
+{
+  "id": "copyright-advisor",
+  "label": {
+    "zh": "版权登记与存证专家",
+    "en": "Copyright & Evidence Advisor"
+  },
+  "description": {
+    "zh": "阅读和分析作品样本（文档、图片、音频的内容与元数据），梳理创作时间线和权属线索、识别 AI 生成痕迹、初筛疑似抄袭；指导作品登记和软件著作权登记并自动生成源程序材料；生成作品指纹存证清单；解读著作权法律法规和地方登记资助政策，对比新旧条文；提供权属认定、授权许可和侵权应对建议。意见仅供参考，不构成法律意见。",
+    "en": "Reads and analyses work samples (content and metadata of documents, images and audio) to trace creation timelines and ownership clues, spot AI-generation traces and screen for copying; guides work and software copyright registration and generates source-code deposit documents; builds fingerprint evidence manifests; interprets copyright law and local subsidy policies with version diffs; advises on ownership, licensing and enforcement. For reference only, not legal advice."
+  },
+  "welcome_message": {
+    "zh": "把作品样本发给我，或说说你要登记、存证还是维权",
+    "en": "Send me your work samples, or tell me whether you need registration, evidence or enforcement"
+  },
+  "icon_name": "shield-check",
+  "color": "#9A3412",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "分析样本",
+        "en": "内容和元数据"
+      },
+      "description": {
+        "zh": "Inspect samples",
+        "en": "Content & metadata"
+      },
+      "prompt": {
+        "zh": "帮我分析这些作品样本，看看创作时间、作者和有没有 AI 生成痕迹：___",
+        "en": "Inspect these work samples for creation time, author and AI traces: ___"
+      },
+      "color": "#ffedd5",
+      "icon_name": "fingerprint"
+    },
+    {
+      "title": {
+        "zh": "疑似抄袭",
+        "en": "相似度比对"
+      },
+      "description": {
+        "zh": "Copy check",
+        "en": "Similarity"
+      },
+      "prompt": {
+        "zh": "我的作品 ___ 可能被盗用了，帮我和这些疑似侵权的作品比对：___",
+        "en": "My work ___ may have been copied; compare it with these: ___"
+      },
+      "color": "#fee2e2",
+      "icon_name": "shield"
+    },
+    {
+      "title": {
+        "zh": "作品登记",
+        "en": "材料和流程"
+      },
+      "description": {
+        "zh": "Register a work",
+        "en": "Materials & steps"
+      },
+      "prompt": {
+        "zh": "我想给 ___（作品类别）办理著作权登记，需要准备什么？帮我写作品创作说明。",
+        "en": "I want to register ___ (type); what do I need? Draft the creation statement."
+      },
+      "color": "#fef3c7",
+      "icon_name": "file-text"
+    },
+    {
+      "title": {
+        "zh": "软著材料",
+        "en": "源程序文档"
+      },
+      "description": {
+        "zh": "Software filing",
+        "en": "Source deposit"
+      },
+      "prompt": {
+        "zh": "帮我准备软件著作权登记材料：软件名称 ___，版本 ___，代码在 ___。",
+        "en": "Prepare software copyright filing: name ___, version ___, code in ___."
+      },
+      "color": "#e0f2fe",
+      "icon_name": "cpu"
+    },
+    {
+      "title": {
+        "zh": "生成存证",
+        "en": "作品指纹"
+      },
+      "description": {
+        "zh": "Evidence list",
+        "en": "Fingerprints"
+      },
+      "prompt": {
+        "zh": "给 ___ 目录下的作品生成存证清单，权利人是 ___。",
+        "en": "Build an evidence manifest for works in ___, owner ___."
+      },
+      "color": "#dcfce7",
+      "icon_name": "hard-drive"
+    },
+    {
+      "title": {
+        "zh": "政策解读",
+        "en": "法规和资助"
+      },
+      "description": {
+        "zh": "Policy",
+        "en": "Law & subsidies"
+      },
+      "prompt": {
+        "zh": "帮我解读 ___（政策名称或链接），看看我能不能申请版权登记资助。",
+        "en": "Interpret ___ (policy) and check whether I qualify for registration subsidies."
+      },
+      "color": "#ede9fe",
+      "icon_name": "book-open"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每月 1 日「10:00」检查本月新完成的作品，生成存证清单",
+      "每周一「9:00」检索我的代表作品是否在网上被盗用",
+      "每年 3 月 1 日「10:00」检索本地版权登记资助政策的申报通知",
+      "每季度第一天「10:00」核验存证清单，确认作品文件未被改动",
+      "每月 15 日「10:00」汇总待办理登记的作品和材料准备进度",
+      "每次新版本软件发布后「立即」准备软著登记材料"
+    ],
+    "en": [
+      "On the 1st of each month at 10:00, build evidence manifests for newly finished works",
+      "Every Monday at 9:00, search for unauthorised use of my key works",
+      "Every March 1 at 10:00, look for local copyright registration subsidy notices",
+      "On the first day of each quarter at 10:00, verify evidence manifests",
+      "On the 15th of each month at 10:00, summarise works pending registration",
+      "After each software release, prepare software copyright filing materials"
+    ]
+  }
+}
