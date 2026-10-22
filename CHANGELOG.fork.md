@@ -7,7 +7,7 @@
 ## [Unreleased]
 
 ### 新增
-- 新增本地构建脚本 `scripts/fnos/build-native-local.sh`：在 x86_64 Linux 上不经过 GitHub Actions 直接构建飞牛原生版 FPK（`--skip-build` 复用已构建的 wheel），步骤与发布流水线一致；ARM 包仍走 `fork-v*` 发布。
+- 新增本地构建脚本 `scripts/fnos/build-native-local.sh`：在 x86_64 Linux 上不经过 GitHub Actions 直接构建飞牛原生版 FPK，步骤与发布流水线一致。`--arch arm64` 用交叉安装构建 ARM 包（不做导入自检、不带 .pyc 缓存，crcmod 用纯 Python 实现，不含 NAS 用不到的 evdev）；`--skip-build` 复用已构建的 wheel；工作区里的符号链接被改成普通文件时拒绝构建。
 
 ## [1.0.2.post4] - 2026-10-22
 
