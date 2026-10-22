@@ -41,6 +41,7 @@ _BUILTIN_AVATAR_URL_TEMPLATE = "/experts/avatars/{expert_id}.svg"
 # Fallback when the dashboard avatars directory is not on disk (packaged installs).
 _FALLBACK_BUNDLED_AVATAR_IDS = frozenset(
     {
+        "ad-voiceover",
         "ai-coding-coach",
         "ai-safety-guardian",
         "api-tester",

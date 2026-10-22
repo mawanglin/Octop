@@ -1,0 +1,138 @@
+{
+  "id": "ad-voiceover",
+  "label": {
+    "zh": "投流口播专家",
+    "en": "Ad Voiceover Writer"
+  },
+  "description": {
+    "zh": "专为 AI Agent / AI 助手类产品写信息流广告口播，用于抖音、视频号、快手、小红书、B 站付费投放获客：把技术能力翻译成人群听得懂的卖点，写前 3 秒抓人、录屏演示清楚、行动引导明确的 15/30/60 秒口播，一次给出多个测试版本；自动检查时长、钩子、引导和广告合规风险（极限词、收益承诺、取代人工、冒用大模型品牌等）；生成测试矩阵和素材命名，导入投放数据给出放量、关停和改稿建议。",
+    "en": "Writes paid-feed ad voiceovers for AI agent / assistant products on Douyin, WeChat Channels, Kuaishou, Xiaohongshu and Bilibili: turns capabilities into audience-level selling points, writes 15/30/60-second scripts with a strong 3-second hook, clear demos and calls to action in several test variants, checks duration and ad-compliance risks, builds test matrices and naming, and reviews campaign data to scale, stop or rewrite creatives."
+  },
+  "welcome_message": {
+    "zh": "说说你的 AI 产品能帮用户做什么，打算投哪个平台",
+    "en": "Tell me what your AI product does and where you plan to advertise"
+  },
+  "icon_name": "trending-up",
+  "color": "#C026D3",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "写口播",
+        "en": "3 个测试版本"
+      },
+      "description": {
+        "zh": "Write scripts",
+        "en": "3 test variants"
+      },
+      "prompt": {
+        "zh": "帮我的 AI 产品 ___ 写 3 版 30 秒投流口播，投 ___ 平台，目标是让用户 ___（注册/留资/下载）。",
+        "en": "Write three 30-second ad voiceovers for my AI product ___ on ___, goal: ___ (sign-up/lead/download)."
+      },
+      "color": "#fae8ff",
+      "icon_name": "sparkles"
+    },
+    {
+      "title": {
+        "zh": "提炼卖点",
+        "en": "能力变人话"
+      },
+      "description": {
+        "zh": "Selling points",
+        "en": "Plain language"
+      },
+      "prompt": {
+        "zh": "我的产品能做这些：___，帮我提炼给 ___（人群）看的卖点。",
+        "en": "My product can do: ___. Turn it into selling points for ___ (audience)."
+      },
+      "color": "#fce7f3",
+      "icon_name": "users"
+    },
+    {
+      "title": {
+        "zh": "开头钩子",
+        "en": "前 3 秒"
+      },
+      "description": {
+        "zh": "Hooks",
+        "en": "First 3 seconds"
+      },
+      "prompt": {
+        "zh": "给这条口播写 10 个不同类型的开头钩子：___",
+        "en": "Write 10 hooks of different types for this script: ___"
+      },
+      "color": "#fef3c7",
+      "icon_name": "zap"
+    },
+    {
+      "title": {
+        "zh": "合规检查",
+        "en": "防拒审"
+      },
+      "description": {
+        "zh": "Compliance",
+        "en": "Avoid rejection"
+      },
+      "prompt": {
+        "zh": "帮我检查这版口播有没有容易被拒审的说法，并改写：___",
+        "en": "Check this voiceover for risky claims and rewrite: ___"
+      },
+      "color": "#fee2e2",
+      "icon_name": "shield-check"
+    },
+    {
+      "title": {
+        "zh": "测试矩阵",
+        "en": "素材命名"
+      },
+      "description": {
+        "zh": "Test matrix",
+        "en": "Naming"
+      },
+      "prompt": {
+        "zh": "帮我规划下周的素材测试：钩子 ___，卖点 ___，引导 ___，最多 ___ 条。",
+        "en": "Plan next week's tests: hooks ___, points ___, CTAs ___, at most ___ creatives."
+      },
+      "color": "#e0f2fe",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": {
+        "zh": "数据复盘",
+        "en": "放量还是关停"
+      },
+      "description": {
+        "zh": "Review data",
+        "en": "Scale or stop"
+      },
+      "prompt": {
+        "zh": "这是投放后台导出的数据 ___，帮我复盘哪些素材该放量、关停或改稿。",
+        "en": "Here is the campaign export ___; tell me which creatives to scale, stop or rewrite."
+      },
+      "color": "#dcfce7",
+      "icon_name": "trending-up"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每周一「10:00」根据上周投放数据复盘素材，给出放量、关停和改稿建议",
+      "每周三「10:00」写 3 个新的口播版本补充素材库",
+      "每天「18:00」检查当天新写的口播稿合规风险",
+      "每月 1 日「10:00」汇总上月表现最好的钩子和卖点",
+      "每周五「17:00」规划下周的素材测试矩阵",
+      "产品上新功能后「立即」写一组新功能的投流口播"
+    ],
+    "en": [
+      "Every Monday at 10:00, review last week's ad data and recommend scale/stop/rewrite",
+      "Every Wednesday at 10:00, write three new voiceover variants",
+      "Every day at 18:00, compliance-check scripts written that day",
+      "On the 1st of each month at 10:00, summarise last month's best hooks and selling points",
+      "Every Friday at 17:00, plan next week's creative test matrix",
+      "After each product feature launch, write a set of ad scripts for it"
+    ]
+  }
+}
