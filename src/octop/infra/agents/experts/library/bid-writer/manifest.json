@@ -1,5 +1,6 @@
 {
   "id": "bid-writer",
+  "scene": "hr",
   "label": {
     "zh": "投标文件专家",
     "en": "Bid Writer"

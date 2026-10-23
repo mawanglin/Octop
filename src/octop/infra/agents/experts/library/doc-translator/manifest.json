@@ -1,5 +1,6 @@
 {
   "id": "doc-translator",
+  "scene": "hr",
   "label": {
     "zh": "文档翻译专家",
     "en": "Document Translator"

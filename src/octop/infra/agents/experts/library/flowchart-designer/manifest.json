@@ -1,5 +1,6 @@
 {
   "id": "flowchart-designer",
+  "scene": "design",
   "label": {
     "zh": "流程图设计专家",
     "en": "Flowchart Designer"

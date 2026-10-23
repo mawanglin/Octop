@@ -1,5 +1,6 @@
 {
   "id": "policy-interpreter",
+  "scene": "legal",
   "label": {
     "zh": "政策解读专家",
     "en": "Policy Interpreter"

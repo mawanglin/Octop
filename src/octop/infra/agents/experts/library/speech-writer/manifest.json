@@ -1,5 +1,6 @@
 {
   "id": "speech-writer",
+  "scene": "content-creation",
   "label": {
     "zh": "讲话稿专家",
     "en": "Speechwriter"

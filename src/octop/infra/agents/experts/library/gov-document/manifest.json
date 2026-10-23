@@ -1,5 +1,6 @@
 {
   "id": "gov-document",
+  "scene": "hr",
   "label": {
     "zh": "政务公文专家",
     "en": "Government Document Writer"

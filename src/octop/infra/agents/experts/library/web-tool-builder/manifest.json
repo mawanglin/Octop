@@ -1,5 +1,6 @@
 {
   "id": "web-tool-builder",
+  "scene": "tech",
   "label": {
     "zh": "网页小工具专家",
     "en": "Web Tool Builder"

@@ -1,5 +1,6 @@
 {
   "id": "homework-tutor",
+  "scene": "education",
   "label": {
     "zh": "作业辅导老师",
     "en": "Homework Tutor"

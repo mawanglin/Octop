@@ -1,5 +1,6 @@
 {
   "id": "code-security",
+  "scene": "tech",
   "label": {
     "zh": "代码安全扫描",
     "en": "Code Security Scanner"

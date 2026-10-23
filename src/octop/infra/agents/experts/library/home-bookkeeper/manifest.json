@@ -1,5 +1,6 @@
 {
   "id": "home-bookkeeper",
+  "scene": "finance",
   "label": {
     "zh": "家庭记账专家",
     "en": "Home Bookkeeper"

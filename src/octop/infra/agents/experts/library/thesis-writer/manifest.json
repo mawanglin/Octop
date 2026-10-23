@@ -1,5 +1,6 @@
 {
   "id": "thesis-writer",
+  "scene": "academic",
   "label": {
     "zh": "论文写作专家",
     "en": "Thesis Writer"
