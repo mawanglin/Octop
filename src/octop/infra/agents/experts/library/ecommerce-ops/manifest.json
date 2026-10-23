@@ -1,5 +1,6 @@
 {
   "id": "ecommerce-ops",
+  "scene": "ecommerce",
   "label": {
     "zh": "电商运营专家",
     "en": "E-commerce Operator"

@@ -1,5 +1,6 @@
 {
   "id": "regex-script",
+  "scene": "tech",
   "label": {
     "zh": "正则与脚本助手",
     "en": "Regex & Script Helper"

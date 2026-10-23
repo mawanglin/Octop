@@ -1,5 +1,6 @@
 {
   "id": "sql-expert",
+  "scene": "tech",
   "label": {
     "zh": "SQL 数据库专家",
     "en": "SQL Expert"

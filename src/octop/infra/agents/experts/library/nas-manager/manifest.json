@@ -1,5 +1,6 @@
 {
   "id": "nas-manager",
+  "scene": "tech",
   "label": {
     "zh": "NAS 管家",
     "en": "NAS Manager"

@@ -1,5 +1,6 @@
 {
   "id": "meeting-assistant",
+  "scene": "hr",
   "label": {
     "zh": "会议助手",
     "en": "Meeting Assistant"

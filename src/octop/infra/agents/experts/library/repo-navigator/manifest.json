@@ -1,5 +1,6 @@
 {
   "id": "repo-navigator",
+  "scene": "tech",
   "label": {
     "zh": "代码仓库导读",
     "en": "Repo Navigator"

@@ -1,5 +1,6 @@
 {
   "id": "contract-reviewer",
+  "scene": "legal",
   "label": {
     "zh": "合同审阅专家",
     "en": "Contract Reviewer"

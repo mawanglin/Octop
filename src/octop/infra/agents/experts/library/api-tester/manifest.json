@@ -1,5 +1,6 @@
 {
   "id": "api-tester",
+  "scene": "tech",
   "label": {
     "zh": "接口测试专家",
     "en": "API Tester"

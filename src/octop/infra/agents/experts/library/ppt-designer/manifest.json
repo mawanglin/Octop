@@ -1,5 +1,6 @@
 {
   "id": "ppt-designer",
+  "scene": "design",
   "label": {
     "zh": "PPT 设计专家",
     "en": "Presentation Designer"

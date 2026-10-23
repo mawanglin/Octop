@@ -1,5 +1,6 @@
 {
   "id": "family-finance",
+  "scene": "finance",
   "label": {
     "zh": "家庭财税计算",
     "en": "Family Finance Calculator"

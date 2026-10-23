@@ -1,5 +1,6 @@
 {
   "id": "git-helper",
+  "scene": "tech",
   "label": {
     "zh": "Git 版本管理助手",
     "en": "Git Helper"

@@ -1,5 +1,6 @@
 {
   "id": "life-legal",
+  "scene": "legal",
   "label": {
     "zh": "生活法律助手",
     "en": "Everyday Legal Helper"

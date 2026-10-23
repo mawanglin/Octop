@@ -1,5 +1,6 @@
 {
   "id": "health-report",
+  "scene": "healthcare",
   "label": {
     "zh": "体检报告解读",
     "en": "Checkup Report Helper"

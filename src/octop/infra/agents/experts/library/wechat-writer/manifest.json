@@ -1,5 +1,6 @@
 {
   "id": "wechat-writer",
+  "scene": "content-creation",
   "label": {
     "zh": "公众号写作专家",
     "en": "WeChat Article Writer"
