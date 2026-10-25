@@ -1,0 +1,139 @@
+{
+  "id": "competitor-analyst",
+  "scene": "marketing",
+  "label": {
+    "zh": "竞品分析专家",
+    "en": "Competitive Analyst"
+  },
+  "description": {
+    "zh": "聚焦互联网产品（App、网站、SaaS、AI 产品），兼顾硬件、消费品和服务的竞品分析：多路搜索把竞品找全，从官网、应用商店、用户评论、开源社区和公开资料收集带来源和日期的证据；对比功能、体验、定价、增长和口碑，做加权评分、雷达图和差距分析；输出结论先行、每个数据可追溯的一页速览、深度、专项或监控报告，自动检查报告质量并可导出 Word 和 Excel。",
+    "en": "Competitive analysis focused on internet products (apps, websites, SaaS, AI) and also hardware, consumer goods and services: finds competitors through multi-source search, gathers dated, sourced evidence from websites, app stores, reviews and open-source communities, compares features, UX, pricing, growth and reputation with weighted scoring and radar charts, and delivers conclusion-first reports with traceable data, quality checks and Word/Excel export."
+  },
+  "welcome_message": {
+    "zh": "说说你的产品和想通过竞品分析解决的问题",
+    "en": "Tell me your product and the decision this analysis should support"
+  },
+  "icon_name": "network",
+  "color": "#065F46",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "找竞品",
+        "en": "找全并分组"
+      },
+      "description": {
+        "zh": "Find competitors",
+        "en": "Map the landscape"
+      },
+      "prompt": {
+        "zh": "我的产品是 ___（一句话介绍），帮我找出国内外的主要竞品并分组。",
+        "en": "My product is ___; find the main competitors at home and abroad and group them."
+      },
+      "color": "#e0e7ff",
+      "icon_name": "globe"
+    },
+    {
+      "title": {
+        "zh": "深度分析",
+        "en": "完整报告"
+      },
+      "description": {
+        "zh": "Deep analysis",
+        "en": "Full report"
+      },
+      "prompt": {
+        "zh": "帮我做一份 ___ 和 ___、___ 的深度竞品分析，目的是决定 ___。",
+        "en": "Write a deep competitive analysis of ___ vs ___ and ___ to decide ___."
+      },
+      "color": "#ede9fe",
+      "icon_name": "file-text"
+    },
+    {
+      "title": {
+        "zh": "用户口碑",
+        "en": "评论里的痛点"
+      },
+      "description": {
+        "zh": "User voice",
+        "en": "Pain points"
+      },
+      "prompt": {
+        "zh": "分析 ___ 最近的 App Store 用户评论，总结用户最不满和最满意的地方。",
+        "en": "Analyse recent App Store reviews of ___ and summarise top complaints and praise."
+      },
+      "color": "#fee2e2",
+      "icon_name": "message-square"
+    },
+    {
+      "title": {
+        "zh": "定价对比",
+        "en": "套餐和价格"
+      },
+      "description": {
+        "zh": "Pricing",
+        "en": "Plans and prices"
+      },
+      "prompt": {
+        "zh": "对比 ___、___、___ 的定价和套餐，给我的产品提定价建议。",
+        "en": "Compare pricing and plans of ___, ___, ___ and suggest pricing for my product."
+      },
+      "color": "#fef3c7",
+      "icon_name": "candlestick-chart"
+    },
+    {
+      "title": {
+        "zh": "评分对比",
+        "en": "雷达图"
+      },
+      "description": {
+        "zh": "Scorecard",
+        "en": "Radar chart"
+      },
+      "prompt": {
+        "zh": "按 ___ 类产品的维度，给 ___ 和竞品 ___ 做加权评分和雷达图。",
+        "en": "Score ___ against ___ on ___-product dimensions with a radar chart."
+      },
+      "color": "#dcfce7",
+      "icon_name": "bar-chart-3"
+    },
+    {
+      "title": {
+        "zh": "动态监控",
+        "en": "竞品周报"
+      },
+      "description": {
+        "zh": "Watch",
+        "en": "Weekly brief"
+      },
+      "prompt": {
+        "zh": "每周跟踪 ___ 的版本更新、价格和重要动态，给我一份竞品周报。",
+        "en": "Track ___'s releases, pricing and news weekly and send me a brief."
+      },
+      "color": "#f1f5f9",
+      "icon_name": "bell"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每周一「9:00」汇总主要竞品上周的版本更新、价格变化和重要新闻",
+      "每月 1 日「10:00」抓取竞品 App Store 评分和最新评论，对比口碑变化",
+      "每季度第一天「10:00」更新竞品对比矩阵和雷达图",
+      "每周五「17:00」检查竞品官网定价页是否有变化",
+      "每月 15 日「10:00」检索行业新进入者和融资动态",
+      "竞品发布新版本后「立即」做一次功能对比和影响分析"
+    ],
+    "en": [
+      "Every Monday at 9:00, summarise competitors' releases, price changes and news from last week",
+      "On the 1st of each month at 10:00, pull competitors' App Store ratings and reviews and compare",
+      "On the first day of each quarter at 10:00, refresh the comparison matrix and radar chart",
+      "Every Friday at 17:00, check competitors' pricing pages for changes",
+      "On the 15th of each month at 10:00, scan for new entrants and funding news",
+      "After a competitor ships a release, run a feature comparison and impact analysis"
+    ]
+  }
+}
