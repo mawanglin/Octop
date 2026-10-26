@@ -43,6 +43,7 @@ UA = "Mozilla/5.0 (compatible; OctopProductSearch/1.0)"
 TIMEOUT = 20
 
 KEY_PAGES = {
+    "产品介绍": r"products?\b|features?|solutions?|产品|功能|方案|能力|介绍|tour",
     "定价": r"pricing|price|plans?|定价|价格|套餐|购买|会员|vip",
     "下载": r"download|下载|客户端|app\b",
     "文档": r"docs?|documentation|help|guide|文档|帮助|教程|手册",

@@ -10,6 +10,9 @@ Usage:
          判断是否有依据；“据说、网传”等低可信表述；全文引用数量
   时效   是否写明数据截至时间 / 获取日期
   覆盖   --competitors 中的每个竞品是否都被分析到（至少出现 3 次）
+  具体   “功能丰富、体验较好、用户较多”等宽泛表述是否配了具体功能名、数字、版本或原文；
+         每个竞品至少 4 处具体事实（数字、链接、引用原文）
+  档案   每个竞品是否有官网或产品介绍链接、是否有产品截图或介绍图；图片文件是否存在
   可读   超长段落（超过 300 字）、全文过短
 只检查形式，不判断结论对错；命中项需要作者确认或补充。
 Exit codes: 0 通过, 3 有需要补充的地方, 1 输入错误。
@@ -73,7 +76,21 @@ def parse(text: str) -> list[dict[str, Any]]:
     return sections
 
 
-def check(text: str, competitors: list[str]) -> dict[str, Any]:
+VAGUE = re.compile(
+    r"功能(?:丰富|强大|齐全|完善|全面)|体验(?:较|很|非常|更)?(?:好|佳|优秀|流畅|出色)|"
+    r"界面(?:简洁|美观|友好|清爽)|用户(?:量)?(?:较|很|非常)?多|性价比(?:较|很)?高|"
+    r"(?:比较|相对|较为)(?:好|强|完善|成熟|领先)|有一定(?:优势|规模|影响力|知名度)|"
+    r"各有(?:优劣|千秋|特色)|值得(?:关注|借鉴|学习)|潜力(?:巨大|很大)|前景广阔|"
+    r"(?:深受|广受)(?:用户)?(?:好评|欢迎|喜爱)|口碑(?:较|很)?好|技术(?:实力)?(?:较|很)?强"
+)
+SPECIFIC = re.compile(
+    r"\d[\d,.]*\s*(?:%|％|万|亿|千|元|美元|人|次|个|款|家|倍|分|星|秒|分钟|小时|天|月|年|步|MB|GB)|"
+    r"https?://|“[^”]{2,}”|「[^」]{2,}」|《[^》]+》|\bv?\d+\.\d+|见图|截图"
+)
+IMAGE = re.compile(r"^!\[([^\]]*)\]\(\s*<?([^)\s>]+)>?[^)]*\)\s*$")
+
+
+def check(text: str, competitors: list[str], base_dir: Path | None = None) -> dict[str, Any]:
     sections = parse(text)
     body = "\n".join(t for s in sections for _, t in s["blocks"])
     chars = len(re.sub(r"\s", "", body))
@@ -112,6 +129,8 @@ def check(text: str, competitors: list[str]) -> dict[str, Any]:
         # Recommendations carry targets and plans, not facts that need a source.
         planning = bool(ADVICE.search(s["heading"]))
         for i, (kind, t) in enumerate(blocks):
+            if IMAGE.match(t):
+                continue  # image lines are checked separately
             nxt = blocks[i + 1][1] if i + 1 < len(blocks) else ""
             cited = bool(CITATION.search(t)) or (kind == "table" and bool(CITATION.search(nxt)))
             if kind == "table":
@@ -127,6 +146,15 @@ def check(text: str, competitors: list[str]) -> dict[str, Any]:
                 notes.append(
                     {"类型": "判断无依据", "位置": s["heading"], "内容": f"“{word}”：{t[:40]}"}
                 )
+            vague = VAGUE.search(t)
+            if vague and not SPECIFIC.search(t.replace(vague.group(), "")):
+                notes.append(
+                    {
+                        "类型": "表述宽泛",
+                        "位置": s["heading"],
+                        "内容": f"“{vague.group()}”：{t[:40]}",
+                    }
+                )
             if HEARSAY.search(t):
                 notes.append({"类型": "低可信表述", "位置": s["heading"], "内容": t[:50]})
             if kind == "para" and len(re.sub(r"\s", "", t)) > 300:
@@ -136,11 +164,61 @@ def check(text: str, competitors: list[str]) -> dict[str, Any]:
             "全文没有任何来源标注：每个关键数据和判断都要能追溯（链接、[1] 角标或“来源：”）"
         )
 
+    vague_count = sum(1 for n in notes if n["类型"] == "表述宽泛")
+    if vague_count >= 3:
+        issues.append(
+            f"有 {vague_count} 处宽泛表述（如“功能丰富”“体验较好”）：换成具体的功能名、数字、版本、价格、截图或用户原话"
+        )
+
+    images: list[tuple[str, str, str]] = []  # (section heading, alt, src)
+    for s in sections:
+        for _, t in s["blocks"]:
+            m = IMAGE.match(t)
+            if m:
+                images.append((s["heading"], m.group(1), m.group(2)))
+                local = (
+                    base_dir / m.group(2)
+                    if base_dir and not re.match(r"https?://", m.group(2))
+                    else None
+                )
+                if local is not None and not local.is_file():
+                    notes.append({"类型": "图片缺失", "位置": s["heading"], "内容": m.group(2)})
+    if not images:
+        issues.append(
+            "报告里没有任何产品截图或介绍图：用 product_assets.py 抓取官网图、App 截图和网页截图，插入竞品档案"
+        )
+
     coverage = {}
+    profiles: dict[str, dict[str, Any]] = {}
     for name in competitors:
         coverage[name] = len(re.findall(re.escape(name), body, re.I))
         if coverage[name] < 3:
             issues.append(f"竞品“{name}”只出现 {coverage[name]} 次，分析可能不充分")
+        own = [s for s in sections if name.lower() in s["heading"].lower()]
+        related = [
+            t
+            for s in sections
+            if not METHOD.search(s["heading"])
+            for _, t in s["blocks"]
+            if not IMAGE.match(t) and (name.lower() in t.lower() or s in own)
+        ]
+        has_link = any(re.search(r"https?://", t) for t in related)
+        has_image = any(
+            name.lower() in alt.lower() or any(h == s["heading"] for s in own)
+            for h, alt, _ in images
+        )
+        facts = sum(len(SPECIFIC.findall(t)) for t in related)
+        profiles[name] = {"链接": has_link, "图片": has_image, "具体事实": facts}
+        if not has_link:
+            issues.append(
+                f"竞品“{name}”没有官网或产品介绍链接：在竞品档案里写明官网、产品介绍页、应用商店链接"
+            )
+        if not has_image:
+            issues.append(f"竞品“{name}”没有产品截图或介绍图：用 product_assets.py 抓取后插入")
+        if facts < 4:
+            issues.append(
+                f"关于“{name}”的具体事实只有 {facts} 处，内容偏宽泛：补充具体功能、数字、价格、版本或原文引用"
+            )
     if chars < 1500:
         issues.append(f"正文约 {chars} 字，偏短：深度竞品分析通常 3000 字以上（速览可忽略）")
 
@@ -150,6 +228,8 @@ def check(text: str, competitors: list[str]) -> dict[str, Any]:
         "表格": sum(1 for s in sections for k, _ in s["blocks"] if k == "table"),
         "引用": citations,
         "竞品出现次数": coverage,
+        "图片": len(images),
+        "竞品档案": profiles,
         "问题": issues,
         "待确认": notes,
     }
@@ -169,7 +249,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"失败：无法读取 {args.input}：{exc}", file=sys.stderr)
         return 1
     names = [x.strip() for x in args.competitors.replace("，", ",").split(",") if x.strip()]
-    res = check(text, names)
+    res = check(text, names, Path(args.input).resolve().parent)
     if args.json:
         print(json.dumps(res, ensure_ascii=False, indent=2))
     else:
