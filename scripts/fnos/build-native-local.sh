@@ -14,7 +14,7 @@
 #   bash scripts/fnos/build-native-local.sh                       # x86 包
 #   bash scripts/fnos/build-native-local.sh --arch arm64          # ARM 包
 #   bash scripts/fnos/build-native-local.sh --skip-build [--arch arm64]
-# 产物：dist/Octop-fnos-native-<版本>.fpk 或 dist/Octop-fnos-native-arm64-<版本>.fpk，
+# 产物：dist/Octop-fnos-native-amd64-<版本>.fpk 或 dist/Octop-fnos-native-arm64-<版本>.fpk，
 # 在飞牛应用中心「手动安装」。需要 x86_64 Linux（fnpack 只有 linux-amd64）、uv、Node.js / npm。
 #
 # ARM 包是交叉安装（uv --python-platform aarch64-manylinux_2_28），与 GitHub 在
@@ -117,7 +117,7 @@ if [ "$ARCH" = amd64 ]; then
   # Like the release workflow, the self-check runs after slimming and leaves .pyc
   # caches for the imported modules in the package (faster first start on the NAS).
   PYTHONPATH="$SP" "$PY" -c "import octop, mcp, langchain_mcp_adapters; from octop.launch import run_foreground_blocking; from octop_harness.backends.storage_errors import classify_storage_error; print('[local-fpk] 自检通过 octop', octop.__version__)"
-  OUT="dist/Octop-fnos-native-${VER}.fpk"
+  OUT="dist/Octop-fnos-native-amd64-${VER}.fpk"
 else
   # ARM binaries cannot run here: check every native library is aarch64 instead.
   "$PY" - "$SP" "$VER" <<'PYCHECK'
@@ -145,6 +145,10 @@ PYCHECK
 fi
 
 FPK_NAME_PREFIX=Octop-fnos FPK_ARCH="$ARCH" bash scripts/build-fpk.sh native
+# Same as the release workflow: label the x86 package amd64 to match arm64.
+if [ "$ARCH" = amd64 ]; then
+  mv "dist/Octop-fnos-native-${VER}.fpk" "$OUT"
+fi
 
 [ -f "$OUT" ] || { echo "没有生成 $OUT" >&2; exit 1; }
 echo "[local-fpk] 完成：$OUT（$(( $(stat -c %s "$OUT") / 1048576 )) MB）"

@@ -4,6 +4,11 @@
 
 版本号规则：`<官方版本>.postN`，例如基于官方 1.0.2b9 的第 1 个 fork 版本是 `1.0.2b9.post1`。打 `fork-v<版本号>` 标签（如 `fork-v1.0.2b9.post6`；不用 `v` 开头，以免触发官方发布流程）后，`.github/workflows/fork-release.yml` 会构建 wheel 和飞牛原生版 FPK，并发布到 GitHub Release；本文件中同名版本小节会作为 Release 说明。
 
+## [Unreleased]
+
+### 变更
+- 飞牛原生版 x86 安装包改名为 `Octop-fnos-native-amd64-<版本>.fpk`，与 ARM 包 `Octop-fnos-native-arm64-<版本>.fpk` 对应（GitHub 发布和本地构建脚本都已调整；官方打包脚本未改动）。
+
 ## [1.0.3b1.post1] - 2026-10-26
 
 ### 变更
