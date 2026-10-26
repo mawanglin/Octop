@@ -4,7 +4,7 @@
 
 版本号规则：`<官方版本>.postN`，例如基于官方 1.0.2b9 的第 1 个 fork 版本是 `1.0.2b9.post1`。打 `fork-v<版本号>` 标签（如 `fork-v1.0.2b9.post6`；不用 `v` 开头，以免触发官方发布流程）后，`.github/workflows/fork-release.yml` 会构建 wheel 和飞牛原生版 FPK，并发布到 GitHub Release；本文件中同名版本小节会作为 Release 说明。
 
-## [Unreleased]
+## [1.0.3b1.post2] - 2026-10-26
 
 ### 变更
 - 「竞品分析专家」改进（按使用反馈）：
@@ -13,6 +13,7 @@
   - `report_check.py` 新增检查：“功能丰富、体验较好”等宽泛表述，每个竞品是否有官网或介绍页链接、是否有截图、具体事实是否少于 4 处，图片文件是否存在。
 - 各专家共用的 Markdown 转 Word 脚本 `docx_build.py` 支持插入图片（`![说明](路径)`，自动缩放到版心宽度，WebP 自动转换），链接输出为“文字（网址）”，不再丢失网址。
 - 飞牛原生版 x86 安装包改名为 `Octop-fnos-native-amd64-<版本>.fpk`，与 ARM 包 `Octop-fnos-native-arm64-<版本>.fpk` 对应（GitHub 发布和本地构建脚本都已调整；官方打包脚本未改动）。
+- 飞牛商店版本 1.0.30102。
 
 ## [1.0.3b1.post1] - 2026-10-26
 
