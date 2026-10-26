@@ -14,7 +14,9 @@ Styles:
 Markdown 约定（中文文稿习惯：每个非空行就是一个段落）：
     开头可选的 front matter（--- 包围，"键: 值" 每行一条），键名见 SKILL.md；
     "# 标题"（第一个）、"## / ### / ####" 三级标题、"- " 列表、"1. " 编号、
-    "| 表格 |"、"> 引用"、"**加粗**"、单独一行 "<!-- pagebreak -->" 分页。
+    "| 表格 |"、"> 引用"、"**加粗**"、单独一行 "<!-- pagebreak -->" 分页；
+    单独一行 "![说明](图片路径)" 插入图片（相对路径以 Markdown 文件所在目录为准，说明作为图注），
+    "[文字](网址)" 输出为 "文字（网址）"。
 
 Exit codes: 0 ok, 1 input error, 2 missing python-docx.
 """
@@ -110,6 +112,7 @@ LEVEL_PATTERNS = (
     (3, re.compile(r"^\d+[．.]\s?")),
     (4, re.compile(r"^（\d+）")),
 )
+IMAGE = re.compile(r'^!\[([^\]]*)\]\(\s*<?([^)\s>]+)>?(?:\s+"[^"]*")?\s*\)$')
 PAGEBREAK = re.compile(r"^\s*(<!--\s*pagebreak\s*-->|\\pagebreak)\s*$", re.I)
 RED = RGBColor(0xFF, 0x00, 0x00)
 
@@ -123,7 +126,7 @@ class InputError(ValueError):
 
 @dataclass
 class Block:
-    kind: str  # title, h1, h2, h3, para, bullet, number, quote, table, pagebreak
+    kind: str  # title, h1, h2, h3, para, bullet, number, quote, table, pagebreak, image
     text: str = ""
     rows: list[list[str]] = field(default_factory=list)
 
@@ -168,6 +171,8 @@ def parse_markdown(source: str) -> tuple[dict[str, str], list[Block]]:
             continue
         if PAGEBREAK.match(line):
             blocks.append(Block("pagebreak"))
+        elif m := IMAGE.match(line):
+            blocks.append(Block("image", m.group(1).strip(), rows=[[m.group(2)]]))
         elif line.startswith("#### "):
             blocks.append(Block("h3", line[5:].strip()))
         elif line.startswith("### "):
@@ -192,8 +197,13 @@ def parse_markdown(source: str) -> tuple[dict[str, str], list[Block]]:
 
 
 def _inline(text: str) -> list[tuple[str, bool]]:
-    """Split **bold** segments; drop markdown link syntax and inline code ticks."""
-    text = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", text).replace("`", "")
+    """Split **bold** segments; links become "text（url）"; drop inline code ticks."""
+
+    def link(m: re.Match[str]) -> str:
+        label, url = m.group(1), m.group(2).strip()
+        return label if label == url or not re.match(r"https?://", url) else f"{label}（{url}）"
+
+    text = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", link, text).replace("`", "")
     parts: list[tuple[str, bool]] = []
     for i, chunk in enumerate(re.split(r"\*\*(.+?)\*\*", text)):
         if chunk:
@@ -210,7 +220,11 @@ def _em_width(text: str) -> float:
 
 
 class Builder:
-    def __init__(self, style: str, fonts: dict[str, str] | None = None) -> None:
+    def __init__(
+        self, style: str, fonts: dict[str, str] | None = None, base_dir: Path | None = None
+    ) -> None:
+        self.base_dir = base_dir or Path(".")
+        self.warnings: list[str] = []
         if style not in STYLES:
             raise InputError(f"未知版式 {style!r}，可选：{', '.join(STYLES)}")
         self.name = style
@@ -324,6 +338,47 @@ class Builder:
                     color=color,
                 )
         return p
+
+    def image(self, src: str, caption: str) -> None:
+        """Embed a local picture (max text width) with its caption; placeholders otherwise."""
+        if re.match(r"https?://", src):
+            self.warnings.append(f"网络图片没有嵌入，请先下载到本地：{src}")
+            self.para(f"〔图片：{caption or src}（{src}）〕", align=WD_ALIGN_PARAGRAPH.CENTER)
+            return
+        path = (self.base_dir / src).resolve() if not Path(src).is_absolute() else Path(src)
+        if not path.is_file():
+            self.warnings.append(f"找不到图片：{src}")
+            self.para(f"〔图片缺失：{src}〕", align=WD_ALIGN_PARAGRAPH.CENTER)
+            return
+        sec = self.doc.sections[0]
+        max_width = sec.page_width - sec.left_margin - sec.right_margin
+        try:
+            from PIL import Image
+
+            with Image.open(path) as im:
+                width_px, fmt = im.width, (im.format or "").upper()
+                if fmt not in {"PNG", "JPEG", "GIF", "BMP", "TIFF"}:
+                    import io
+
+                    buf = io.BytesIO()
+                    im.convert("RGBA" if "A" in im.getbands() else "RGB").save(buf, "PNG")
+                    buf.seek(0)
+                    stream: Any = buf
+                else:
+                    stream = str(path)
+        except Exception as exc:  # noqa: BLE001 - unreadable image becomes a placeholder
+            self.warnings.append(f"无法读取图片 {src}：{exc}")
+            self.para(f"〔图片无法读取：{src}〕", align=WD_ALIGN_PARAGRAPH.CENTER)
+            return
+        p = self.doc.add_paragraph()
+        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        self._spacing(p, 6, 2)
+        width = min(max_width, Mm(width_px * 25.4 / 96))
+        p.add_run().add_picture(stream, width=width)
+        if caption:
+            self.para(
+                caption, size=self.size("body") - 1.5, align=WD_ALIGN_PARAGRAPH.CENTER, after=6
+            )
 
     def blank(self, n: int = 1) -> None:
         for _ in range(n):
@@ -476,6 +531,8 @@ class Builder:
                     self.para(b.text, font=f["h3"], size=self.size("h3"), bold=True, before=6)
             elif b.kind == "table":
                 self.table(b.rows)
+            elif b.kind == "image":
+                self.image(b.rows[0][0], b.text)
             elif b.kind == "quote":
                 p = self.para(b.text, font=f["h2"], first_indent=self.s["indent_chars"])
                 if not gov:
@@ -678,11 +735,14 @@ def main(argv: list[str] | None = None) -> int:
         meta, blocks = parse_markdown(source)
         if not blocks:
             raise InputError("正文为空")
-        Builder(args.style, fonts).build(meta, blocks, Path(args.output))
+        builder = Builder(args.style, fonts, base_dir=Path(args.input).resolve().parent)
+        builder.build(meta, blocks, Path(args.output))
     except (OSError, json.JSONDecodeError, InputError) as exc:
         print(f"生成失败：{exc}", file=sys.stderr)
         return 1
     print(f"已生成 {args.output}（版式 {args.style}）")
+    for warning in builder.warnings:
+        print(f"注意：{warning}", file=sys.stderr)
     return 0
 
 

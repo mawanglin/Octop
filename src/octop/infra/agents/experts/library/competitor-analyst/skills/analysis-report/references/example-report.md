@@ -17,7 +17,7 @@
 - **评估方式**：AI 产品维度模板 8 个维度，1–5 分，每项评分在证据表中记录结论和来源；核心效果用同一组 20 段会议录音实测。
 - **数据范围**：官网和定价页、App Store 应用信息与最新 300 条评论、产品实测（2026 年 10 月 15–18 日，iOS 18 / 安卓 15 各一台）。
 
-## 三、竞品概览
+## 三、竞品档案与概览
 
 | 产品 | 定位 | 主要人群 | App Store 评分 | 个人版价格 | 最近更新 |
 |------|------|----------|----------------|------------|----------|
@@ -26,6 +26,40 @@
 | 云签 | 团队协作笔记 | 中小团队 | 4.5（6.8 万） | 15 元/月 | 2026-10-09 |
 
 来源：App Store 应用信息与各产品官网定价页，获取于 2026-10-20 [1][2][3]。
+
+### 小记（我方）
+
+- 官网：[https://xiaoji.example.com](https://xiaoji.example.com)；产品介绍页：[https://xiaoji.example.com/features](https://xiaoji.example.com/features)
+- App Store：[小记](https://apps.apple.com/cn/app/example-xiaoji)，评分 4.2（3.1 万人评分），版本 2.8.0，上架 2024-03-15
+- 官方介绍：“开完会，待办自动进日历”（官网首页，2026-10-20）
+- 核心功能：实时转写、智能摘要、待办抽取并同步到日历和飞书任务等 4 个工具；个人版 18 元/月（来源：小记官网功能页与定价页，2026-10-20）
+
+![小记官网首页（示例截图，来源：xiaoji.example.com，2026-10-20）](example-assets/xiaoji-home.png)
+
+![小记 App 会议列表（示例截图，来源：App Store，2026-10-20）](example-assets/xiaoji-app.png)
+
+### 速笔
+
+- 官网：[https://subi.example.com](https://subi.example.com)；产品介绍页：[https://subi.example.com/product](https://subi.example.com/product)；定价页：[https://subi.example.com/pricing](https://subi.example.com/pricing)
+- App Store：[速笔](https://apps.apple.com/cn/app/example-subi)，评分 4.7（12.3 万人评分），版本 3.2.0，上架 2023-05-01
+- 运营主体：示例速笔科技有限公司（官网页脚，2026-10-20）
+- 官方介绍：“录音即笔记，AI 帮你记重点”（官网首页，2026-10-20）
+- 核心功能：实时转写（支持 12 种方言）、智能摘要、多端同步（iOS、安卓、Windows、Mac）；个人版 22 元/月，7 天免费试用 [3]
+
+![速笔官网首页（示例截图，来源：subi.example.com，2026-10-20）](example-assets/subi-home.png)
+
+![速笔 App 会议列表（示例截图，来源：App Store，2026-10-20）](example-assets/subi-app.png)
+
+### 云签
+
+- 官网：[https://yunqian.example.com](https://yunqian.example.com)；定价页：[https://yunqian.example.com/pricing](https://yunqian.example.com/pricing)
+- App Store：[云签](https://apps.apple.com/cn/app/example-yunqian)，评分 4.5（6.8 万人评分），版本 5.4.1，上架 2021-09-08
+- 官方介绍：“团队的共享大脑”（官网首页，2026-10-20）
+- 核心功能：团队空间、文档协同编辑、AI 摘要（2026 年 9 月新增）；个人版 15 元/月，团队版 39 元/人/月 [2][5]
+
+![云签官网首页（示例截图，来源：yunqian.example.com，2026-10-20）](example-assets/yunqian-home.png)
+
+![云签 App 文档列表（示例截图，来源：App Store，2026-10-20）](example-assets/yunqian-app.png)
 
 ## 四、分维度对比
 

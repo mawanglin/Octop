@@ -157,14 +157,48 @@ SITE = """<!doctype html><html><head><meta charset="utf-8"><title>速笔 - AI �
 </body></html>"""
 
 
+ASSET_SITE = """<!doctype html><html><head><meta charset="utf-8"><title>速笔 - AI 会议记录</title>
+<meta name="description" content="录音自动转写，AI 整理会议纪要">
+<meta property="og:image" content="/img/og.png">
+<link rel="icon" href="/img/favicon.png"><link rel="apple-touch-icon" href="/img/icon.png"></head><body>
+<a href="/product">产品功能</a><a href="/pricing">价格</a>
+<img src="/img/hero.png" alt="产品主图"><img src="/img/tiny.png"><img src="/img/logo.svg">
+<img data-src="/img/feature.png"><img src="/img/hero.png" alt="重复">
+<footer>© 2026 示例科技有限公司 京ICP备12345678号-2</footer></body></html>"""
+IMAGE_SIZES = {
+    "og.png": (1200, 630),
+    "favicon.png": (32, 32),
+    "icon.png": (180, 180),
+    "hero.png": (1600, 900),
+    "tiny.png": (60, 40),
+    "feature.png": (800, 500),
+    "icon-512.png": (512, 512),
+}
+
+
+def _png(size: tuple[int, int], fmt: str = "PNG") -> bytes:
+    import io
+
+    from PIL import Image
+
+    buf = io.BytesIO()
+    Image.new("RGB", size, (size[0] % 255, 90, 160)).save(buf, fmt)
+    return buf.getvalue()
+
+
 class _Handler(http.server.BaseHTTPRequestHandler):
     def log_message(self, *args: object) -> None:
         pass
 
     def _send(self, body: object, ctype: str = "application/json") -> None:
-        data = body.encode() if isinstance(body, str) else json.dumps(body).encode()
+        if isinstance(body, bytes):
+            data = body
+        else:
+            data = body.encode() if isinstance(body, str) else json.dumps(body).encode()
         self.send_response(200)
-        self.send_header("Content-Type", f"{ctype}; charset=utf-8")
+        self.send_header(
+            "Content-Type", ctype if ctype.startswith("image/") else f"{ctype}; charset=utf-8"
+        )
         self.send_header("Server", "nginx")
         self.end_headers()
         self.wfile.write(data)
@@ -176,7 +210,22 @@ class _Handler(http.server.BaseHTTPRequestHandler):
             assert q["entity"] == ["software"]
             self._send({"resultCount": 1, "results": [APP]})
         elif url.path == "/lookup":
-            self._send({"results": [APP] if q["id"] == ["111"] else []})
+            host = f"http://{self.headers['Host']}"
+            app = {
+                **APP,
+                "artworkUrl512": f"{host}/img/icon-512.png",
+                "screenshotUrls": [f"{host}/img/s1/320x480bb.jpg", f"{host}/img/s2/320x480bb.jpg"],
+            }
+            self._send({"results": [app] if q["id"] == ["111"] else []})
+        elif url.path.startswith("/img/s") and url.path.endswith(".jpg"):
+            size = (600, 1300) if url.path.endswith("/600x0w.jpg") else (320, 480)
+            self._send(_png((size[0] + int(url.path[6]), size[1]), "JPEG"), "image/jpeg")
+        elif url.path.startswith("/img/") and url.path[5:] in IMAGE_SIZES:
+            self._send(_png(IMAGE_SIZES[url.path[5:]]), "image/png")
+        elif url.path == "/img/logo.svg":
+            self._send("<svg xmlns='http://www.w3.org/2000/svg'/>", "image/svg+xml")
+        elif url.path == "/asset-site":
+            self._send(ASSET_SITE, "text/html")
         elif url.path.startswith("/cn/rss/customerreviews/page=1/"):
             self._send({"feed": {"entry": REVIEWS}})
         elif url.path.startswith("/cn/rss/customerreviews/"):
@@ -416,3 +465,165 @@ def test_report_exports_to_docx(tmp_path: Path) -> None:
 
     text = "\n".join(p.text for p in Document(str(out)).paragraphs)
     assert "小记 vs 速笔、云签" in text and "七、信息来源" in text
+
+
+# ------------------------------------------------------------- product assets
+
+ASSETS = EXPERT_DIR / "skills" / "product-search" / "scripts" / "product_assets.py"
+
+
+def test_product_assets_collects_images_and_profile(
+    fake_sources: dict[str, str], tmp_path: Path
+) -> None:
+    site = fake_sources["BASE"] + "/asset-site"
+    proc = _run(
+        ASSETS, "速笔", "--site", site, "--appstore", "111", "-o", tmp_path, env=fake_sources
+    )
+    assert proc.returncode == 0, proc.stderr + proc.stdout
+    folder = tmp_path / "assets" / "速笔"
+    files = sorted(p.name for p in folder.iterdir())
+    assert files == [
+        "appstore-icon.png",
+        "appstore-shot-1.jpg",
+        "appstore-shot-2.jpg",
+        "assets.json",
+        "profile.md",
+        "site-image-1.png",
+        "site-image-2.png",
+        "site-logo.png",
+        "site-og.png",
+    ]
+    data = json.loads((folder / "assets.json").read_text(encoding="utf-8"))
+    sizes = {Path(r["文件"]).name: r["尺寸"] for r in data["素材"]}
+    assert sizes["appstore-shot-1.jpg"] == "601×1300"  # larger rendition, not the thumbnail
+    assert sizes["site-logo.png"] == "180×180"  # apple-touch-icon preferred over favicon
+    assert sizes["site-image-1.png"] == "1600×900" and sizes["site-image-2.png"] == "800×500"
+    assert all(r["获取日期"] and r["来源"].startswith("http") for r in data["素材"])
+
+    profile = (folder / "profile.md").read_text(encoding="utf-8")
+    assert profile.startswith("### 速笔\n")
+    assert f"- 官网：[{site}]({site})" in profile
+    assert "- 产品介绍页：[" in profile and "/product" in profile
+    assert "- 定价页：[" in profile and "/pricing" in profile
+    assert "- 运营主体：示例科技有限公司（京ICP备12345678号-2）" in profile
+    assert "评分 4.71（123000 人评分），版本 3.2.0" in profile
+    assert "![速笔 App Store 截图 1（来源：App Store，" in profile
+    assert "](assets/速笔/appstore-shot-1.jpg)" in profile
+    assert "![速笔 官网分享图（来源：官网，" in profile
+
+
+def test_product_assets_input_and_network_errors(tmp_path: Path) -> None:
+    assert _run(ASSETS, "x", "-o", tmp_path).returncode == 1
+    assert _run(ASSETS, "x", "--appstore", "abc", "-o", tmp_path).returncode == 1
+    with socket.socket() as sock:
+        sock.bind(("127.0.0.1", 0))
+        port = sock.getsockname()[1]
+    proc = _run(ASSETS, "x", "--site", f"http://127.0.0.1:{port}/", "-o", tmp_path)
+    assert proc.returncode == 2 and "官网获取失败" in proc.stderr
+
+
+def _chromium_available() -> bool:
+    probe = "from playwright.sync_api import sync_playwright\nwith sync_playwright() as p:\n    p.chromium.launch().close()"
+    try:
+        return (
+            subprocess.run(
+                [sys.executable, "-c", probe], env=ORIGINAL_ENV, capture_output=True, timeout=60
+            ).returncode
+            == 0
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return False
+
+
+ORIGINAL_ENV = dict(os.environ)
+
+
+def test_product_assets_page_screenshots(fake_sources: dict[str, str], tmp_path: Path) -> None:
+    if not _chromium_available():
+        pytest.skip("Chromium is not installed for Playwright")
+    site = fake_sources["BASE"] + "/asset-site"
+    env = {**ORIGINAL_ENV, **fake_sources}
+    proc = subprocess.run(
+        [
+            sys.executable,
+            str(ASSETS),
+            "速笔",
+            "--site",
+            site,
+            "--screenshot",
+            "--max-images",
+            "0",
+            "-o",
+            str(tmp_path),
+        ],
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        timeout=180,
+        env={**env, "PYTHONIOENCODING": "utf-8", "PYTHONDONTWRITEBYTECODE": "1"},
+    )
+    assert proc.returncode == 0, proc.stderr + proc.stdout
+    folder = tmp_path / "assets" / "速笔"
+    from PIL import Image
+
+    with Image.open(folder / "page-home.png") as im:
+        assert im.width == 1440
+    assert (folder / "page-pricing.png").is_file()  # pricing link found on the page
+    assert "![速笔 官网首页截图（来源：127.0.0.1" in (folder / "profile.md").read_text(
+        encoding="utf-8"
+    )
+
+
+# ------------------------------------------------------- report specificity
+
+
+def test_report_check_flags_vague_and_missing_profiles(tmp_path: Path) -> None:
+    report = tmp_path / "报告.md"
+    report.write_text(
+        "---\n署名行: 数据截至 2026 年 10 月 20 日\n---\n# 分析\n\n## 一、核心结论\n"
+        "1. 速笔功能丰富，体验较好 [1]\n2. 云签各有优劣\n3. 小记值得关注\n\n"
+        "## 二、竞品档案\n### 速笔\n- 官网：[https://subi.example.com](https://subi.example.com)\n"
+        "![速笔官网首页](assets/missing.png)\n\n## 三、建议\n- 做 A\n- 做 B\n- 做 C\n\n"
+        "## 四、信息来源\n1. https://subi.example.com\n",
+        encoding="utf-8",
+    )
+    proc = _run(CHECK, report, "--competitors", "速笔,云签", "--json")
+    assert proc.returncode == 3
+    res = json.loads(proc.stdout)
+    issues = "\n".join(res["问题"])
+    assert "宽泛表述" in issues
+    assert "竞品“云签”没有官网或产品介绍链接" in issues
+    assert "竞品“云签”没有产品截图或介绍图" in issues
+    assert "关于“云签”的具体事实只有" in issues
+    assert "竞品“速笔”没有官网" not in issues and "竞品“速笔”没有产品截图" not in issues
+    notes = {(n["类型"], n["内容"]) for n in res["待确认"]}
+    assert ("图片缺失", "assets/missing.png") in notes
+    assert any(t == "表述宽泛" and "各有优劣" in c for t, c in notes)
+    assert res["竞品档案"]["速笔"]["链接"] and res["竞品档案"]["速笔"]["图片"]
+
+
+def test_docx_build_embeds_images_and_shows_urls(tmp_path: Path) -> None:
+    (tmp_path / "assets").mkdir()
+    from PIL import Image
+
+    Image.new("RGB", (1600, 900), "navy").save(tmp_path / "assets" / "home.png")
+    Image.new("RGB", (300, 600), "teal").save(tmp_path / "assets" / "app.webp")
+    md = tmp_path / "报告.md"
+    md.write_text(
+        "# 报告\n\n官网：[速笔](https://subi.example.com)\n\n![速笔首页](assets/home.png)\n\n"
+        "![速笔 App](assets/app.webp)\n\n![缺图](assets/none.png)\n",
+        encoding="utf-8",
+    )
+    out = tmp_path / "报告.docx"
+    proc = _run(REPORT / "scripts" / "docx_build.py", md, "-o", out, "--style", "report")
+    assert proc.returncode == 0, proc.stderr
+    assert "找不到图片：assets/none.png" in proc.stderr
+    from docx import Document
+
+    doc = Document(str(out))
+    assert len(doc.inline_shapes) == 2
+    widths = sorted(round(s.width.mm) for s in doc.inline_shapes)
+    assert widths[0] == 79 and widths[1] <= 170  # 300px at 96 dpi; wide image capped at text width
+    text = [p.text for p in doc.paragraphs]
+    assert "官网：速笔（https://subi.example.com）" in text
+    assert "速笔首页" in text and "〔图片缺失：assets/none.png〕" in text
