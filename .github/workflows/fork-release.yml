@@ -9,7 +9,7 @@ name: Fork Release
 #
 # 产物（全部挂到同名 GitHub Release）：
 #   - wheel + sdist
-#   - 飞牛原生版 FPK：x86_64（Octop-fnos-native-<ver>.fpk）和 arm64（Octop-fnos-native-arm64-<ver>.fpk）
+#   - 飞牛原生版 FPK：x86_64（Octop-fnos-native-amd64-<ver>.fpk）和 arm64（Octop-fnos-native-arm64-<ver>.fpk）
 #
 # 不做的事：不发 PyPI；不构建 Docker 镜像；不打飞牛 Docker 版 FPK（它的 compose 写死拉取
 # ghcr.io/tencentcloud/octop 官方镜像，装上去不含 fork 的改动）；不上传 COS。
@@ -175,7 +175,7 @@ jobs:
             echo
             echo "## 安装"
             echo
-            echo '- 飞牛 NAS：下载 `Octop-fnos-native-*.fpk`（x86_64）或 `Octop-fnos-native-arm64-*.fpk`（ARM），在应用中心「手动安装」。'
+            echo '- 飞牛 NAS：下载 `Octop-fnos-native-amd64-*.fpk`（x86_64）或 `Octop-fnos-native-arm64-*.fpk`（ARM），在应用中心「手动安装」。'
             echo '- pip：下载 `.whl` 后执行 `pip install ./octop-'"$VER"'-py3-none-any.whl`。'
             echo
             echo "> 这是基于官方 Octop ${VER%.post*} 的 fork 版本。应用内「检查更新」查询的是官方 PyPI，升级到官方版本会移除 fork 的改动。"
@@ -293,6 +293,13 @@ jobs:
           set -euo pipefail
           test -d fnos/native/app/site-packages/octop
           bash scripts/build-fpk.sh native
+          # build-fpk.sh (upstream) names the x86 package without an arch tag; the
+          # fork labels it amd64 to match the arm64 package.
+          if [ "$FPK_ARCH" = amd64 ]; then
+            for f in dist/Octop-fnos-native-[0-9]*.fpk; do
+              mv "$f" "dist/Octop-fnos-native-amd64-${f#dist/Octop-fnos-native-}"
+            done
+          fi
           ls -lh dist/*.fpk
 
       - name: Upload FPK
