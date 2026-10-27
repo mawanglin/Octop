@@ -1,0 +1,139 @@
+{
+  "id": "deai-editor",
+  "scene": "content-creation",
+  "label": {
+    "zh": "去AI味专家",
+    "en": "De-AI Editor"
+  },
+  "description": {
+    "zh": "把 AI 生成或 AI 味重的中文（兼顾英文）文稿改得自然、准确、像本人写的：按有语料实测依据的规则清理翻案腔、总结腔、翻译腔、拔高词、顿号罗列、序数小标题和聊天残留，只改该改的地方，不新增事实、不改原意；逐行标出 AI 痕迹，改完核对数字、引语、专名、否定和限定是否被改动；可按作者旧稿校准风格，或从一开始写出没有 AI 味的稿子。",
+    "en": "Makes AI-generated or AI-sounding Chinese (and English) writing read naturally and accurately, like the author wrote it: applies corpus-backed rules to remove contrast frames, summary filler, translationese, inflated words, list stacking, ordinal headings and chatbot residue with minimal edits and no new facts; flags AI tells line by line, verifies rewrites keep numbers, quotes, names, negations and hedges, calibrates to the author's voice, or writes AI-free drafts from scratch."
+  },
+  "welcome_message": {
+    "zh": "把要去 AI 味的稿子发给我，说说是你自己写的还是 AI 初稿",
+    "en": "Send me the draft and tell me whether you wrote it or it's an AI draft"
+  },
+  "icon_name": "pen-tool",
+  "color": "#9D174D",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "去 AI 味",
+        "en": "只改该改的"
+      },
+      "description": {
+        "zh": "Humanize",
+        "en": "Minimal edits"
+      },
+      "prompt": {
+        "zh": "帮我把这篇稿子去 AI 味，意思和数据都别改：___",
+        "en": "Remove the AI tone from this draft without changing meaning or data: ___"
+      },
+      "color": "#fce7f3",
+      "icon_name": "sparkles"
+    },
+    {
+      "title": {
+        "zh": "检查 AI 味",
+        "en": "逐行标出"
+      },
+      "description": {
+        "zh": "Check AI tone",
+        "en": "Line by line"
+      },
+      "prompt": {
+        "zh": "帮我检查这篇稿子哪里 AI 味重，逐行标出来并说明改法：___",
+        "en": "Check where this draft sounds AI-written and explain fixes line by line: ___"
+      },
+      "color": "#ede9fe",
+      "icon_name": "shield-check"
+    },
+    {
+      "title": {
+        "zh": "像我写的",
+        "en": "按我的风格"
+      },
+      "description": {
+        "zh": "Sound like me",
+        "en": "Match my voice"
+      },
+      "prompt": {
+        "zh": "这是我以前写的文章 ___，按我的风格帮我改这篇：___",
+        "en": "Here are my past articles ___; rewrite this one in my voice: ___"
+      },
+      "color": "#e0f2fe",
+      "icon_name": "user"
+    },
+    {
+      "title": {
+        "zh": "直接写",
+        "en": "不带 AI 味"
+      },
+      "description": {
+        "zh": "Write clean",
+        "en": "No AI tone"
+      },
+      "prompt": {
+        "zh": "帮我写一篇 ___（公众号 / 汇报 / 文案），写得自然，不要有 AI 味。",
+        "en": "Write a ___ (article / report / copy) that reads naturally, with no AI tone."
+      },
+      "color": "#dcfce7",
+      "icon_name": "pen-tool"
+    },
+    {
+      "title": {
+        "zh": "核对改稿",
+        "en": "信息有没有变"
+      },
+      "description": {
+        "zh": "Verify edit",
+        "en": "Facts unchanged"
+      },
+      "prompt": {
+        "zh": "对比原稿和改稿，看看有没有改错意思、丢了数据：原稿 ___ 改稿 ___",
+        "en": "Compare the original and edited drafts for changed meaning or lost data: ___ / ___"
+      },
+      "color": "#fef3c7",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": {
+        "zh": "英文稿",
+        "en": "English"
+      },
+      "description": {
+        "zh": "English draft",
+        "en": "Humanize"
+      },
+      "prompt": {
+        "zh": "把这段英文改得不那么像 AI 写的，事实都保留：___",
+        "en": "Make this English text sound less AI-generated, keep all facts: ___"
+      },
+      "color": "#f1f5f9",
+      "icon_name": "globe"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每次写完公众号初稿后「立即」检查 AI 味并给出改稿",
+      "每周五「17:00」把本周的工作汇报去 AI 味并核对数据",
+      "每月 1 日「10:00」根据我最新的几篇文章更新风格卡",
+      "每天「18:00」检查当天发出的文案有没有聊天残留和惊叹号",
+      "每周一「9:00」汇总上周改稿中最常见的 AI 痕迹",
+      "收到新的产品介绍初稿后「立即」去掉拔高词和拟人化比喻"
+    ],
+    "en": [
+      "After each article draft, check AI tone and return an edited version",
+      "Every Friday at 17:00, humanize this week's work report and verify the data",
+      "On the 1st of each month at 10:00, refresh my style card from recent articles",
+      "Every day at 18:00, check today's copy for chatbot residue and exclamation marks",
+      "Every Monday at 9:00, summarise last week's most common AI tells",
+      "When a new product description draft arrives, remove inflated words and personified metaphors"
+    ]
+  }
+}

@@ -4,6 +4,11 @@
 
 版本号规则：`<官方版本>.postN`，例如基于官方 1.0.2b9 的第 1 个 fork 版本是 `1.0.2b9.post1`。打 `fork-v<版本号>` 标签（如 `fork-v1.0.2b9.post6`；不用 `v` 开头，以免触发官方发布流程）后，`.github/workflows/fork-release.yml` 会构建 wheel 和飞牛原生版 FPK，并发布到 GitHub Release；本文件中同名版本小节会作为 Release 说明。
 
+## [Unreleased]
+
+### 新增
+- 新增「去AI味专家」模板：按有语料实测依据的规则清理中文（兼顾英文）文稿的 AI 痕迹，分清理、作者稿、新写三种模式，坚持信息守恒、最小改动、结构不动；`ai_tone_check.py` 逐行检查 AI 痕迹并与人类写作频率对比、核对改稿有没有丢失或编造信息、按作者旧稿识别个人习惯。规则参考 qu-ai-wei、lieflat-less-ai-tone、Humanizer-zh、humanizer、stop-slop（均为 MIT，来源和许可声明见专家的 `references/sources.md`）。
+
 ## [1.0.3b1.post2] - 2026-10-26
 
 ### 变更
