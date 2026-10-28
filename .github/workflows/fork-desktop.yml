@@ -7,7 +7,8 @@ name: Fork Desktop
 #   - 或在 Actions 页面手动运行，填写已存在的标签
 #
 # 产物：6 个平台的桌面客户端，挂到同名 GitHub Release：
-#   Octop-desktop-<平台>-<版本>.{dmg,exe,tar.gz}，平台为 linux/darwin/windows × amd64/arm64。
+#   Octop-desktop-<平台>-<版本>.{dmg,exe,deb,rpm,AppImage}，平台为 linux/darwin/windows × amd64/arm64
+#   （Linux 的 deb / rpm / AppImage 由 scripts/fork/linux_packages.sh 打，不再发 tar.gz）。
 #   不发布绿色版 zip（它只是打包桌面客户端的中间产物）。
 #
 # 不做的事：不签名（macOS 为 ad-hoc 签名，Windows 无签名），不上传 COS。
@@ -300,6 +301,16 @@ jobs:
           ARCH=${{ matrix.arch }}
           VERSION=${{ env.OCTOP_VERSION }}
           PORTABLE_ZIP=../portable/release/Octop-portable-${{ matrix.plat }}-${{ env.OCTOP_VERSION }}.zip
+
+      # Linux 不发 tar.gz，改发 deb / rpm / AppImage（Flatpak、Snap 暂不打）。
+      - name: Build deb, rpm and AppImage
+        if: runner.os == 'Linux'
+        run: |
+          set -euo pipefail
+          sudo apt-get install -y desktop-file-utils
+          bin=desktop/src/bin
+          bash scripts/fork/linux_packages.sh "${{ matrix.arch }}" "${OCTOP_VERSION}" "${bin}/Octop" "${bin}"
+          rm -f "${bin}/Octop-desktop-${{ matrix.plat }}-${OCTOP_VERSION}.tar.gz"
 
       - uses: actions/upload-artifact@v4
         with:
