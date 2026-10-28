@@ -1,0 +1,337 @@
+name: Fork Desktop
+
+# Fork 专用桌面客户端流水线（与官方 octop-desktop.yml 无关，该文件保持不动）。
+#
+# 触发：
+#   - 推送 fork-v* 标签（与 fork-release.yml 同时触发）
+#   - 或在 Actions 页面手动运行，填写已存在的标签
+#
+# 产物：6 个平台的桌面客户端，挂到同名 GitHub Release：
+#   Octop-desktop-<平台>-<版本>.{dmg,exe,tar.gz}，平台为 linux/darwin/windows × amd64/arm64。
+#   不发布绿色版 zip（它只是打包桌面客户端的中间产物）。
+#
+# 不做的事：不签名（macOS 为 ad-hoc 签名，Windows 无签名），不上传 COS。
+#
+# 只用 Actions 白名单里的 Action（checkout@v4、setup-node@v4、upload-artifact@v4、
+# download-artifact@v4、astral-sh/setup-uv@v4）；Go 和 Release 上传分别用下载脚本和 gh 命令，
+# 不需要改白名单。打包步骤复制自官方 octop-desktop.yml 的 package job，官方调整时同步到这里。
+#
+# Release 由 fork-release.yml 创建；本文件的发布 job 会等它出现后再上传。
+
+on:
+  push:
+    tags:
+      - "fork-v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "要打包的已有标签，例如 fork-v1.0.3b1.post3"
+        required: true
+        type: string
+      platforms:
+        description: "平台，逗号分隔，或 all"
+        required: false
+        default: "all"
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fork-desktop-${{ inputs.tag || github.ref_name }}
+  cancel-in-progress: false
+
+env:
+  PBS_BASE_URL: https://github.com/astral-sh/python-build-standalone/releases/download/20251209
+  PBS_TAG: "20251209"
+  PBS_PY: "3.12.12"
+  GO_VERSION: "1.25.0"
+
+jobs:
+  prepare:
+    name: Resolve version and platforms
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.ver.outputs.tag }}
+      version: ${{ steps.ver.outputs.version }}
+      matrix: ${{ steps.ver.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag || github.ref }}
+
+      - name: Check tag and select platforms
+        id: ver
+        env:
+          TAG: ${{ inputs.tag || github.ref_name }}
+          PLATFORMS: ${{ inputs.platforms || 'all' }}
+        run: |
+          set -euo pipefail
+          case "$TAG" in
+            fork-v*) ;;
+            *) echo "::error::标签必须以 fork-v 开头，收到 $TAG"; exit 1 ;;
+          esac
+          VER="${TAG#fork-v}"
+          PYVER=$(sed -nE 's/^version[[:space:]]*=[[:space:]]*"([^"]+)".*/\1/p' pyproject.toml | head -1)
+          if [ "$VER" != "$PYVER" ]; then
+            echo "::error::标签 $TAG 与 pyproject.toml 版本 $PYVER 不一致"
+            exit 1
+          fi
+          python3 <<'PY'
+          import json
+          import os
+
+          all_plats = [
+              {"plat": "linux-amd64", "arch": "amd64", "os": "ubuntu-latest"},
+              {"plat": "linux-arm64", "arch": "arm64", "os": "ubuntu-24.04-arm"},
+              {"plat": "darwin-arm64", "arch": "arm64", "os": "macos-14"},
+              {"plat": "darwin-amd64", "arch": "amd64", "os": "macos-15-intel"},
+              {"plat": "windows-amd64", "arch": "amd64", "os": "windows-latest"},
+              {"plat": "windows-arm64", "arch": "arm64", "os": "windows-11-arm"},
+          ]
+          sel = os.environ["PLATFORMS"].lower().replace(" ", "")
+          if sel == "all":
+              include = all_plats
+          else:
+              wanted = {p for p in sel.split(",") if p}
+              unknown = wanted - {r["plat"] for r in all_plats}
+              if unknown:
+                  raise SystemExit(f"unknown platform(s): {', '.join(sorted(unknown))}")
+              include = [r for r in all_plats if r["plat"] in wanted]
+          if not include:
+              raise SystemExit(f"no platforms selected: {sel}")
+          tag = os.environ["TAG"]
+          matrix = json.dumps({"include": include}, separators=(",", ":"))
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as fh:
+              fh.write(f"tag={tag}\nversion={tag[len('fork-v'):]}\nmatrix={matrix}\n")
+          PY
+
+  frontend:
+    name: Build dashboard
+    needs: prepare
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.prepare.outputs.tag }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: dashboard/package-lock.json
+
+      - name: Build frontend → src/octop/dashboard
+        run: make build-frontend
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dashboard-dist
+          path: src/octop/dashboard/
+          if-no-files-found: error
+          retention-days: 3
+
+  package:
+    name: "${{ matrix.plat }}"
+    needs: [prepare, frontend]
+    runs-on: ${{ matrix.os }}
+    env:
+      GREEN_HOST_PLAT: ${{ matrix.plat }}
+      OCTOP_VERSION: ${{ needs.prepare.outputs.version }}
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.prepare.outputs.tag }}
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: dashboard-dist
+          path: src/octop/dashboard
+
+      - uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Bootstrap portable CPython
+        run: bash desktop/portable/bootstrap-runtime.sh "${{ matrix.plat }}"
+
+      - name: Assemble green zip (intermediate, not published)
+        run: bash desktop/portable/package.sh "${{ matrix.plat }}"
+
+      - name: Smoke import (native host only)
+        run: |
+          set -euo pipefail
+          staging="desktop/portable/release/Octop-${{ matrix.plat }}"
+          if [[ -x "${staging}/runtime/bin/python3" ]]; then
+            py="${staging}/runtime/bin/python3"
+          elif [[ -f "${staging}/runtime/python.exe" ]]; then
+            py="${staging}/runtime/python.exe"
+          else
+            echo "python missing under ${staging}/runtime" >&2
+            exit 1
+          fi
+          req_file="desktop/portable/requirements-${{ matrix.plat }}.txt"
+          if [[ ! -f "$req_file" ]]; then
+            echo "frozen requirements missing: ${req_file}" >&2
+            exit 1
+          fi
+          verify_args=(
+            --packages "${staging}/packages"
+            --requirements "$req_file"
+          )
+          override_file="desktop/portable/overrides-${{ matrix.plat }}.txt"
+          if [[ -f "$override_file" ]]; then
+            verify_args+=(--overrides "$override_file")
+          fi
+          PYTHONNOUSERSITE=1 \
+            "$py" desktop/portable/verify_imports.py \
+              "${verify_args[@]}"
+          if [[ "${{ matrix.plat }}" == darwin-* ]]; then
+            REPO_ROOT="$PWD" # shellcheck source=desktop/portable/_common.sh
+            source desktop/portable/_common.sh
+            verify_no_homebrew_dylibs "${staging}/packages" "${{ matrix.plat }}"
+          fi
+
+      # 不用 actions/setup-go（不在白名单里），直接下载官方 Go 压缩包。
+      - name: Install Go
+        run: |
+          set -euo pipefail
+          case "${{ matrix.plat }}" in
+            linux-amd64)   pkg="linux-amd64.tar.gz" ;;
+            linux-arm64)   pkg="linux-arm64.tar.gz" ;;
+            darwin-amd64)  pkg="darwin-amd64.tar.gz" ;;
+            darwin-arm64)  pkg="darwin-arm64.tar.gz" ;;
+            windows-amd64) pkg="windows-amd64.zip" ;;
+            windows-arm64) pkg="windows-arm64.zip" ;;
+          esac
+          dest="${RUNNER_TEMP}/go-install"
+          mkdir -p "$dest"
+          curl -fsSL --retry 5 --retry-delay 5 -o "${dest}/go-pkg" \
+            "https://go.dev/dl/go${GO_VERSION}.${pkg}"
+          if [[ "$pkg" == *.zip ]]; then
+            unzip -q "${dest}/go-pkg" -d "$dest"
+          else
+            tar -xzf "${dest}/go-pkg" -C "$dest"
+          fi
+          gobin="${dest}/go/bin"
+          if [[ "${{ matrix.plat }}" == windows-* ]]; then gobin="$(cygpath -w "$gobin")"; fi
+          echo "$gobin" >> "$GITHUB_PATH"
+
+      - name: Install Linux desktop build dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-4-dev libwebkitgtk-6.0-dev
+
+      - name: Install Wails v3 CLI
+        run: |
+          set -euo pipefail
+          go version
+          go install github.com/wailsapp/wails/v3/cmd/wails3@v3.0.0-beta.13
+          bin="$(go env GOPATH)/bin"
+          if [[ "${{ matrix.plat }}" == windows-* ]]; then bin="$(cygpath -w "$bin")"; fi
+          echo "$bin" >> "$GITHUB_PATH"
+
+      - name: Install NSIS
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $nsisDir = "${env:ProgramFiles(x86)}\NSIS"
+          $makensis = Join-Path $nsisDir "makensis.exe"
+          function Test-Makensis { Test-Path -LiteralPath $makensis }
+
+          if (-not (Test-Makensis)) {
+            $installed = $false
+            for ($i = 1; $i -le 5; $i++) {
+              Write-Host "choco install nsis (attempt $i/5)"
+              try {
+                choco install nsis --yes --no-progress --execution-timeout=600
+              } catch {
+                Write-Warning "choco attempt $i failed: $_"
+              }
+              if (Test-Makensis) { $installed = $true; break }
+              Start-Sleep -Seconds ([Math]::Min(60, 10 * $i))
+            }
+
+            if (-not $installed) {
+              Write-Host "Chocolatey unavailable; downloading NSIS setup from SourceForge"
+              $setup = Join-Path $env:RUNNER_TEMP "nsis-setup.exe"
+              $urls = @(
+                "https://downloads.sourceforge.net/project/nsis/NSIS%203/3.11/nsis-3.11-setup.exe",
+                "https://sourceforge.net/projects/nsis/files/NSIS%203/3.11/nsis-3.11-setup.exe/download"
+              )
+              $downloaded = $false
+              foreach ($url in $urls) {
+                try {
+                  Invoke-WebRequest -Uri $url -OutFile $setup -UseBasicParsing -TimeoutSec 180
+                  if ((Test-Path -LiteralPath $setup) -and ((Get-Item $setup).Length -gt 1MB)) {
+                    $downloaded = $true
+                    break
+                  }
+                } catch {
+                  Write-Warning "NSIS download failed from $url : $_"
+                }
+              }
+              if (-not $downloaded) {
+                throw "NSIS install failed (Chocolatey and direct download)"
+              }
+              Start-Process -FilePath $setup -ArgumentList "/S" -Wait
+            }
+          }
+
+          if (-not (Test-Makensis)) {
+            throw "makensis.exe missing after NSIS install"
+          }
+          Add-Content -Path $env:GITHUB_PATH -Value $nsisDir
+
+      - name: Package desktop app with bundled portable runtime
+        working-directory: desktop/src
+        run: >-
+          wails3 task package
+          ARCH=${{ matrix.arch }}
+          VERSION=${{ env.OCTOP_VERSION }}
+          PORTABLE_ZIP=../portable/release/Octop-portable-${{ matrix.plat }}-${{ env.OCTOP_VERSION }}.zip
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Octop-desktop-${{ matrix.plat }}
+          path: desktop/src/bin/Octop-desktop-${{ matrix.plat }}-${{ env.OCTOP_VERSION }}.*
+          if-no-files-found: error
+          retention-days: 7
+
+  release:
+    name: Attach desktop packages to Release
+    needs: [prepare, package]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: Octop-desktop-*
+          path: release-assets
+          merge-multiple: true
+
+      - name: Upload to GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ needs.prepare.outputs.tag }}
+        run: |
+          set -euo pipefail
+          ls -lh release-assets/
+          # Release 由 fork-release.yml 创建（要先跑完测试），最多等 90 分钟。
+          for i in $(seq 1 90); do
+            if gh release view "$TAG" >/dev/null 2>&1; then break; fi
+            echo "等待 Release $TAG 创建（$i/90）"
+            sleep 60
+          done
+          gh release view "$TAG" >/dev/null
+          gh release upload "$TAG" release-assets/* --clobber

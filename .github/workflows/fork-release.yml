@@ -176,6 +176,7 @@ jobs:
             echo "## 安装"
             echo
             echo '- 飞牛 NAS：下载 `Octop-fnos-native-amd64-*.fpk`（x86_64）或 `Octop-fnos-native-arm64-*.fpk`（ARM），在应用中心「手动安装」。'
+            echo '- 桌面客户端：`Octop-desktop-<平台>-*`（dmg / exe / tar.gz），由 Fork Desktop 流水线打包，比 FPK 晚几十分钟出现；未签名，macOS 首次打开需在「隐私与安全性」放行。'
             echo '- pip：下载 `.whl` 后执行 `pip install ./octop-'"$VER"'-py3-none-any.whl`。'
             echo
             echo "> 这是基于官方 Octop ${VER%.post*} 的 fork 版本。应用内「检查更新」查询的是官方 PyPI，升级到官方版本会移除 fork 的改动。"
