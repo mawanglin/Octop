@@ -303,13 +303,21 @@ jobs:
           PORTABLE_ZIP=../portable/release/Octop-portable-${{ matrix.plat }}-${{ env.OCTOP_VERSION }}.zip
 
       # Linux 不发 tar.gz，改发 deb / rpm / AppImage（Flatpak、Snap 暂不打）。
+      # 打包脚本取自触发本次运行的提交，这样给还没有该脚本的旧标签补打 Linux 包也行。
+      - name: Fetch packaging script
+        if: runner.os == 'Linux'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          path: _pkgtools
+
       - name: Build deb, rpm and AppImage
         if: runner.os == 'Linux'
         run: |
           set -euo pipefail
           sudo apt-get install -y desktop-file-utils
           bin=desktop/src/bin
-          bash scripts/fork/linux_packages.sh "${{ matrix.arch }}" "${OCTOP_VERSION}" "${bin}/Octop" "${bin}"
+          bash _pkgtools/scripts/fork/linux_packages.sh "${{ matrix.arch }}" "${OCTOP_VERSION}" "${bin}/Octop" "${bin}"
           rm -f "${bin}/Octop-desktop-${{ matrix.plat }}-${OCTOP_VERSION}.tar.gz"
 
       - uses: actions/upload-artifact@v4
