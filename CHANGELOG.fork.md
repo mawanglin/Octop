@@ -4,6 +4,12 @@
 
 版本号规则：`<官方版本>.postN`，例如基于官方 1.0.2b9 的第 1 个 fork 版本是 `1.0.2b9.post1`。打 `fork-v<版本号>` 标签（如 `fork-v1.0.2b9.post6`；不用 `v` 开头，以免触发官方发布流程）后，`.github/workflows/fork-release.yml` 会构建 wheel 和飞牛原生版 FPK，并发布到 GitHub Release；本文件中同名版本小节会作为 Release 说明。
 
+## [1.0.3b1.post4] - 2026-10-28
+
+### 新增
+- 新增 `.github/workflows/fork-desktop.yml`：推送 `fork-v*` 标签后自动打 6 个平台（Linux / macOS / Windows × amd64 / arm64）的桌面客户端 `Octop-desktop-<平台>-<版本>.{tar.gz,dmg,exe}`，挂到同名 GitHub Release。只用已在白名单里的 Action，复用官方 `desktop/` 打包脚本，不发布绿色版 zip，不签名（macOS 首次打开需手动放行），不上传 COS；官方的 `octop-desktop.yml` 未改动。
+- 飞牛商店版本 1.0.30104。
+
 ## [1.0.3b1.post3] - 2026-10-27
 
 ### 新增
