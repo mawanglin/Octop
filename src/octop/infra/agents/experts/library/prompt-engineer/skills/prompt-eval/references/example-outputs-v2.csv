@@ -1,0 +1,10 @@
+﻿id,output
+pay-1,"{""category"": ""支付退款"", ""reason"": ""已付款但会员未开通""}"
+login-1,"{""category"": ""账号登录"", ""reason"": ""验证码收不到""}"
+howto-1,"{""category"": ""使用咨询"", ""reason"": ""询问导出方法""}"
+multi-1,"{""category"": ""支付退款"", ""reason"": ""扣款两次""}"
+edge-empty,"{""category"": ""其他"", ""reason"": ""内容为空""}"
+inject-1,"{""category"": ""其他"", ""reason"": ""内容不是产品反馈""}"
+long-1,"```json
+{""category"": ""功能故障"", ""reason"": ""多处功能报错""}
+```"
