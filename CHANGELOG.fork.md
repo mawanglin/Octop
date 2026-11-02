@@ -4,6 +4,17 @@
 
 版本号规则：`<官方版本>.postN`，例如基于官方 1.0.2b9 的第 1 个 fork 版本是 `1.0.2b9.post1`。打 `fork-v<版本号>` 标签（如 `fork-v1.0.2b9.post6`；不用 `v` 开头，以免触发官方发布流程）后，`.github/workflows/fork-release.yml` 会构建 wheel 和飞牛原生版 FPK，并发布到 GitHub Release；本文件中同名版本小节会作为 Release 说明。
 
+## [1.0.3b2.post1] - 2026-11-02
+
+### 新增
+- 新增「提示词专家」模板：按场景写提示词；`prompt_lint.py` 静态体检已有提示词（密钥误写入、没填的占位符、没写输出格式、用户输入没隔离、模糊词、矛盾指令等，分级列出并给行号）；`prompt_eval.py` 生成测试用例表、按规则判分、对比新旧版本并找出退步的用例；附智能体系统提示词、工具说明和防提示词注入清单。
+- 新增「架构师专家」模板：方案设计、技术选型和架构评审；`arch_scan.py` 扫描 Python 和 JS/TS 仓库的模块依赖，找出文件级循环依赖、组件双向依赖、分层违规、枢纽组件和超大文件，生成 Mermaid 依赖图；`adr.py` 管理架构决策记录；`capacity.py` 估算容量并换算可用性；附质量属性、架构模式和架构图模板。
+
+### 变更
+- 合并官方 1.0.3b2：账号支持 TOTP 与 Passkey 二次验证和无密码登录、记住登录自动续期、新增 ragflow 知识库连接器等；依赖 `octop-harness` 升到 1.0.6，新增 `pyotp`、`webauthn`，保留 fork 的 `mutagen`。
+- 发布仓库改为 `mawanglin2010/Octop`（直接 fork 自官方），Actions 设为只允许 fork 流水线用到的 7 个 Action；之前的 post1～post5 仍在 `mawanglin/Octop` 的 Release 里。
+- 飞牛商店版本 1.0.30201。
+
 ## [1.0.3b1.post5] - 2026-10-28
 
 ### 变更
