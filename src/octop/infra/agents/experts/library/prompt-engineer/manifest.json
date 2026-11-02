@@ -1,0 +1,139 @@
+{
+  "id": "prompt-engineer",
+  "scene": "tech",
+  "label": {
+    "zh": "提示词专家",
+    "en": "Prompt Engineer"
+  },
+  "description": {
+    "zh": "把需求写成模型能稳定执行的提示词：按场景（分类、抽取、改写、问答、智能体系统提示和工具说明）选结构，写出角色、任务、输入隔离、输出格式和示例齐全的提示词；对已有提示词先用脚本体检（缺输出格式、模糊词、互相矛盾的指令、未填占位符、用户输入没隔离、密钥误写入），再逐条说明为什么改；改之前先设计测试用例和判分规则，改之后用同一批用例对比新旧版本，看有没有退步，不凭感觉说“变好了”。",
+    "en": "Turns requirements into prompts models follow reliably: picks a structure per scenario (classification, extraction, rewriting, Q&A, agent system prompts and tool descriptions) and writes role, task, input isolation, output format and examples; lints existing prompts with a script (missing output format, vague words, conflicting instructions, unfilled placeholders, unisolated user input, leaked secrets) and explains every change; designs test cases and scoring rules first, then compares old and new versions on the same cases to catch regressions instead of claiming it got better."
+  },
+  "welcome_message": {
+    "zh": "说说你要让模型做什么，或把现有的提示词发给我",
+    "en": "Tell me what the model should do, or send me an existing prompt"
+  },
+  "icon_name": "message-square",
+  "color": "#5B21B6",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "写提示词",
+        "en": "按场景写好"
+      },
+      "description": {
+        "zh": "Write a prompt",
+        "en": "By scenario"
+      },
+      "prompt": {
+        "zh": "帮我写一个提示词，用来 ___。输入是 ___，希望输出 ___，用在 ___ 模型上。",
+        "en": "Write a prompt for ___. Input is ___, desired output ___, target model ___."
+      },
+      "color": "#ede9fe",
+      "icon_name": "sparkles"
+    },
+    {
+      "title": {
+        "zh": "优化提示词",
+        "en": "诊断并改写"
+      },
+      "description": {
+        "zh": "Improve a prompt",
+        "en": "Diagnose and rewrite"
+      },
+      "prompt": {
+        "zh": "帮我优化下面这个提示词，先指出问题再给改写版，并说明每处为什么改：\n___",
+        "en": "Improve this prompt: list the problems first, then a rewrite with the reason for each change:\n___"
+      },
+      "color": "#fef3c7",
+      "icon_name": "wrench"
+    },
+    {
+      "title": {
+        "zh": "体检提示词",
+        "en": "自动查问题"
+      },
+      "description": {
+        "zh": "Lint a prompt",
+        "en": "Automatic checks"
+      },
+      "prompt": {
+        "zh": "帮我给下面这个提示词做一次体检，用脚本检查并给出必须改和建议改的地方：\n___",
+        "en": "Lint this prompt with the script and list must-fix and suggested changes:\n___"
+      },
+      "color": "#dbeafe",
+      "icon_name": "shield-check"
+    },
+    {
+      "title": {
+        "zh": "设计测试集",
+        "en": "改之前先定标准"
+      },
+      "description": {
+        "zh": "Design test cases",
+        "en": "Set the bar first"
+      },
+      "prompt": {
+        "zh": "这个提示词要处理 ___ 类任务，帮我设计一组测试用例（含常见、边界和容易出错的），并写好判分规则。",
+        "en": "This prompt handles ___ tasks. Design test cases (common, edge, failure-prone) with scoring rules."
+      },
+      "color": "#dcfce7",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": {
+        "zh": "对比两个版本",
+        "en": "用数据说话"
+      },
+      "description": {
+        "zh": "Compare versions",
+        "en": "Numbers, not feelings"
+      },
+      "prompt": {
+        "zh": "我有两版提示词和各自在同一批用例上的输出，帮我判分对比，看新版有没有变好、有没有退步的用例。",
+        "en": "I have two prompt versions and their outputs on the same cases. Score and compare them, including regressions."
+      },
+      "color": "#ffe4e6",
+      "icon_name": "refresh-cw"
+    },
+    {
+      "title": {
+        "zh": "写智能体指令",
+        "en": "系统提示和工具说明"
+      },
+      "description": {
+        "zh": "Write agent instructions",
+        "en": "Prompts and tool specs"
+      },
+      "prompt": {
+        "zh": "帮我为一个 ___ 智能体写系统提示词，它能用的工具有 ___，需要防范提示词注入。",
+        "en": "Write a system prompt for a ___ agent with tools ___, hardened against prompt injection."
+      },
+      "color": "#f1f5f9",
+      "icon_name": "terminal"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每周一「10:00」汇总本周提示词改动和测试结果，标出退步的用例",
+      "每次修改提示词后「立即」跑一遍测试集，对比上一版",
+      "每月 1 日「10:00」体检提示词库，列出缺输出格式或有未填占位符的",
+      "每周五「17:00」整理本周线上出错的输入，补进测试集",
+      "每月最后一天「18:00」盘点提示词里重复的指令，合并成公共片段",
+      "每季度第一天「10:00」复查智能体系统提示词里的权限和防注入条款"
+    ],
+    "en": [
+      "Every Monday at 10:00, summarise prompt changes and test results, flagging regressions",
+      "After each prompt edit, rerun the test set and compare with the previous version",
+      "On the 1st of each month at 10:00, lint the prompt library for missing formats or unfilled placeholders",
+      "Every Friday at 17:00, add this week's failing production inputs to the test set",
+      "On the last day of each month at 18:00, merge duplicated instructions into shared snippets",
+      "On the first day of each quarter at 10:00, review permissions and injection defences in agent system prompts"
+    ]
+  }
+}

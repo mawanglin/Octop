@@ -1,0 +1,139 @@
+{
+  "id": "architect",
+  "scene": "tech",
+  "label": {
+    "zh": "架构师专家",
+    "en": "Software Architect"
+  },
+  "description": {
+    "zh": "帮你把需求变成合理的系统架构，并说清为什么这样选：先弄清业务目标、规模、团队和约束，再按质量属性（性能、可用性、安全、可维护、成本）对比方案，输出方案文档、Mermaid 架构图（系统上下文、容器、时序）和架构决策记录（ADR）；能用脚本扫描现有代码仓库的模块依赖，找出循环依赖、分层违规、枢纽模块和超大文件；用容量估算和可用性换算算清楚 QPS、带宽、存储、节点数和几个九，不拍脑袋。",
+    "en": "Turns requirements into a sound system architecture and explains why: clarifies business goals, scale, team and constraints, compares options by quality attributes (performance, availability, security, maintainability, cost), and produces design docs, Mermaid diagrams (context, container, sequence) and architecture decision records (ADRs); scans an existing repository for module dependencies, cycles, layering violations, hub modules and oversized files; estimates QPS, bandwidth, storage, node counts and availability instead of guessing."
+  },
+  "welcome_message": {
+    "zh": "说说你要做的系统，或把要评审的代码目录发给我",
+    "en": "Tell me about the system you're building, or point me at the code to review"
+  },
+  "icon_name": "network",
+  "color": "#115E59",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "方案设计",
+        "en": "从需求到架构"
+      },
+      "description": {
+        "zh": "Design an architecture",
+        "en": "By requirements"
+      },
+      "prompt": {
+        "zh": "帮我为 ___ 设计系统架构：用户规模 ___，核心功能 ___，团队 ___ 人，上线时间 ___，先问清楚再给方案。",
+        "en": "Design the architecture for ___: users ___, core features ___, team of ___, deadline ___. Ask clarifying questions first."
+      },
+      "color": "#ccfbf1",
+      "icon_name": "network"
+    },
+    {
+      "title": {
+        "zh": "技术选型",
+        "en": "对比并记录决策"
+      },
+      "description": {
+        "zh": "Compare technologies",
+        "en": "Decide and record"
+      },
+      "prompt": {
+        "zh": "我在 ___ 和 ___ 之间犹豫，场景是 ___。请按我们的约束对比，给出推荐，并写成一份架构决策记录。",
+        "en": "I'm choosing between ___ and ___ for ___. Compare against our constraints, recommend one and write it up as an ADR."
+      },
+      "color": "#fef3c7",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": {
+        "zh": "评审现有架构",
+        "en": "扫描代码找问题"
+      },
+      "description": {
+        "zh": "Review an architecture",
+        "en": "Scan the code"
+      },
+      "prompt": {
+        "zh": "帮我评审 ___ 目录下的项目架构：扫描模块依赖，找出循环依赖、分层违规和过大的模块，给出改进建议。",
+        "en": "Review the architecture of the project in ___: scan module dependencies, find cycles, layering violations and oversized modules, and suggest improvements."
+      },
+      "color": "#dbeafe",
+      "icon_name": "shield-check"
+    },
+    {
+      "title": {
+        "zh": "容量估算",
+        "en": "算清楚再选型"
+      },
+      "description": {
+        "zh": "Capacity estimate",
+        "en": "Do the math"
+      },
+      "prompt": {
+        "zh": "按日活 ___、人均每天 ___ 次请求，估算峰值 QPS、带宽、存储和节点数，并列出每个假设。",
+        "en": "With ___ daily users making ___ requests each, estimate peak QPS, bandwidth, storage and node count, listing every assumption."
+      },
+      "color": "#dcfce7",
+      "icon_name": "trending-up"
+    },
+    {
+      "title": {
+        "zh": "画架构图",
+        "en": "Mermaid 图"
+      },
+      "description": {
+        "zh": "Draw diagrams",
+        "en": "Mermaid diagrams"
+      },
+      "prompt": {
+        "zh": "帮我把 ___ 系统画成架构图：系统上下文图、容器图，再挑一个关键流程画时序图，用 Mermaid。",
+        "en": "Draw ___ as architecture diagrams in Mermaid: system context, containers, and a sequence diagram for one key flow."
+      },
+      "color": "#ede9fe",
+      "icon_name": "presentation"
+    },
+    {
+      "title": {
+        "zh": "架构复盘",
+        "en": "故障和技术债"
+      },
+      "description": {
+        "zh": "Architecture retro",
+        "en": "Incidents and debt"
+      },
+      "prompt": {
+        "zh": "这次故障是 ___。帮我从架构角度复盘：根因、为什么设计上没挡住、该补哪些防护，以及要不要改动架构。",
+        "en": "The incident was ___. Run an architecture-level retro: root cause, why the design didn't stop it, missing safeguards and whether the architecture should change."
+      },
+      "color": "#ffe4e6",
+      "icon_name": "refresh-cw"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每周一「10:00」扫描项目代码，汇总新增的循环依赖和分层违规",
+      "每月 1 日「10:00」检查架构决策记录，列出状态不对或缺少代价说明的",
+      "每季度第一天「10:00」按最新用户量重新估算容量，对比现有资源",
+      "每周五「17:00」汇总本周新增的技术债和需要评审的设计",
+      "每月最后一天「18:00」梳理需要重新评审的决策（触发条件已出现的）",
+      "每次发布前「立即」检查架构图和代码是否一致，列出差异"
+    ],
+    "en": [
+      "Every Monday at 10:00, scan the code and report new cycles and layering violations",
+      "On the 1st of each month at 10:00, check ADRs for wrong statuses or missing trade-offs",
+      "On the first day of each quarter at 10:00, re-estimate capacity with current user numbers",
+      "Every Friday at 17:00, summarise new tech debt and designs needing review",
+      "On the last day of each month at 18:00, list decisions whose review triggers have fired",
+      "Before each release, check that diagrams still match the code and list differences"
+    ]
+  }
+}
