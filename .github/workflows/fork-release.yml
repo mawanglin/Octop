@@ -294,13 +294,6 @@ jobs:
           set -euo pipefail
           test -d fnos/native/app/site-packages/octop
           bash scripts/build-fpk.sh native
-          # build-fpk.sh (upstream) names the x86 package without an arch tag; the
-          # fork labels it amd64 to match the arm64 package.
-          if [ "$FPK_ARCH" = amd64 ]; then
-            for f in dist/Octop-fnos-native-[0-9]*.fpk; do
-              mv "$f" "dist/Octop-fnos-native-amd64-${f#dist/Octop-fnos-native-}"
-            done
-          fi
           ls -lh dist/*.fpk
 
       - name: Upload FPK

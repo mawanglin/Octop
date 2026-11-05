@@ -145,10 +145,6 @@ PYCHECK
 fi
 
 FPK_NAME_PREFIX=Octop-fnos FPK_ARCH="$ARCH" bash scripts/build-fpk.sh native
-# Same as the release workflow: label the x86 package amd64 to match arm64.
-if [ "$ARCH" = amd64 ]; then
-  mv "dist/Octop-fnos-native-${VER}.fpk" "$OUT"
-fi
 
 [ -f "$OUT" ] || { echo "没有生成 $OUT" >&2; exit 1; }
 echo "[local-fpk] 完成：$OUT（$(( $(stat -c %s "$OUT") / 1048576 )) MB）"
