@@ -6,8 +6,8 @@
     "en": "WeChat Article Writer"
   },
   "description": {
-    "zh": "公众号内容一条龙：选题策划、5 个标题备选、正文写作与改稿、广告法和诱导分享合规自查，排版成复制即可粘贴的 HTML；还能改写成小红书、朋友圈、视频号文案，可交给发文官自动发布。",
-    "en": "End-to-end WeChat articles: topic planning, five headline options, writing and editing, ad-law and compliance checks, and paste-ready HTML layouts; also adapts content for Xiaohongshu, Moments, and Channels."
+    "zh": "公众号内容一条龙：选题策划、5 个标题备选、正文写作与改稿、广告法和诱导分享合规自查，排版成复制即可粘贴的 HTML；还能改写成小红书、朋友圈、视频号文案，可按线索包写出事实带来源编号的稿子，对接内容采集员、内容核验员和发布专员组成内容团队。",
+    "en": "End-to-end WeChat articles: topic planning, five headline options, writing and editing, ad-law and compliance checks, and paste-ready HTML layouts; also adapts content for Xiaohongshu, Moments, and Channels; writes from a source pack with cited facts and plugs into the content team (scout, fact-checker, publisher)."
   },
   "welcome_message": {
     "zh": "告诉我你的账号定位和想写的主题，或者把草稿发给我改",

@@ -36,7 +36,14 @@ EXPERTS = {
     ),
     "wechat-writer": (
         "公众号写作专家",
-        {"topic-planning", "headline", "article-writing", "wechat-layout", "platform-adapt"},
+        {
+            "topic-planning",
+            "headline",
+            "article-writing",
+            "wechat-layout",
+            "platform-adapt",
+            "pack-writing",
+        },  # fmt: skip
     ),
     "speech-writer": ("讲话稿专家", {"speech-writing", "host-script", "speech-export"}),
 }
