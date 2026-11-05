@@ -1,0 +1,139 @@
+{
+  "id": "content-scout",
+  "scene": "content-creation",
+  "label": {
+    "zh": "内容采集员",
+    "en": "Content Scout"
+  },
+  "description": {
+    "zh": "按话题或热点收集线索和素材，整理成带出处、可核对的“线索包”：一手来源优先，每条来源标注可信度（A–D）和状态（可用、存疑、不可用），摘录必须是页面里的原文逐字（用脚本按关键词取原句，不转述），检查链接能否打开、把转载和同源去重、按发布日期排时间线、并排列出来源之间的矛盾；传言和查不到出处的内容单列为不可用并写明原因；评估热点能不能写、从哪个角度写。是内容团队的第一站，线索包交给公众号写作专家写稿，再由内容核验员逐条对照。",
+    "en": "Collects leads and material for a topic or hot event into a verifiable source pack: primary sources first, every source graded A–D and marked usable, doubtful or unusable, excerpts copied verbatim from the page (a script pulls original sentences by keyword instead of paraphrasing), links checked, reposts deduplicated, timelines built and conflicting sources shown side by side; rumours and unsourced claims are listed as unusable with reasons; assesses whether a topic is worth writing and from which angle. First stop of the content team; the pack goes to the writer and is checked line by line by the fact-checker."
+  },
+  "welcome_message": {
+    "zh": "说说要写的话题或热点，以及写给谁、发在哪",
+    "en": "Tell me the topic or event, who it's for and where it will be published"
+  },
+  "icon_name": "radio-tower",
+  "color": "#0E7490",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "收集线索",
+        "en": "按话题找出处"
+      },
+      "description": {
+        "zh": "Collect leads",
+        "en": "Topic to sourced pack"
+      },
+      "prompt": {
+        "zh": "帮我收集关于 ___ 的线索和素材，写给 ___，发在 ___，时间范围 ___，整理成线索包，每条带出处和逐字摘录。",
+        "en": "Collect leads and material about ___ for ___, to be published on ___, covering ___; build a source pack with a citation and verbatim excerpt for each."
+      },
+      "color": "#cffafe",
+      "icon_name": "sparkles"
+    },
+    {
+      "title": {
+        "zh": "评估热点",
+        "en": "能写不能写"
+      },
+      "description": {
+        "zh": "Assess a hot topic",
+        "en": "Worth writing?"
+      },
+      "prompt": {
+        "zh": "这几个热点：___，帮我评估时效、可核实程度、与账号的匹配和风险，告诉我哪个值得写、从什么角度写。",
+        "en": "Assess these hot topics: ___ — timeliness, verifiability, fit with the account and risk; tell me which is worth writing and from what angle."
+      },
+      "color": "#fef3c7",
+      "icon_name": "trending-up"
+    },
+    {
+      "title": {
+        "zh": "追溯出处",
+        "en": "找最早的来源"
+      },
+      "description": {
+        "zh": "Trace the source",
+        "en": "Find the original"
+      },
+      "prompt": {
+        "zh": "这条消息：___，帮我顺藤摸瓜找到最早的出处，判断可信度，并逐字摘录原文。",
+        "en": "Trace this claim back to its earliest source, judge its credibility and quote the original verbatim: ___"
+      },
+      "color": "#dbeafe",
+      "icon_name": "globe"
+    },
+    {
+      "title": {
+        "zh": "核对矛盾",
+        "en": "并排放两种说法"
+      },
+      "description": {
+        "zh": "Resolve conflicts",
+        "en": "Side by side"
+      },
+      "prompt": {
+        "zh": "关于 ___ 的几个来源说法不一致，帮我把各方原文并排整理，写明差异，别替我下结论。",
+        "en": "Sources disagree about ___; line up each side's original text, explain the differences and don't pick a winner."
+      },
+      "color": "#ffe4e6",
+      "icon_name": "refresh-cw"
+    },
+    {
+      "title": {
+        "zh": "整理线索包",
+        "en": "去重、查链接、排时间线"
+      },
+      "description": {
+        "zh": "Tidy a source pack",
+        "en": "Dedupe, check links, timeline"
+      },
+      "prompt": {
+        "zh": "我已经有一份文章包 ___，帮我检查链接能否打开、把转载去重、按时间排序，并指出缺口。",
+        "en": "I already have an article pack ___; check that links open, dedupe reposts, sort by date and point out gaps."
+      },
+      "color": "#dcfce7",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": {
+        "zh": "补充缺口",
+        "en": "核验员退回的"
+      },
+      "description": {
+        "zh": "Fill the gaps",
+        "en": "Fact-checker sent it back"
+      },
+      "prompt": {
+        "zh": "核验员指出这些事实缺少可用来源：___，帮我补充来源，并更新线索包。",
+        "en": "The fact-checker says these facts lack usable sources: ___; find sources and update the pack."
+      },
+      "color": "#f1f5f9",
+      "icon_name": "wrench"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每天「8:30」按我关注的话题收集昨日新增线索，整理成线索包",
+      "每周一「9:00」汇总上周行业热点并评估哪些值得写",
+      "每天「18:00」检查已有线索包里的链接是否仍然可以打开",
+      "每周五「16:00」整理本周线索包里的不可用素材和原因",
+      "每月 1 日「10:00」复盘上月线索的来源分布，找出常用的一手来源",
+      "每次选题确定后「立即」补充缺失的一手来源"
+    ],
+    "en": [
+      "Every day at 8:30, collect new leads on my topics into a source pack",
+      "Every Monday at 9:00, summarise last week's hot topics and assess which are worth writing",
+      "Every day at 18:00, check that links in existing packs still open",
+      "Every Friday at 16:00, list unusable material from this week's packs with reasons",
+      "On the 1st of each month at 10:00, review the source mix and common primary sources",
+      "Whenever a topic is confirmed, fill in missing primary sources"
+    ]
+  }
+}

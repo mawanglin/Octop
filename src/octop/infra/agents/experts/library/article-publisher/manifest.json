@@ -1,0 +1,139 @@
+{
+  "id": "article-publisher",
+  "scene": "content-creation",
+  "label": {
+    "zh": "发布专员",
+    "en": "Article Publisher"
+  },
+  "description": {
+    "zh": "内容团队的最后一站：只发核验通过、用户已明确确认的文章。发布前检查核验结论为通过、初稿自核验后没改过（哈希一致）、用户在对话里确认；把文章排版后连同封面和正文图片存进微信公众号草稿箱（只存草稿，由用户到后台预览后自己发布），文末自动生成参考来源，去掉来源标记；同一版初稿不会重复提交；接口失败时给出错误码、原因和处理办法（IP 白名单、账号权限等）；小红书、头条等没有稳定接口的平台导出可复制的文本；每次发布记台账。密钥只从环境变量读取，不外露。",
+    "en": "Last stop of the content team: publishes only articles that passed fact-checking and were explicitly confirmed by the user. Before publishing it checks the verdict is pass, the draft is unchanged since review (hash match) and the user confirmed in chat; lays out the article and saves it with cover and inline images to the WeChat Official Account draft box (drafts only, the user previews and publishes in the console), generating a reference list and stripping source markers; never submits the same draft twice; explains API failures (IP allowlist, account permissions); exports copy-ready text for platforms without stable APIs; keeps a ledger. Secrets are read from the environment only."
+  },
+  "welcome_message": {
+    "zh": "把核验通过的文章包给我，我先对一遍清单",
+    "en": "Give me the verified article pack and I will run the checklist first"
+  },
+  "icon_name": "rocket",
+  "color": "#B45309",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "存入草稿箱",
+        "en": "公众号"
+      },
+      "description": {
+        "zh": "Save to drafts",
+        "en": "WeChat"
+      },
+      "prompt": {
+        "zh": "这篇文章已经核验通过，请检查后存入公众号草稿箱：\n___",
+        "en": "This article passed fact-checking; check it and save it to the WeChat draft box:\n___"
+      },
+      "color": "#fce7f3",
+      "icon_name": "rocket"
+    },
+    {
+      "title": {
+        "zh": "发布前预检",
+        "en": "三道关"
+      },
+      "description": {
+        "zh": "Pre-publish check",
+        "en": "Three gates"
+      },
+      "prompt": {
+        "zh": "帮我检查文章包 ___ 能不能发布：核验结论、初稿是否改过、还差什么。",
+        "en": "Check whether article pack ___ can be published: verdict, whether the draft changed, what is missing."
+      },
+      "color": "#fef3c7",
+      "icon_name": "shield-check"
+    },
+    {
+      "title": {
+        "zh": "检查公众号配置",
+        "en": "凭据和 IP 白名单"
+      },
+      "description": {
+        "zh": "Check the setup",
+        "en": "Credentials and IP allowlist"
+      },
+      "prompt": {
+        "zh": "帮我检查公众号接口是否配置好：AppID、AppSecret 和 IP 白名单。",
+        "en": "Check that the WeChat API is set up: AppID, AppSecret and IP allowlist."
+      },
+      "color": "#dbeafe",
+      "icon_name": "wrench"
+    },
+    {
+      "title": {
+        "zh": "导出其他平台",
+        "en": "可复制的文本"
+      },
+      "description": {
+        "zh": "Export for other platforms",
+        "en": "Copy-ready text"
+      },
+      "prompt": {
+        "zh": "把核验通过的文章包 ___ 导出成小红书的可复制文本，并提示超出限制的地方。",
+        "en": "Export the verified pack ___ as copy-ready Xiaohongshu text and flag anything over the limits."
+      },
+      "color": "#ede9fe",
+      "icon_name": "file-text"
+    },
+    {
+      "title": {
+        "zh": "查发布台账",
+        "en": "是否发过"
+      },
+      "description": {
+        "zh": "Check the ledger",
+        "en": "Already published?"
+      },
+      "prompt": {
+        "zh": "查一下发布台账，这篇文章（初稿哈希 ___）发过没有，最近发布了哪些。",
+        "en": "Check the publish ledger: was this article (draft hash ___) sent, and what was published recently?"
+      },
+      "color": "#dcfce7",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": {
+        "zh": "处理发布失败",
+        "en": "看错误码"
+      },
+      "description": {
+        "zh": "Handle a failure",
+        "en": "Read the error"
+      },
+      "prompt": {
+        "zh": "发布时报错：___，帮我判断原因并告诉我怎么处理。",
+        "en": "Publishing failed with: ___ — find the cause and tell me what to do."
+      },
+      "color": "#ffe4e6",
+      "icon_name": "terminal"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每周五「17:00」汇总本周发布台账：发了什么、失败了几次、原因",
+      "每月 1 日「10:00」检查公众号接口凭据和 IP 白名单是否仍然有效",
+      "每次发布前「立即」运行预检，确认核验通过且初稿未改动",
+      "每周一「9:00」列出草稿箱里还没有发布的稿子",
+      "每月最后一天「18:00」复盘本月失败的发布及处理办法",
+      "每季度第一天「10:00」提醒我检查公众号 AppSecret 是否需要轮换"
+    ],
+    "en": [
+      "Every Friday at 17:00, summarise this week's ledger: what was sent, failures and causes",
+      "On the 1st of each month at 10:00, check the API credentials and IP allowlist still work",
+      "Before each publish, run the pre-check: verified and draft unchanged",
+      "Every Monday at 9:00, list drafts still unpublished",
+      "On the last day of each month at 18:00, review failed publishes and fixes",
+      "On the first day of each quarter at 10:00, remind me to consider rotating the AppSecret"
+    ]
+  }
+}

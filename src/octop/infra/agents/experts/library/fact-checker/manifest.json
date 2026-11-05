@@ -1,0 +1,139 @@
+{
+  "id": "fact-checker",
+  "scene": "content-creation",
+  "label": {
+    "zh": "内容核验员",
+    "en": "Content Fact-Checker"
+  },
+  "description": {
+    "zh": "稿子写完、发布前的守门人：用脚本把初稿里的数字、日期和引语逐句对到被引用来源的原文摘录（找出对不上、引用错位、无出处、引语不逐字、存疑来源写成事实、绝对化表述），检查逐字搬运比例防洗稿，核查广告法极限用语、功效和收益承诺、诱导分享、个人信息和标题党，并按平台检查标题、摘要、字数、图片和遗留占位符；再人工复核转述走样、范围放大、因果倒置等脚本看不到的问题，给出通过、需修改、不通过的结论和逐条修改要求。只核验不改稿，报告记录被核验初稿的哈希，稿子改过报告即作废。能证明稿子和线索包是否一致，不能证明来源本身是真的。",
+    "en": "Gatekeeper before publishing: scripts trace every number, date and quote in the draft to the verbatim excerpts of the sources it cites (finding mismatches, misattributed citations, unsourced claims, inexact quotes, doubtful sources written as fact, absolutes), measure verbatim overlap to catch copying, check ad-law words, efficacy and return promises, inducement to share, personal data and clickbait, and check titles, digests, length, images and leftover placeholders per platform; then a manual pass for paraphrase drift, widened scope and inverted causation; verdict pass / revise / reject with itemised requirements. Reviews only, never edits; the report records the draft hash and expires when the draft changes. Proves the draft matches the pack, not that the sources are true."
+  },
+  "welcome_message": {
+    "zh": "把带线索包的稿子发给我，我逐条核对",
+    "en": "Send me the draft with its source pack and I will check it line by line"
+  },
+  "icon_name": "shield-check",
+  "color": "#7C2D12",
+  "prompt_files": [
+    "SOUL.md",
+    "IDENTITY.md",
+    "AGENTS.md"
+  ],
+  "quick_prompts": [
+    {
+      "title": {
+        "zh": "核验稿子",
+        "en": "逐条对出处"
+      },
+      "description": {
+        "zh": "Check a draft",
+        "en": "Line by line"
+      },
+      "prompt": {
+        "zh": "帮我核验这篇稿子，对照线索包逐条核对数字、日期和引语，并给出结论：\n___",
+        "en": "Check this draft against its source pack — numbers, dates and quotes — and give a verdict:\n___"
+      },
+      "color": "#ffedd5",
+      "icon_name": "shield-check"
+    },
+    {
+      "title": {
+        "zh": "事实溯源",
+        "en": "哪句没出处"
+      },
+      "description": {
+        "zh": "Trace the claims",
+        "en": "Which lines lack sources"
+      },
+      "prompt": {
+        "zh": "用事实溯源脚本检查这份文章包 ___，列出对不上、引用错位和没有出处的句子。",
+        "en": "Run claim tracing on the article pack ___ and list mismatched, misattributed and unsourced sentences."
+      },
+      "color": "#fee2e2",
+      "icon_name": "list-todo"
+    },
+    {
+      "title": {
+        "zh": "合规检查",
+        "en": "广告法和诱导分享"
+      },
+      "description": {
+        "zh": "Compliance check",
+        "en": "Ad law and inducements"
+      },
+      "prompt": {
+        "zh": "帮我检查这篇稿子的合规问题（广告法、功效和收益承诺、诱导分享、个人信息、标题党），这是商业推广内容：___",
+        "en": "Check this draft for compliance problems (ad law, efficacy and return promises, inducing shares, personal data, clickbait); it is promotional: ___"
+      },
+      "color": "#fef3c7",
+      "icon_name": "terminal"
+    },
+    {
+      "title": {
+        "zh": "查是否洗稿",
+        "en": "逐字重合"
+      },
+      "description": {
+        "zh": "Originality",
+        "en": "Verbatim overlap"
+      },
+      "prompt": {
+        "zh": "检查这篇稿子和来源原文的逐字重合比例，指出哪几段需要改写或加引号：___",
+        "en": "Measure verbatim overlap between this draft and its sources and point out passages to rewrite or quote: ___"
+      },
+      "color": "#dbeafe",
+      "icon_name": "activity"
+    },
+    {
+      "title": {
+        "zh": "格式检查",
+        "en": "按平台限制"
+      },
+      "description": {
+        "zh": "Format check",
+        "en": "Per platform limits"
+      },
+      "prompt": {
+        "zh": "按 ___ 平台的限制检查这篇稿子的标题、摘要、字数、图片和遗留的占位符。",
+        "en": "Check this draft's title, digest, length, images and leftover placeholders against ___ limits."
+      },
+      "color": "#dcfce7",
+      "icon_name": "presentation"
+    },
+    {
+      "title": {
+        "zh": "复核修改",
+        "en": "第二轮核验"
+      },
+      "description": {
+        "zh": "Re-check a revision",
+        "en": "Second round"
+      },
+      "prompt": {
+        "zh": "这是按你上一轮报告修改后的稿子，请重新完整核验，并说明上轮的问题是否都已解决：___",
+        "en": "This is the revised draft after your last report; re-check everything and say whether last round's issues are resolved: ___"
+      },
+      "color": "#f1f5f9",
+      "icon_name": "refresh-cw"
+    }
+  ],
+  "task_examples": {
+    "zh": [
+      "每次稿子定稿后「立即」运行事实溯源、合规、格式和原创性检查",
+      "每周五「17:00」汇总本周核验中最常见的问题类型",
+      "每月 1 日「10:00」复盘上月被打回的稿子，整理高频问题清单",
+      "每次发布前「立即」确认核验报告对应的是当前初稿",
+      "每周一「9:00」检查线索包里仍被引用的来源链接是否有效",
+      "每季度第一天「10:00」更新合规关键词清单并核对平台规则变化"
+    ],
+    "en": [
+      "Right after a draft is final, run claim tracing, compliance, format and originality checks",
+      "Every Friday at 17:00, summarise the most common issue types this week",
+      "On the 1st of each month at 10:00, review last month's rejected drafts and list frequent problems",
+      "Before each publish, confirm the review report matches the current draft",
+      "Every Monday at 9:00, check that cited source links are still valid",
+      "On the first day of each quarter at 10:00, refresh the compliance keywords and platform rules"
+    ]
+  }
+}
