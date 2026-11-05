@@ -25,6 +25,7 @@ import { message } from "@/utils/antdMessage";
 
 import {
   Cloudy,
+  CopyPlus,
   GraduationCap,
   LayoutGrid,
   List,
@@ -59,6 +60,7 @@ import type { TeamRecord } from "../../api/modules/teams";
 import { TeamCard } from "./components/TeamCard";
 import AgentExpertsTable from "./components/AgentExpertsTable";
 import ExpertMarketTab from "./components/ExpertMarketTab";
+import BuiltinLibraryTab from "./components/BuiltinLibraryTab"; // fork: bundled templates
 import { OctopEmptyMascot } from "../../components/EmptyState";
 import { isOwnedExpert, ownedExperts } from "../../utils/sharedExpert";
 import {
@@ -70,11 +72,11 @@ import { apiErrorMessage } from "../../utils/apiError";
 import { navAllowed } from "../../utils/permissions";
 import styles from "./index.module.less";
 
-type TabKey = "my" | "teams" | "market";
+type TabKey = "my" | "teams" | "library" | "market"; // fork: + "library"
 
 function tabFromQuery(raw: string | null): TabKey | null {
-  if (raw === "library" || raw === "market") return "market";
-  if (raw === "my" || raw === "teams") return raw;
+  if (raw === "my" || raw === "teams" || raw === "library" || raw === "market")
+    return raw; // fork: "library" is its own tab again
   return null;
 }
 
@@ -785,6 +787,24 @@ export default function ExpertsPage() {
             key: "teams",
             label: <TabLabel icon={Users}>{t("experts.myTeams")}</TabLabel>,
             children: teamsContent,
+          },
+          {
+            // fork: bundled expert templates (removed upstream in 1.0.3b3)
+            key: "library",
+            label: (
+              <TabLabel icon={CopyPlus}>
+                {t("experts.expertLibrary", "内置专家模板")}
+              </TabLabel>
+            ),
+            children: (
+              <BuiltinLibraryTab
+                lang={lang}
+                installedExpertIds={agentExpertIds}
+                onRequestCreate={(expert) =>
+                  setCreateSource({ kind: "builtin", expert })
+                }
+              />
+            ),
           },
           {
             key: "market",
