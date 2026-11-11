@@ -19,7 +19,8 @@ LOG_FILE="${PKGVAR}/info.log"
 PID_FILE="${PKGVAR}/octop.pid"
 PORT="${OCTOP_PORT:-8089}"
 BIN="$APPDEST/bin/octop"
-START_WAIT_SECS="${OCTOP_START_WAIT_SECS:-90}"
+# fork: 90 秒对几十个专家的机器太紧（正常启动约 70 秒，NAS 一忙就被杀）。端口一监听就立刻返回，调大只是不再误杀。
+START_WAIT_SECS="${OCTOP_START_WAIT_SECS:-300}"
 
 if [ -n "${TRIM_DATA_SHARE_PATHS:-}" ]; then
     DATA_DIR="${TRIM_DATA_SHARE_PATHS%%:*}"
