@@ -29,6 +29,10 @@ Plan overview (130092), and the Token Plan personal overview (130060), all read 
 Token Plan enterprise follows the professional plan page (130659) and its overview (131172). ``tencent-hai`` is not covered:
 no document for api.model.haihub.cn was found.
 
+Zhipu Coding Plan (docs.bigmodel.cn / docs.z.ai), Aliyun Coding Plan and Token Plan (help.aliyun.com,
+alibabacloud.com) and Volcengine Coding Plan / Agent Plan (docs.volcengine.com/docs/ark) follow each
+plan's own "supported models" page, read 2026-11-11. These plans only accept the models they list.
+
 Not covered on purpose: every other "plan" preset (Coding / Token / Agent Plan, Kimi Coding Plan, Tencent HAI), ``dashscope-us``.
 """
 
@@ -173,6 +177,128 @@ _DOUBAO_20_LIMITS = {
     "max_input_tokens": 224 * _K,
     "max_output_tokens": 128 * _K,
 }
+
+_ZHIPU_PLAN_NEW = (
+    _m("glm-5.3", "GLM-5.3", context=1_000_000, max_output=131_072),
+    _m("glm-5.3-flash", "GLM-5.3 Flash", context=1_000_000, max_output=131_072, inputs=_TI),
+)
+_ALIYUN_CODING_RETIRED = ("glm-4.7", "qwen3-max-2026-01-23", "qwen3-coder-next", "qwen3-coder-plus")
+_ALIYUN_CODING_VISION: dict[str, dict[str, Any]] = {
+    "qwen3.7-plus": {"input": ["text", "image"]},
+    "qwen3.6-plus": {"input": ["text", "image"]},
+    "kimi-k2.5": {"input": ["text", "image"]},
+}
+_ALIYUN_TOKEN_RETIRED = ("qwen3.6-plus", "glm-5", "MiniMax-M2.5", "deepseek-v3.2", "kimi-k2.5")
+_ALIYUN_TOKEN_NEW = (
+    _m("auto", "Auto"),
+    _m("qwen3.8-max", "Qwen3.8 Max", context=1_000_000, inputs=_TI),
+    _m("qwen3.8-flash", "Qwen3.8 Flash", context=1_000_000, inputs=_TI),
+    _m("qwen3.7-max", "Qwen3.7 Max", context=1_000_000),
+    _m("qwen3.7-plus", "Qwen3.7 Plus", context=1_000_000, max_output=65_536, inputs=_TI),
+    _m("qwen3.6-flash", "Qwen3.6 Flash", inputs=_TI),
+    _m("deepseek-v4.1-flash", "DeepSeek V4.1 Flash", inputs=_TI),
+    _m("deepseek-v4.1-flash-1017", "DeepSeek V4.1 Flash 1017", inputs=_TI),
+    _m("deepseek-v4-pro-0813", "DeepSeek V4 Pro 0813"),
+    _m("deepseek-v4-pro", "DeepSeek V4 Pro"),
+    _m("deepseek-v4-flash-0731", "DeepSeek V4 Flash 0731"),
+    _m("glm-5.3", "GLM-5.3"),
+    _m("glm-5.2", "GLM-5.2"),
+)
+_ARK_1M = 1024 * _K
+# Models both Ark plans list; limits from the Agent Plan page ("1024K" = 1,048,576).
+_ARK_PLAN_NEW_ONLY = (
+    _m(
+        "doubao-seed-2.1-pro",
+        "Doubao Seed 2.1 Pro",
+        context=_ARK_1M,
+        max_output=256 * _K,
+        inputs=_TI,
+    ),
+    _m(
+        "doubao-seed-2.1-lite",
+        "Doubao Seed 2.1 Lite",
+        context=_ARK_1M,
+        max_output=256 * _K,
+        inputs=_TI,
+    ),
+    _m("kimi-k2.8-preview", "Kimi K2.8 Preview", context=_ARK_1M, max_output=_ARK_1M, inputs=_TI),
+    _m("kimi-k3.1-pro", "Kimi K3.1 Pro", context=_ARK_1M, max_output=_ARK_1M, inputs=_TI),
+    _m(
+        "deepseek-v4.1-flash",
+        "DeepSeek V4.1 Flash",
+        context=_ARK_1M,
+        max_output=384 * _K,
+        inputs=_TI,
+    ),
+    _m(
+        "deepseek-v4.1-flash-economy",
+        "DeepSeek V4.1 Flash Economy",
+        context=_ARK_1M,
+        max_output=384 * _K,
+        inputs=_TI,
+    ),
+)
+_ARK_PLAN_LIMITS: dict[str, dict[str, Any]] = {
+    "doubao-seed-evolving": {
+        "context_window": _ARK_1M,
+        "max_input_tokens": _ARK_1M,
+        "max_output_tokens": 256 * _K,
+    },
+    "glm-5.3": {
+        "context_window": _ARK_1M,
+        "max_input_tokens": _ARK_1M,
+        "max_output_tokens": 128 * _K,
+    },
+    "glm-latest": {
+        "context_window": _ARK_1M,
+        "max_input_tokens": _ARK_1M,
+        "max_output_tokens": 128 * _K,
+    },
+    "glm-5.3-flash": {
+        "context_window": _ARK_1M,
+        "max_input_tokens": _ARK_1M,
+        "max_output_tokens": 128 * _K,
+    },
+    "deepseek-v4-flash": {
+        "context_window": _ARK_1M,
+        "max_input_tokens": _ARK_1M,
+        "max_output_tokens": 384 * _K,
+    },
+    "deepseek-v4-pro": {
+        "context_window": _ARK_1M,
+        "max_input_tokens": _ARK_1M,
+        "max_output_tokens": 384 * _K,
+    },
+    "doubao-seed-2.0-mini": {
+        "context_window": 256 * _K,
+        "max_input_tokens": 256 * _K,
+        "max_output_tokens": 128 * _K,
+    },
+}
+_ARK_PLAN_MODELS = (
+    _m(
+        "doubao-seed-evolving",
+        "Doubao Seed Evolving",
+        context=_ARK_1M,
+        max_output=256 * _K,
+        inputs=_TI,
+    ),
+    *_ARK_PLAN_NEW_ONLY[:2],
+    _m(
+        "doubao-seed-2.0-mini",
+        "Doubao Seed 2.0 Mini",
+        context=256 * _K,
+        max_output=128 * _K,
+        inputs=_TI,
+    ),
+    _m("glm-5.3", "GLM 5.3", context=_ARK_1M, max_output=128 * _K),
+    _m("glm-5.3-flash", "GLM 5.3 Flash", context=_ARK_1M, max_output=128 * _K, inputs=_TI),
+    *_ARK_PLAN_NEW_ONLY[4:],
+    _m("deepseek-v4-flash", "DeepSeek V4 Flash", context=_ARK_1M, max_output=384 * _K),
+    _m("deepseek-v4-pro", "DeepSeek V4 Pro", context=_ARK_1M, max_output=384 * _K),
+    *_ARK_PLAN_NEW_ONLY[2:4],
+)
+_ARK_CODING_ONLY = (_m("kimi-k3", "Kimi K3", context=_ARK_1M, max_output=128 * _K, inputs=_TI),)
 
 PATCHES: dict[str, ProviderPatch] = {
     # https://docs.anthropic.com/en/docs/about-claude/model-deprecations
@@ -705,6 +831,59 @@ PATCHES: dict[str, ProviderPatch] = {
             ),
         ),
     ),
+    # Zhipu Coding Plan (cn: docs.bigmodel.cn/cn/coding-plan/overview, intl: docs.z.ai/devpack/overview):
+    # "All plans support GLM-5.3 and GLM-5.3-Flash"; older ids are routed to these two.
+    "zhipu-cn-codingplan": ProviderPatch(
+        remove=("glm-4.7-flash", "glm-5", "glm-5.1", "glm-5.2", "glm-5-turbo", "glm-5v-turbo"),
+        add=_ZHIPU_PLAN_NEW,
+    ),
+    "zhipu-intl-codingplan": ProviderPatch(
+        remove=("glm-4.7-flash", "glm-5", "glm-5.1", "glm-5.2", "glm-5-turbo", "glm-5v-turbo"),
+        add=_ZHIPU_PLAN_NEW,
+    ),
+    # Aliyun Coding Plan (legacy page, cn and intl identical): "only the following exact versions".
+    "aliyun-codingplan-cn": ProviderPatch(
+        remove=_ALIYUN_CODING_RETIRED, update=_ALIYUN_CODING_VISION
+    ),
+    "aliyun-codingplan-intl": ProviderPatch(
+        remove=_ALIYUN_CODING_RETIRED, update=_ALIYUN_CODING_VISION
+    ),
+    # Aliyun Token Plan personal (cn updated by 2026-11, intl 2026-11-11, same list). qwen4-max-preview is
+    # not offered: its preview ends 2026-11-25. Limits are only given where the standard model page has them.
+    "aliyun-tokenplan": ProviderPatch(remove=_ALIYUN_TOKEN_RETIRED, add=_ALIYUN_TOKEN_NEW),
+    "aliyun-tokenplan-intl": ProviderPatch(remove=_ALIYUN_TOKEN_RETIRED, add=_ALIYUN_TOKEN_NEW),
+    # Volcengine Coding Plan (docs/ark/coding-plan-personal-get-started): the Model Names it accepts.
+    # Lowercase names; the uppercase DeepSeek rows are replaced. Limits are those the Agent Plan page
+    # gives for the same models (the Coding Plan page gives none).
+    "volcengine-cn-codingplan": ProviderPatch(
+        remove=(
+            "doubao-seed-2.1-turbo",
+            "glm-5.2",
+            "minimax-m3",
+            "minimax-m2.7",
+            "kimi-k2.6",
+            "DeepSeek-V4-Flash",
+            "DeepSeek-V4-Pro",
+            "doubao-seed-2-0-code-preview-260215",
+            "doubao-seed-2-0-pro-260215",
+            "doubao-seed-2-0-lite-260428",
+            "doubao-seed-code-preview-251028",
+        ),
+        add=(*_ARK_PLAN_MODELS, *_ARK_CODING_ONLY),
+    ),
+    # Volcengine Agent Plan personal (docs/ark/agent-plan-personal-plan-overview, "supported models").
+    # kimi-k3 is marked "going offline soon" there and is not offered.
+    "volcengine-cn-agentplan": ProviderPatch(
+        remove=(
+            "doubao-seed-2.1-turbo",
+            "doubao-seed-2.0-lite",
+            "minimax-m3",
+            "kimi-k2.7-code",
+            "kimi-k3",
+        ),
+        add=_ARK_PLAN_NEW_ONLY,
+        update=_ARK_PLAN_LIMITS,
+    ),
     # Local models are never removed; popular current ones are appended.
     "ollama": ProviderPatch(
         add=(_m("qwen3", "qwen3"), _m("gpt-oss", "gpt-oss"), _m("gemma4", "gemma4")),
@@ -790,6 +969,15 @@ def fork_reasoning_profile(provider_id: str, model_id: str) -> dict[str, Any] | 
             "default_mode": "enabled",
             "efforts": ["high", "max"],
             "default_effort": "high",
+        }
+
+    if provider.startswith("volcengine-cn-") and model in {"glm-5.3", "glm-latest"}:
+        # Agent Plan page: glm-5.3 thinks by default and cannot be switched off.
+        return {
+            "supported": True,
+            "adapter": "thinking",
+            "toggle": False,
+            "default_mode": "enabled",
         }
 
     if provider == "mimo" and model in {"mimo-v2.6-pro", "mimo-v2.6-flash"}:

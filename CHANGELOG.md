@@ -24,7 +24,8 @@
   - 硅基流动（国内站）、小米 MiMo、讯飞星辰另按各自的模型页更新：MiMo 换成 V2.6 系列（V2.5 已于 2026-10-21 下线），并加上 `thinking` 开关；硅基流动换成当前在售的 DeepSeek V4、GLM-5.3、Kimi K2.6 / K2.7 Code、Qwen3.8 等，并把 V3.2 和 R1 的上下文改为 163,840；讯飞星辰补上 Spark-X2.6、GLM-5.3、DeepSeek-V4 新版和 Kimi-K2.7-Code，并把 GLM-5.2 改为 1M 上下文；
   - 硅基流动国际站按 siliconflow.com/models 单独更新（目录与国内站不同，多了 Kimi K3、MiniMax M3、Qwen3.8 2.4T 等），并带上页面给出的最大输出；
   - 腾讯云 TokenHub 相关预设按官方文档（2026-11-04 至 11-09 更新）调整：按量计费的 TokenHub 补上 Hy4 preview、Hy3、GLM-5.3、Kimi K3.1 / K3、MiniMax-M3.1、MiMo V2.6 等；Coding Plan 概述页只剩 Auto，去掉 MiniMax-M2.5、Kimi-K2.5、GLM-5；个人版 Token Plan、Hy Token Plan、企业版（按专业套餐清单；轻享套餐只有 Auto，不单独列出）换成现行模型，去掉已不在清单或 11 月 17 日下线的 MiniMax-M2.7，Hy3 的限额按官方改为 256K 上下文、192K 输入、128K 输出；
-  - 腾讯 HAI、其余套餐类预设和 `dashscope-us` 未核对，保持原样。
+  - 智谱、阿里云、火山方舟的套餐预设按各自官方“支持的模型”页调整，这些套餐只接受页面里列出的模型：智谱 Coding Plan（国内和国际站）只保留 GLM-5.3 与 GLM-5.3-Flash；阿里云 Coding Plan 去掉页面未列出的 GLM-4.7 和 Qwen3 Max / Coder 系列；阿里云 Token Plan 换成现行的 Qwen3.8 / 3.7、DeepSeek V4.x、GLM-5.3 / 5.2（Qwen4 预览版 11 月 25 日结束，未收录）；火山 Coding Plan 按“支持配置的 Model Name”整体替换，Agent Plan 修正限额并补上 Doubao Seed 2.1、Kimi K3.1 Pro、DeepSeek V4.1 Flash 等（Kimi K3 页面标注即将下线，未收录）；
+  - 腾讯 HAI、Kimi Coding Plan 和 `dashscope-us` 未核对，保持原样。
 
 - 自定义 MCP 可以填写 OAuth 应用凭证（Client ID / Secret、Scope、授权与令牌端点）：授权服务器不支持自动注册客户端，或不提供发现信息时，也能在页面上完成授权并自动刷新令牌
 - 新增 `octop migrate openclaw` / `octop migrate hermes`：把原有助手的模型供应商、人格与记忆文件、技能、MCP 服务器和通道迁移到一个专家，支持 `--dry-run` 预演；已存在的内容不会被覆盖，通道默认不启用

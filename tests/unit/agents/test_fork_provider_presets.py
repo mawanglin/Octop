@@ -128,7 +128,6 @@ def test_unverified_and_plan_providers_are_not_patched() -> None:
         "groq",
         "tencent-hai",
         "kimi-codingplan",
-        "volcengine-cn-codingplan",
     }
     presets = _by_id(load_provider_presets())
     for pid in untouched & set(presets):
@@ -203,3 +202,65 @@ def test_tencent_enterprise_plan_follows_the_professional_plan_list() -> None:
     assert {"auto", "kimi-k3", "deepseek-v4-pro-0813", "mimo-v2.6-pro", "hy4-preview"} <= set(rows)
     assert not any("/" in mid for mid in rows)
     assert rows["deepseek-v4.1-flash"]["reasoning_config"]["adapter"] == "thinking_nested_effort"
+
+
+def test_zhipu_coding_plans_only_offer_glm_5_3() -> None:
+    presets = _by_id(load_provider_presets())
+    for pid in ("zhipu-cn-codingplan", "zhipu-intl-codingplan"):
+        rows = {m["id"]: m for m in presets[pid]["models"]}
+        assert set(rows) == {"glm-5.3", "glm-5.3-flash"}
+        assert rows["glm-5.3-flash"]["input"] == ["text", "image"]
+        assert "input" not in rows["glm-5.3"]
+
+
+def test_aliyun_coding_plan_drops_unlisted_models_and_marks_vision() -> None:
+    presets = _by_id(load_provider_presets())
+    for pid in ("aliyun-codingplan-cn", "aliyun-codingplan-intl"):
+        rows = {m["id"]: m for m in presets[pid]["models"]}
+        assert not {
+            "glm-4.7",
+            "qwen3-max-2026-01-23",
+            "qwen3-coder-next",
+            "qwen3-coder-plus",
+        } & set(rows)
+        assert {"qwen3.7-plus", "qwen3.6-plus", "qwen3.5-plus", "kimi-k2.5", "glm-5"} <= set(rows)
+        assert rows["kimi-k2.5"]["input"] == ["text", "image"]
+
+
+def test_aliyun_token_plan_is_replaced_by_the_current_list() -> None:
+    presets = _by_id(load_provider_presets())
+    for pid in ("aliyun-tokenplan", "aliyun-tokenplan-intl"):
+        rows = {m["id"]: m for m in presets[pid]["models"]}
+        assert not {"qwen3.6-plus", "glm-5", "MiniMax-M2.5", "deepseek-v3.2", "kimi-k2.5"} & set(
+            rows
+        )
+        assert {"auto", "qwen3.8-max", "deepseek-v4-pro-0813", "glm-5.3"} <= set(rows)
+        assert "qwen4-max-preview" not in rows
+        assert rows["qwen3.8-max"]["reasoning_config"]["adapter"] == "dashscope"
+
+
+def test_volcengine_plans_follow_their_model_name_lists() -> None:
+    presets = _by_id(load_provider_presets())
+    coding = {m["id"]: m for m in presets["volcengine-cn-codingplan"]["models"]}
+    assert set(coding) == {
+        "ark-code-latest",
+        "doubao-seed-evolving",
+        "doubao-seed-2.1-pro",
+        "doubao-seed-2.1-lite",
+        "doubao-seed-2.0-mini",
+        "glm-5.3",
+        "glm-5.3-flash",
+        "deepseek-v4.1-flash",
+        "deepseek-v4.1-flash-economy",
+        "deepseek-v4-flash",
+        "deepseek-v4-pro",
+        "kimi-k2.8-preview",
+        "kimi-k3",
+        "kimi-k3.1-pro",
+    }
+    assert coding["glm-5.3"]["reasoning_config"]["toggle"] is False
+    agent = {m["id"]: m for m in presets["volcengine-cn-agentplan"]["models"]}
+    assert "kimi-k3" not in agent and "minimax-m3" not in agent
+    assert {"kimi-k3.1-pro", "deepseek-v4.1-flash-economy", "doubao-seed-2.1-pro"} <= set(agent)
+    assert agent["deepseek-v4-pro"]["max_output_tokens"] == 393_216
+    assert agent["doubao-seed-2.0-mini"]["context_window"] == 262_144

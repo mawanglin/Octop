@@ -95,8 +95,9 @@ def test_load_provider_presets_integration() -> None:
 
     coding = next(p for p in presets if p["id"] == "volcengine-cn-codingplan")
     coding_ids = {m["id"] for m in coding["models"]}
-    assert "DeepSeek-V4-Flash" in coding_ids
-    assert "kimi-k2.6" in coding_ids
+    # fork: Coding Plan page lists lowercase Model Names; kimi-k2.6 is not offered any more.
+    assert {"deepseek-v4-flash", "kimi-k3.1-pro"} <= coding_ids
+    assert "DeepSeek-V4-Flash" not in coding_ids and "kimi-k2.6" not in coding_ids
 
     opencode_ids = {
         "opencode-zen-openai",
