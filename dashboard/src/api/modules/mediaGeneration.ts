@@ -1,6 +1,13 @@
 import { request } from "../request";
 
-export type MediaProviderName = "volcengine" | "dashscope" | "minimax";
+// fork: openai / gemini / tencent are image-only adapters (octop.infra.agents.media_fork).
+export type MediaProviderName =
+  | "volcengine"
+  | "dashscope"
+  | "minimax"
+  | "openai"
+  | "gemini"
+  | "tencent";
 
 export interface MediaProviderPreset {
   provider: MediaProviderName;

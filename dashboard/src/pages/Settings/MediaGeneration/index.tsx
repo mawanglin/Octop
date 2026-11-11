@@ -257,7 +257,7 @@ export function MediaGenerationSettingsPanel() {
         enabled: true,
         base_url: preset.base_url,
         image_enabled: true,
-        video_enabled: true,
+        video_enabled: preset.video_models.length > 0, // fork: image-only presets
         image_model: preset.image_models[0] || "",
         video_model: preset.video_models[0] || "",
         api_key_set: false,
@@ -786,18 +786,20 @@ export function MediaGenerationSettingsPanel() {
                         {preset.image_models[0]}
                       </span>
                     </div>
-                    <div className={styles.detailRow}>
-                      <span className={styles.detailLabel}>
-                        <Video size={13} />
-                        {t("mediaGeneration.video")}
-                      </span>
-                      <span
-                        className={styles.detailValue}
-                        title={preset.video_models[0]}
-                      >
-                        {preset.video_models[0]}
-                      </span>
-                    </div>
+                    {preset.video_models.length > 0 && ( // fork: image-only presets
+                      <div className={styles.detailRow}>
+                        <span className={styles.detailLabel}>
+                          <Video size={13} />
+                          {t("mediaGeneration.video")}
+                        </span>
+                        <span
+                          className={styles.detailValue}
+                          title={preset.video_models[0]}
+                        >
+                          {preset.video_models[0]}
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className={styles.cardFooter}>
@@ -944,29 +946,39 @@ export function MediaGenerationSettingsPanel() {
               )}
             </Card>
 
-            <Card size="small">
-              <Space style={{ width: "100%", justifyContent: "space-between" }}>
-                <Text strong>{t("mediaGeneration.enableVideo")}</Text>
-                <Form.Item name="video_enabled" valuePropName="checked" noStyle>
-                  <Switch size="small" />
-                </Form.Item>
-              </Space>
-              {modalVideoEnabled && (
-                <Form.Item
-                  name="video_model"
-                  label={t("mediaGeneration.videoModel")}
-                  style={{ marginTop: 12, marginBottom: 0 }}
-                  rules={[{ required: true, whitespace: true }]}
+            {(modalPreset?.video_models.length ?? 0) > 0 && ( // fork: image-only presets have no video
+              <Card size="small">
+                <Space
+                  style={{ width: "100%", justifyContent: "space-between" }}
                 >
-                  <AutoComplete
-                    options={(modalPreset?.video_models ?? []).map((model) => ({
-                      value: model,
-                    }))}
-                    placeholder={t("mediaGeneration.customModelPlaceholder")}
-                  />
-                </Form.Item>
-              )}
-            </Card>
+                  <Text strong>{t("mediaGeneration.enableVideo")}</Text>
+                  <Form.Item
+                    name="video_enabled"
+                    valuePropName="checked"
+                    noStyle
+                  >
+                    <Switch size="small" />
+                  </Form.Item>
+                </Space>
+                {modalVideoEnabled && (
+                  <Form.Item
+                    name="video_model"
+                    label={t("mediaGeneration.videoModel")}
+                    style={{ marginTop: 12, marginBottom: 0 }}
+                    rules={[{ required: true, whitespace: true }]}
+                  >
+                    <AutoComplete
+                      options={(modalPreset?.video_models ?? []).map(
+                        (model) => ({
+                          value: model,
+                        }),
+                      )}
+                      placeholder={t("mediaGeneration.customModelPlaceholder")}
+                    />
+                  </Form.Item>
+                )}
+              </Card>
+            )}
           </div>
 
           <div className={styles.testActions}>

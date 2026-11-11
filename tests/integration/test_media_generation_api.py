@@ -92,6 +92,10 @@ async def test_media_provider_presets_include_all_p0_adapters(
         "volcengine",
         "dashscope",
         "minimax",
+        # fork: image-only adapters from octop.infra.agents.media_fork
+        "openai",
+        "gemini",
+        "tencent",
     ]
     presets = {item["provider"]: item for item in response.json()}
     assert "doubao-seedream-5-0-pro-260628" in presets["volcengine"]["image_models"]
