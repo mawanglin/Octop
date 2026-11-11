@@ -26,7 +26,7 @@ Tencent TokenHub, Coding Plan, Token Plan (personal) and Hy Token Plan follow th
 the model list and price pages (cloud.tencent.com/document/product/1823/130051, 130055), the Coding
 Plan overview (130092), and the Token Plan personal overview (130060), all read 2026-11-11.
 
-Token Plan enterprise follows the professional plan page (130659). ``tencent-hai`` is not covered:
+Token Plan enterprise follows the professional plan page (130659) and its overview (131172). ``tencent-hai`` is not covered:
 no document for api.model.haihub.cn was found.
 
 Not covered on purpose: every other "plan" preset (Coding / Token / Agent Plan, Kimi Coding Plan, Tencent HAI), ``dashscope-us``.
@@ -594,7 +594,8 @@ PATCHES: dict[str, ProviderPatch] = {
     # Coding Plan overview (updated 2026-10-15): the plan's model list is just "Auto" (tc-code-latest).
     # The FAQ page (2026-06-22) still lists minimax-m2.5 / kimi-k2.5 / glm-5; the newer overview wins.
     "tencent-coding-plan": ProviderPatch(remove=("minimax-m2.5", "kimi-k2.5", "glm-5")),
-    # Token Plan personal overview (updated 2026-11-04), general plan. MiniMax-M2.7 goes offline on 11-17.
+    # Token Plan personal overview (updated 2026-11-04), general plan. No image input is claimed: the Hy plan
+    # and Coding Plan pages say their models have no multimodal support, and this one does not say otherwise. MiniMax-M2.7 goes offline on 11-17.
     # Base URL there is now https://tokenhub.tencentmaas.com/plan/v3 (the bundled row still has lkeap).
     "tencent-token-plan": ProviderPatch(
         remove=("glm-5", "glm-5.1", "minimax-m2.7"),
@@ -604,7 +605,6 @@ PATCHES: dict[str, ProviderPatch] = {
                 "DeepSeek-V4.1-Flash-1017",
                 context=1_000_000,
                 max_output=384_000,
-                inputs=_TI,
             ),
             _m(
                 "deepseek-v4-pro-0813",
@@ -617,7 +617,6 @@ PATCHES: dict[str, ProviderPatch] = {
                 "DeepSeek-V4.1-Flash-1017 Direct",
                 context=1_000_000,
                 max_output=384_000,
-                inputs=_TI,
             ),
             _m(
                 "hy4-preview",
@@ -626,17 +625,16 @@ PATCHES: dict[str, ProviderPatch] = {
                 max_input=960_000,
                 max_output=64_000,
             ),
-            _m("minimax-m3", "MiniMax-M3", context=1_000_000, inputs=_TI),
+            _m("minimax-m3", "MiniMax-M3", context=1_000_000),
             _m("glm-5.3", "GLM-5.3", context=1_000_000, max_output=131_072),
-            _m("glm-5.3-flash", "GLM-5.3-Flash", context=1_000_000, max_output=131_072, inputs=_TI),
-            _m("kimi-k2.7-code", "Kimi K2.7 Code", context=262_144, max_output=262_144, inputs=_TI),
-            _m("kimi-k3", "Kimi K3", context=1_000_000, max_output=1_000_000, inputs=_TI),
+            _m("glm-5.3-flash", "GLM-5.3-Flash", context=1_000_000, max_output=131_072),
+            _m("kimi-k2.7-code", "Kimi K2.7 Code", context=262_144, max_output=262_144),
+            _m("kimi-k3", "Kimi K3", context=1_000_000, max_output=1_000_000),
             _m(
                 "mimo-v2.6-flash",
                 "MiMo-V2.6-Flash",
                 context=1_000_000,
                 max_output=131_072,
-                inputs=_TI,
             ),
         ),
     ),
@@ -661,7 +659,8 @@ PATCHES: dict[str, ProviderPatch] = {
         },
     ),
     # Token Plan enterprise, professional plan page (updated 2026-11-04), Guangzhou list (the bundled
-    # base URL). The light plan's own list was not found, so this follows the professional plan.
+    # base URL). The enterprise overview (131172, 2026-11-03) says the light plan only has Auto, so this
+    # preset is the professional plan. No image input is claimed for the new rows.
     # The "deepseek/..." direct ids are not added: enterprise ids stay bare model names (upstream test).
     # Plain "deepseek-v4-flash" / "-0731" are only valid as "deepseek/..." aliases of the direct row.
     "tencent-token-plan-enterprise-cn": ProviderPatch(
@@ -683,29 +682,26 @@ PATCHES: dict[str, ProviderPatch] = {
                 max_input=960_000,
                 max_output=64_000,
             ),
-            _m("glm-5.3-flash", "GLM-5.3-Flash", context=1_000_000, max_output=131_072, inputs=_TI),
-            _m("kimi-k3", "Kimi K3", context=1_000_000, max_output=1_000_000, inputs=_TI),
+            _m("glm-5.3-flash", "GLM-5.3-Flash", context=1_000_000, max_output=131_072),
+            _m("kimi-k3", "Kimi K3", context=1_000_000, max_output=1_000_000),
             _m(
                 "deepseek-v4.1-flash-1017",
                 "DeepSeek-V4.1-Flash-1017",
                 context=1_000_000,
                 max_output=384_000,
-                inputs=_TI,
             ),
             _m(
                 "deepseek-v4.1-flash",
                 "DeepSeek-V4.1-Flash",
                 context=1_000_000,
                 max_output=384_000,
-                inputs=_TI,
             ),
-            _m("mimo-v2.6-pro", "MiMo-V2.6-Pro", context=1_000_000, max_output=131_072, inputs=_TI),
+            _m("mimo-v2.6-pro", "MiMo-V2.6-Pro", context=1_000_000, max_output=131_072),
             _m(
                 "mimo-v2.6-flash",
                 "MiMo-V2.6-Flash",
                 context=1_000_000,
                 max_output=131_072,
-                inputs=_TI,
             ),
         ),
     ),
