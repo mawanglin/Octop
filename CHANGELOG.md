@@ -28,6 +28,7 @@
   - 经一次独立复核后又修正一批：Groq 去掉 8 月 16 日对开发者版下线的两个 Llama 并补上最大输出；Codex 去掉 8 月 31 日已退役的 `gpt-5.4` 与 `gpt-5.4-mini`，补上 `gpt-6-astra`；`gpt-5.2` 改为 400K 上下文、128K 输出，推理档位改为 low 到 xhigh；`dashscope-us` 按美国分区价格表换成 11 个现行型号；Kimi Coding Plan 按官方模型页补上 `k3.1-pro` 系列并把 `k3`、`kimi-for-coding` 的上下文改为 1M；国内 `dashscope` 去掉已不在价格表上的 `deepseek-v3.2`；
   - 推理开关按官方说明修正：GLM-5.3（智谱）、Kimi K3 系列、MiniMax M3.1 Flash 始终思考、不能关闭并带推理档位，MiniMax M3 不提供开关，豆包可用 `thinking.type=disabled` 关闭，OpenRouter 上的 Claude 5 不可关闭；嵌入模型不再被误加推理开关；
   - 补上官方有写的限额和输入模态：Gemini 3.x 三个新型号和三个已有型号的上下文、输出与图片 / 视频 / 音频 / PDF 输入，火山的第三方型号和豆包 2.0 的图片输入，MiniMax 的视频输入，`kimi-k3`、`glm-5.3-flashx` 的图片输入；
+  - OpenAI 预设里已弃用、2027-01-14 关停的 `gpt-4.1`、`gpt-4.1-mini`、`gpt-4o`、`gpt-4o-mini` 一并去掉；
   - 腾讯 HAI 仍没有找到官方文档，保持原样。
 
 - 自定义 MCP 可以填写 OAuth 应用凭证（Client ID / Secret、Scope、授权与令牌端点）：授权服务器不支持自动注册客户端，或不提供发现信息时，也能在页面上完成授权并自动刷新令牌

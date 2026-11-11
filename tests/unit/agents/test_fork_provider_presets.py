@@ -343,3 +343,8 @@ def test_missing_limits_and_modalities_are_filled() -> None:
     assert kimi["kimi-k3"]["input"] == ["text", "image"]
     zhipu = {m["id"]: m for m in presets["zhipu-cn"]["models"]}
     assert "video" in zhipu["glm-5.3-flashx"]["input"]
+
+
+def test_openai_preset_has_no_deprecated_gpt4_rows() -> None:
+    ids = _ids(_by_id(load_provider_presets())["openai"])
+    assert ids == ["gpt-6-astra", "gpt-6.1-sol", "gpt-6.1-terra", "gpt-6-luna", "gpt-5.2"]

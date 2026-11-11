@@ -78,8 +78,10 @@ def test_load_provider_presets_integration() -> None:
     assert "tc-code-latest" in {m["id"] for m in coding_plan["models"]}
 
     openai = next(p for p in presets if p["id"] == "openai")
-    gpt4o = next(m for m in openai["models"] if m["id"] == "gpt-4o")
-    assert gpt4o.get("input") == ["text", "image"]
+    # fork: gpt-4o and the other GPT-4 rows are removed (shutdown 2027-01-14); gpt-5.2 sees images too.
+    assert not {"gpt-4o", "gpt-4o-mini", "gpt-4.1", "gpt-4.1-mini"} & {
+        m["id"] for m in openai["models"]
+    }
     # fork: gpt-5 is retired and no longer in the preset; gpt-5.2 keeps the same coverage.
     gpt5 = next(m for m in openai["models"] if m["id"] == "gpt-5.2")
     assert gpt5["reasoning_config"]["adapter"] == "openai_reasoning_effort"

@@ -370,7 +370,19 @@ PATCHES: dict[str, ProviderPatch] = {
     ),
     # OpenAI deprecations page. GPT-6 tool calling needs the Responses API.
     "openai": ProviderPatch(
-        remove=("o4-mini", "gpt-4.1-nano", "gpt-5", "gpt-5-mini", "gpt-5-nano", "o3"),
+        remove=(
+            "o4-mini",
+            "gpt-4.1-nano",
+            "gpt-5",
+            "gpt-5-mini",
+            "gpt-5-nano",
+            "o3",
+            # Deprecated by OpenAI, shutting down 2027-01-14 (removed at the user's request).
+            "gpt-4.1",
+            "gpt-4.1-mini",
+            "gpt-4o",
+            "gpt-4o-mini",
+        ),
         add=_gpt6(**_RESPONSES),
         # Model page: 400,000 context window, 128,000 max output tokens.
         update={
