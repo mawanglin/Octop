@@ -9,10 +9,23 @@ add_path() { if [ -n "${GITHUB_PATH:-}" ]; then echo "$1" >> "$GITHUB_PATH"; fi;
 
 case "${1:-}" in
   uv)
-    curl -LsSf --retry 5 --retry-delay 5 https://astral.sh/uv/install.sh | env UV_NO_MODIFY_PATH=1 sh
+    # 先用 PyPI（比 GitHub 稳），失败再退回官方安装脚本；两者都重试。
+    ok=
+    for i in 1 2 3 4 5; do
+      if python3 -m pip install --quiet --user uv; then ok=1; break; fi
+      sleep 5
+    done
+    if [ -z "$ok" ]; then
+      for i in 1 2 3 4 5; do
+        if curl -LsSf https://astral.sh/uv/install.sh | env UV_NO_MODIFY_PATH=1 sh; then ok=1; break; fi
+        sleep 10
+      done
+    fi
+    [ -n "$ok" ] || { echo "uv 安装失败" >&2; exit 1; }
     add_path "$HOME/.local/bin"
     uv --version
-    uv python install 3.12
+    for i in 1 2 3 4 5; do uv python install 3.12 && break; echo "uv python install 重试（$i/5）"; sleep 10; done
+    uv python find 3.12
     ;;
   node)
     major="${2:?node 主版本}"
@@ -22,7 +35,7 @@ case "${1:-}" in
     dest="/opt/node-${major}"
     sudo -n true 2>/dev/null && SUDO=sudo || SUDO=
     $SUDO mkdir -p "$dest"
-    curl -fsSL --retry 5 "$base/$file" | $SUDO tar -xJ -C "$dest" --strip-components=1
+    curl -fsSL --retry 5 --retry-all-errors "$base/$file" | $SUDO tar -xJ -C "$dest" --strip-components=1
     add_path "$dest/bin"
     node --version
     corepack enable 2>/dev/null || $SUDO "$dest/bin/corepack" enable

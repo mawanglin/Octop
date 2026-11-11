@@ -41,10 +41,17 @@ jobs:
       base_version: ${{ steps.ver.outputs.base_version }}
       prerelease: ${{ steps.ver.outputs.prerelease }}
     steps:
-      - uses: actions/checkout@v4
-        with:
-          github-server-url: https://nas.virson.cn:10088
-          ref: ${{ inputs.tag || github.ref }}
+      - name: Checkout
+        env:
+          REF: ${{ inputs.tag || github.ref_name }}
+        run: |
+          set -euo pipefail
+          for i in 1 2 3 4 5; do
+            rm -rf ./* ./.[!.]* 2>/dev/null || true
+            git clone --depth 1 --branch "$REF" "https://x-access-token:${GITEA_TOKEN}@${GITEA_URL#https://}/${GITEA_REPO}.git" . && break
+            echo "克隆失败，重试（$i/5）"; sleep 10
+          done
+          git log -1 --format='%h %s'
 
       - name: Check tag matches pyproject.toml
         id: ver
@@ -80,11 +87,17 @@ jobs:
       VER: ${{ needs.prepare.outputs.version }}
       PRERELEASE: ${{ needs.prepare.outputs.prerelease }}
     steps:
-      - uses: actions/checkout@v4
-        with:
-          github-server-url: https://nas.virson.cn:10088
-          ref: ${{ needs.prepare.outputs.tag }}
-          fetch-depth: 0
+      - name: Checkout
+        env:
+          REF: ${{ needs.prepare.outputs.tag }}
+        run: |
+          set -euo pipefail
+          for i in 1 2 3 4 5; do
+            rm -rf ./* ./.[!.]* 2>/dev/null || true
+            git clone --branch "$REF" "https://x-access-token:${GITEA_TOKEN}@${GITEA_URL#https://}/${GITEA_REPO}.git" . && break
+            echo "克隆失败，重试（$i/5）"; sleep 10
+          done
+          git log -1 --format='%h %s'
 
       - name: Install uv and Python
         run: bash scripts/fork/gitea_tools.sh uv
@@ -176,10 +189,17 @@ jobs:
       PBS_TAG: "20251209"
       PBS_PY: "3.12.12"
     steps:
-      - uses: actions/checkout@v4
-        with:
-          github-server-url: https://nas.virson.cn:10088
-          ref: ${{ needs.prepare.outputs.tag }}
+      - name: Checkout
+        env:
+          REF: ${{ needs.prepare.outputs.tag }}
+        run: |
+          set -euo pipefail
+          for i in 1 2 3 4 5; do
+            rm -rf ./* ./.[!.]* 2>/dev/null || true
+            git clone --depth 1 --branch "$REF" "https://x-access-token:${GITEA_TOKEN}@${GITEA_URL#https://}/${GITEA_REPO}.git" . && break
+            echo "克隆失败，重试（$i/5）"; sleep 10
+          done
+          git log -1 --format='%h %s'
 
       - name: Install uv and Python
         run: bash scripts/fork/gitea_tools.sh uv
