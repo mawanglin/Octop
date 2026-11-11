@@ -21,7 +21,8 @@
   - 新增 Claude 5 系列（Fable 5.2、Opus 5.5、Sonnet 5.5、Haiku 5.5）、GPT-6 系列（Astra、Sol、Terra、Luna，走 Responses 接口）、Gemini 4 与 3.x Flash、Kimi K3.1 Pro、MiniMax M3 / M3.1 Flash、GLM-5.3、Qwen3.8 / 3.7、豆包 Seed 2.1，以及 OpenRouter、OpenCode、魔搭、Ollama 的当前模型；
   - 去掉官方已下线或已对新用户关闭的旧型号（Claude 4 / 3.5、o3 / o4-mini / GPT-5 系列、Gemini 2.x、Kimi K2 系列、MiniMax M2.x 等）；
   - 已保存的用户配置不动，旧模型 ID 仍在，只是预设里不再提供；
-  - 硅基流动、小米 MiMo、讯飞星辰、各类套餐预设和 `dashscope-us` 未核对，保持原样。
+  - 硅基流动（国内站）、小米 MiMo、讯飞星辰另按各自的模型页更新：MiMo 换成 V2.6 系列（V2.5 已于 2026-10-21 下线），并加上 `thinking` 开关；硅基流动换成当前在售的 DeepSeek V4、GLM-5.3、Kimi K2.6 / K2.7 Code、Qwen3.8 等，并把 V3.2 和 R1 的上下文改为 163,840；讯飞星辰补上 Spark-X2.6、GLM-5.3、DeepSeek-V4 新版和 Kimi-K2.7-Code，并把 GLM-5.2 改为 1M 上下文；
+  - 硅基流动国际站、各类套餐预设和 `dashscope-us` 未核对，保持原样。
 
 - 自定义 MCP 可以填写 OAuth 应用凭证（Client ID / Secret、Scope、授权与令牌端点）：授权服务器不支持自动注册客户端，或不提供发现信息时，也能在页面上完成授权并自动刷新令牌
 - 新增 `octop migrate openclaw` / `octop migrate hermes`：把原有助手的模型供应商、人格与记忆文件、技能、MCP 服务器和通道迁移到一个专家，支持 `--dry-run` 预演；已存在的内容不会被覆盖，通道默认不启用

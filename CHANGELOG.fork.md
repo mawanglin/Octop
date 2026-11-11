@@ -4,6 +4,12 @@
 
 版本号规则：`<官方版本>.postN`，例如基于官方 1.0.2b9 的第 1 个 fork 版本是 `1.0.2b9.post1`。打 `fork-v<版本号>` 标签（如 `fork-v1.0.2b9.post6`；不用 `v` 开头，以免触发官方发布流程）后，`.github/workflows/fork-release.yml` 会构建 wheel 和飞牛原生版 FPK，并发布到 GitHub Release；本文件中同名版本小节会作为 Release 说明。
 
+## [Unreleased]
+
+### 变更
+- 供应商预设：按各家模型页更新硅基流动（国内站）、小米 MiMo、讯飞星辰（详见 `CHANGELOG.md`），仍由 `providers/fork_presets.py` 叠加。
+- 新增 `.gitea/workflows/fork-release.yml`：在自建 Gitea 上构建 wheel、飞牛包和 Linux 桌面 deb / rpm（Windows 和 macOS 包之后由构建虚拟机提供）。
+
 ## [1.0.3b4.post2] - 2026-11-11
 
 ### 变更

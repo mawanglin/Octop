@@ -15,8 +15,12 @@ Sources are each vendor's official model / pricing / deprecation pages, plus Ope
 state are omitted rather than guessed. Reasoning profiles are only given to families whose
 request semantics are documented (Claude 5, GPT-6, Gemini 4 / 3.x flash).
 
-Not covered on purpose: SiliconFlow, Xiaomi MiMo, iFlytek Astron, every "plan" preset
-(Coding / Token / Agent Plan, Kimi Coding Plan, Tencent HAI), ``dashscope-us``.
+SiliconFlow (cn), Xiaomi MiMo and iFlytek Astron were added on request from their own pages:
+siliconflow.cn/models (model data embedded in the page), mimo.mi.com model list, and the public
+model-square API behind maas.xfyun.cn/modelSquare.
+
+Not covered on purpose: ``siliconflow-intl`` (its page has no readable model data), every other
+"plan" preset (Coding / Token / Agent Plan, Kimi Coding Plan, Tencent HAI), ``dashscope-us``.
 """
 
 from __future__ import annotations
@@ -360,6 +364,73 @@ PATCHES: dict[str, ProviderPatch] = {
             _m("ZhipuAI/GLM-5.2", "GLM-5.2"),
         ),
     ),
+    # siliconflow.cn/models, checked 2026-11-11 (context lengths from the page data).
+    "siliconflow-cn": ProviderPatch(
+        remove=(
+            "Qwen/Qwen3-235B-A22B-Instruct-2507",
+            "moonshotai/Kimi-K2-Instruct",
+            "Pro/zai-org/GLM-4.7",
+        ),
+        add=(
+            _m(
+                "deepseek-ai/DeepSeek-V4.1-Flash",
+                "DeepSeek V4.1 Flash",
+                context=1_048_576,
+                inputs=_TI,
+            ),
+            _m("deepseek-ai/DeepSeek-V4-Pro", "DeepSeek V4 Pro", context=1_048_576),
+            _m("deepseek-ai/DeepSeek-V4-Flash", "DeepSeek V4 Flash", context=1_048_576),
+            _m("zai-org/GLM-5.3", "GLM-5.3", context=1_048_576),
+            _m("zai-org/GLM-5.3-Flash", "GLM-5.3 Flash", context=1_048_576, inputs=_TI),
+            _m("zai-org/GLM-5.2", "GLM-5.2", context=1_048_576),
+            _m("Pro/moonshotai/Kimi-K2.6", "Kimi K2.6", context=262_144, inputs=_TI),
+            _m("moonshotai/Kimi-K2.7-Code", "Kimi K2.7 Code", context=262_144, inputs=_TI),
+            _m("Qwen/Qwen3.8-27B", "Qwen3.8 27B", context=262_144, inputs=_TI),
+            _m("Qwen/Qwen3.6-35B-A3B", "Qwen3.6 35B A3B", context=262_144, inputs=_TI),
+            _m("meituan-longcat/LongCat-2.0", "LongCat 2.0", context=1_048_576),
+            _m("tencent/Hy4-preview", "Hy4 Preview", context=1_048_576),
+        ),
+        # The page lists V3.2 and R1 at 163,840 tokens; the bundled rows say 65,536.
+        update={
+            "deepseek-ai/DeepSeek-V3.2": {"context_window": 163_840, "max_input_tokens": 163_840},
+            "deepseek-ai/DeepSeek-R1": {"context_window": 163_840, "max_input_tokens": 163_840},
+        },
+    ),
+    # mimo.mi.com model list (updated 2026-10-19): v2.5 went offline on 2026-10-21; v2 is not listed.
+    # "mimo-v2.6-pro-ultraspeed" is custom service ("contact us"), so it is not offered.
+    "mimo": ProviderPatch(
+        remove=("mimo-v2.5", "mimo-v2.5-pro", "mimo-v2-flash", "mimo-v2-pro"),
+        add=(
+            _m(
+                "mimo-v2.6-pro",
+                "MiMo V2.6 Pro",
+                context=1_048_576,
+                max_output=131_072,
+                inputs=("text", "image", "audio", "video"),
+            ),
+            _m(
+                "mimo-v2.6-flash",
+                "MiMo V2.6 Flash",
+                context=1_048_576,
+                max_output=131_072,
+                inputs=("text", "image", "audio", "video"),
+            ),
+        ),
+    ),
+    # Model ids are the platform's service ids; list from the public model-square API.
+    # GLM-5 (xopglm5) is kept: the square still lists it, although its serverStatus differs (0, not 3).
+    "iflytek-astron-token-plan": ProviderPatch(
+        remove=("xopdeepseekv4pro", "xopqwen35v35b"),
+        add=(
+            _m("spark-x2.6", "Spark-X2.6", context=1_048_576),
+            _m("spark-x2.6-4b", "Spark-X2.6-4B", context=1_048_576),
+            _m("xopglm53", "GLM-5.3", context=1_048_576),
+            _m("xopdeepseekv4pro0813", "DeepSeek-V4-Pro-0813", context=1_048_576),
+            _m("xopdeepseekv4flash0731", "DeepSeek-V4-Flash-0731", context=1_048_576),
+            _m("xopkimik27code", "Kimi-K2.7-Code", context=262_144, inputs=_TI),
+        ),
+        update={"xopglm52": {"context_window": 1_048_576, "max_input_tokens": 1_048_576}},
+    ),
     # Local models are never removed; popular current ones are appended.
     "ollama": ProviderPatch(
         add=(_m("qwen3", "qwen3"), _m("gpt-oss", "gpt-oss"), _m("gemma4", "gemma4")),
@@ -428,6 +499,15 @@ def fork_reasoning_profile(provider_id: str, model_id: str) -> dict[str, Any] | 
             "default_mode": "auto" if can_disable else "enabled",
             "efforts": ["low", "medium", "high", "xhigh", "max"],
             "default_effort": "medium",
+        }
+
+    if provider == "mimo" and model in {"mimo-v2.6-pro", "mimo-v2.6-flash"}:
+        # Request field ``thinking.type`` = enabled | disabled, on by default (MiMo "deep thinking" doc).
+        return {
+            "supported": True,
+            "adapter": "thinking",
+            "toggle": True,
+            "default_mode": "enabled",
         }
 
     if provider == "gemini" and model in _GEMINI_THINKING:

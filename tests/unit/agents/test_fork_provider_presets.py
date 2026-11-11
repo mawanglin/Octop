@@ -120,8 +120,42 @@ def test_gemini4_profile_and_old_rules_untouched() -> None:
     assert fork_reasoning_profile("openai", "gpt-5.2") is None
 
 
-def test_untouched_providers_keep_their_models() -> None:
-    before = {"siliconflow-cn", "xiaomi-mimo", "dashscope-us"}
+def test_unverified_and_plan_providers_are_not_patched() -> None:
+    untouched = {
+        "siliconflow-intl",
+        "dashscope-us",
+        "deepseek",
+        "groq",
+        "tencent-hy-token-plan",
+        "kimi-codingplan",
+        "volcengine-cn-codingplan",
+    }
     presets = _by_id(load_provider_presets())
-    for pid in before & set(presets):
+    for pid in untouched & set(presets):
         assert pid not in PATCHES
+
+
+def test_mimo_v26_replaces_retired_models_and_thinks_by_default() -> None:
+    mimo = _by_id(load_provider_presets())["mimo"]
+    rows = {m["id"]: m for m in mimo["models"]}
+    assert set(rows) == {"mimo-v2.6-pro", "mimo-v2.6-flash"}
+    cfg = rows["mimo-v2.6-pro"]["reasoning_config"]
+    assert (cfg["adapter"], cfg["toggle"], cfg["default_mode"]) == ("thinking", True, "enabled")
+    assert rows["mimo-v2.6-flash"]["input"] == ["text", "image", "audio", "video"]
+
+
+def test_siliconflow_cn_refresh_fixes_limits_and_leaves_intl_alone() -> None:
+    presets = _by_id(load_provider_presets())
+    cn = {m["id"]: m for m in presets["siliconflow-cn"]["models"]}
+    assert "Pro/zai-org/GLM-4.7" not in cn
+    assert cn["deepseek-ai/DeepSeek-V3.2"]["context_window"] == 163_840
+    assert cn["zai-org/GLM-5.3"]["context_window"] == 1_048_576
+    assert "Pro/zai-org/GLM-4.7" in _ids(presets["siliconflow-intl"])
+
+
+def test_iflytek_replaces_unlisted_ids_and_corrects_glm52() -> None:
+    xf = _by_id(load_provider_presets())["iflytek-astron-token-plan"]
+    rows = {m["id"]: m for m in xf["models"]}
+    assert "xopdeepseekv4pro" not in rows and "xopdeepseekv4pro0813" in rows
+    assert rows["xopglm52"]["context_window"] == 1_048_576
+    assert "xopglm5" in rows
