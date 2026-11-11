@@ -19,8 +19,10 @@ SiliconFlow (cn), Xiaomi MiMo and iFlytek Astron were added on request from thei
 siliconflow.cn/models (model data embedded in the page), mimo.mi.com model list, and the public
 model-square API behind maas.xfyun.cn/modelSquare.
 
-Not covered on purpose: ``siliconflow-intl`` (its page has no readable model data), every other
-"plan" preset (Coding / Token / Agent Plan, Kimi Coding Plan, Tencent HAI), ``dashscope-us``.
+``siliconflow-intl`` follows www.siliconflow.com/models (cards with context and max output; the
+API ids come from each model's detail page). Its catalog differs from the cn site.
+
+Not covered on purpose: every other "plan" preset (Coding / Token / Agent Plan, Kimi Coding Plan, Tencent HAI), ``dashscope-us``.
 """
 
 from __future__ import annotations
@@ -394,6 +396,86 @@ PATCHES: dict[str, ProviderPatch] = {
         update={
             "deepseek-ai/DeepSeek-V3.2": {"context_window": 163_840, "max_input_tokens": 163_840},
             "deepseek-ai/DeepSeek-R1": {"context_window": 163_840, "max_input_tokens": 163_840},
+        },
+    ),
+    # www.siliconflow.com/models, checked 2026-11-11. "1049K" on the page is 1,048,576 tokens, etc.
+    "siliconflow-intl": ProviderPatch(
+        remove=(
+            "Qwen/Qwen3-235B-A22B-Instruct-2507",
+            "moonshotai/Kimi-K2-Instruct",
+            "Pro/zai-org/GLM-4.7",
+        ),
+        add=(
+            _m(
+                "deepseek-ai/DeepSeek-V4.1-Flash",
+                "DeepSeek V4.1 Flash",
+                context=1_048_576,
+                max_output=393_216,
+                inputs=_TI,
+            ),
+            _m(
+                "deepseek-ai/DeepSeek-V4-Pro-0813",
+                "DeepSeek V4 Pro 0813",
+                context=1_048_576,
+                max_output=393_216,
+            ),
+            _m(
+                "deepseek-ai/DeepSeek-V4-Flash-0731",
+                "DeepSeek V4 Flash 0731",
+                context=1_048_576,
+                max_output=393_216,
+            ),
+            _m("zai-org/GLM-5.3", "GLM-5.3", context=1_048_576, max_output=262_144),
+            _m(
+                "zai-org/GLM-5.3-Flash",
+                "GLM-5.3 Flash",
+                context=1_048_576,
+                max_output=262_144,
+                inputs=_TI,
+            ),
+            _m("zai-org/GLM-5.2", "GLM-5.2", context=1_048_576, max_output=262_144),
+            _m("moonshotai/Kimi-K3", "Kimi K3", context=1_048_576, max_output=262_144, inputs=_TI),
+            _m(
+                "moonshotai/Kimi-K2.6", "Kimi K2.6", context=262_144, max_output=262_144, inputs=_TI
+            ),
+            _m(
+                "moonshotai/Kimi-K2.7-Code",
+                "Kimi K2.7 Code",
+                context=262_144,
+                max_output=262_144,
+                inputs=_TI,
+            ),
+            _m(
+                "MiniMaxAI/MiniMax-M3",
+                "MiniMax M3",
+                context=1_048_576,
+                max_output=131_072,
+                inputs=_TI,
+            ),
+            _m(
+                "Qwen/Qwen3.8-2.4T-A95B", "Qwen3.8 2.4T A95B", context=1_048_576, max_output=131_072
+            ),
+            _m(
+                "Qwen/Qwen3.6-35B-A3B",
+                "Qwen3.6 35B A3B",
+                context=262_144,
+                max_output=262_144,
+                inputs=_TI,
+            ),
+            _m("meituan-longcat/LongCat-2.0", "LongCat 2.0", context=1_048_576, max_output=131_072),
+            _m("tencent/Hy4-preview", "Hy4 Preview", context=1_048_576, max_output=262_144),
+        ),
+        update={
+            "deepseek-ai/DeepSeek-V3.2": {
+                "context_window": 163_840,
+                "max_input_tokens": 163_840,
+                "max_output_tokens": 163_840,
+            },
+            "deepseek-ai/DeepSeek-R1": {
+                "context_window": 163_840,
+                "max_input_tokens": 163_840,
+                "max_output_tokens": 163_840,
+            },
         },
     ),
     # mimo.mi.com model list (updated 2026-10-19): v2.5 went offline on 2026-10-21; v2 is not listed.

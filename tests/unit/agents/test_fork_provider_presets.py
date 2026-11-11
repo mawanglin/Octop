@@ -122,7 +122,7 @@ def test_gemini4_profile_and_old_rules_untouched() -> None:
 
 def test_unverified_and_plan_providers_are_not_patched() -> None:
     untouched = {
-        "siliconflow-intl",
+        "siliconflow-embedding-cn",
         "dashscope-us",
         "deepseek",
         "groq",
@@ -144,13 +144,17 @@ def test_mimo_v26_replaces_retired_models_and_thinks_by_default() -> None:
     assert rows["mimo-v2.6-flash"]["input"] == ["text", "image", "audio", "video"]
 
 
-def test_siliconflow_cn_refresh_fixes_limits_and_leaves_intl_alone() -> None:
+def test_siliconflow_cn_and_intl_refresh_fix_limits() -> None:
     presets = _by_id(load_provider_presets())
     cn = {m["id"]: m for m in presets["siliconflow-cn"]["models"]}
     assert "Pro/zai-org/GLM-4.7" not in cn
     assert cn["deepseek-ai/DeepSeek-V3.2"]["context_window"] == 163_840
     assert cn["zai-org/GLM-5.3"]["context_window"] == 1_048_576
-    assert "Pro/zai-org/GLM-4.7" in _ids(presets["siliconflow-intl"])
+    intl = {m["id"]: m for m in presets["siliconflow-intl"]["models"]}
+    assert "Pro/zai-org/GLM-4.7" not in intl
+    assert intl["moonshotai/Kimi-K3"]["context_window"] == 1_048_576
+    assert intl["MiniMaxAI/MiniMax-M3"]["max_output_tokens"] == 131_072
+    assert intl["deepseek-ai/DeepSeek-R1"]["context_window"] == 163_840
 
 
 def test_iflytek_replaces_unlisted_ids_and_corrects_glm52() -> None:
