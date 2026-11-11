@@ -41,6 +41,19 @@ jobs:
       base_version: ${{ steps.ver.outputs.base_version }}
       prerelease: ${{ steps.ver.outputs.prerelease }}
     steps:
+      # 辅助脚本取自触发本次运行的 ref（分支或标签），这样给还没有这些脚本的旧标签补打也行；源码仍取自下面检出的标签。
+      - name: Fork helper scripts
+        env:
+          TOOLS_REF: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/forktools
+          for i in 1 2 3 4 5; do
+            git clone --depth 1 --branch "$TOOLS_REF" "https://x-access-token:${GITEA_TOKEN}@${GITEA_URL#https://}/${GITEA_REPO}.git" /tmp/forktools && break
+            echo "克隆失败，重试（$i/5）"; sleep 10
+          done
+          ls /tmp/forktools/scripts/fork
+
       - name: Checkout
         env:
           REF: ${{ inputs.tag || github.ref_name }}
@@ -87,6 +100,19 @@ jobs:
       VER: ${{ needs.prepare.outputs.version }}
       PRERELEASE: ${{ needs.prepare.outputs.prerelease }}
     steps:
+      # 辅助脚本取自触发本次运行的 ref（分支或标签），这样给还没有这些脚本的旧标签补打也行；源码仍取自下面检出的标签。
+      - name: Fork helper scripts
+        env:
+          TOOLS_REF: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/forktools
+          for i in 1 2 3 4 5; do
+            git clone --depth 1 --branch "$TOOLS_REF" "https://x-access-token:${GITEA_TOKEN}@${GITEA_URL#https://}/${GITEA_REPO}.git" /tmp/forktools && break
+            echo "克隆失败，重试（$i/5）"; sleep 10
+          done
+          ls /tmp/forktools/scripts/fork
+
       - name: Checkout
         env:
           REF: ${{ needs.prepare.outputs.tag }}
@@ -100,10 +126,10 @@ jobs:
           git log -1 --format='%h %s'
 
       - name: Install uv and Python
-        run: bash scripts/fork/gitea_tools.sh uv
+        run: bash /tmp/forktools/scripts/fork/gitea_tools.sh uv
 
       - name: Install Node 20
-        run: bash scripts/fork/gitea_tools.sh node 20
+        run: bash /tmp/forktools/scripts/fork/gitea_tools.sh node 20
 
       - name: Install dependencies
         run: make install
@@ -136,8 +162,8 @@ jobs:
             echo
             echo "> 这是基于官方 Octop ${VER%.post*} 的 fork 版本。应用内「检查更新」查询的是官方 PyPI，升级到官方版本会移除 fork 的改动。"
           } >> .release-notes.md
-          bash scripts/fork/gitea_release.sh ensure "$TAG" "Octop $VER" "$PRERELEASE" .release-notes.md
-          bash scripts/fork/gitea_release.sh upload "$TAG" dist/*
+          bash /tmp/forktools/scripts/fork/gitea_release.sh ensure "$TAG" "Octop $VER" "$PRERELEASE" .release-notes.md
+          bash /tmp/forktools/scripts/fork/gitea_release.sh upload "$TAG" dist/*
 
       - name: Build FnOS packages
         run: |
@@ -169,7 +195,7 @@ jobs:
           ls -lh dist/*.fpk
 
       - name: Upload FnOS packages
-        run: bash scripts/fork/gitea_release.sh upload "$TAG" dist/Octop-fnos-native-*.fpk
+        run: bash /tmp/forktools/scripts/fork/gitea_release.sh upload "$TAG" dist/Octop-fnos-native-*.fpk
 
   desktop-linux:
     name: Linux desktop (${{ matrix.arch }})
@@ -189,6 +215,19 @@ jobs:
       PBS_TAG: "20251209"
       PBS_PY: "3.12.12"
     steps:
+      # 辅助脚本取自触发本次运行的 ref（分支或标签），这样给还没有这些脚本的旧标签补打也行；源码仍取自下面检出的标签。
+      - name: Fork helper scripts
+        env:
+          TOOLS_REF: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/forktools
+          for i in 1 2 3 4 5; do
+            git clone --depth 1 --branch "$TOOLS_REF" "https://x-access-token:${GITEA_TOKEN}@${GITEA_URL#https://}/${GITEA_REPO}.git" /tmp/forktools && break
+            echo "克隆失败，重试（$i/5）"; sleep 10
+          done
+          ls /tmp/forktools/scripts/fork
+
       - name: Checkout
         env:
           REF: ${{ needs.prepare.outputs.tag }}
@@ -202,10 +241,10 @@ jobs:
           git log -1 --format='%h %s'
 
       - name: Install uv and Python
-        run: bash scripts/fork/gitea_tools.sh uv
+        run: bash /tmp/forktools/scripts/fork/gitea_tools.sh uv
 
       - name: Install Node 20
-        run: bash scripts/fork/gitea_tools.sh node 20
+        run: bash /tmp/forktools/scripts/fork/gitea_tools.sh node 20
 
       - name: Build dashboard
         run: make build-frontend
@@ -251,7 +290,7 @@ jobs:
           PY
 
       - name: Install Node 24
-        run: bash scripts/fork/gitea_tools.sh node 24
+        run: bash /tmp/forktools/scripts/fork/gitea_tools.sh node 24
 
       - name: Enable pnpm
         run: |
@@ -290,7 +329,7 @@ jobs:
           [ "$n" -gt 0 ] || { ls -lh desktop/src/release; echo "没有找到安装包"; exit 1; }
           ls -lh publish
           for i in 1 2 3 4 5 6; do
-            if bash scripts/fork/gitea_release.sh upload "$TAG" publish/*; then exit 0; fi
+            if bash /tmp/forktools/scripts/fork/gitea_release.sh upload "$TAG" publish/*; then exit 0; fi
             echo "Release 还没就绪，等 30 秒（$i/6）"; sleep 30
           done
           exit 1
