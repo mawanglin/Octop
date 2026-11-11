@@ -1,0 +1,288 @@
+name: Fork Release (Gitea)
+
+# Gitea（自建）上的 fork 发布流水线，GitHub 不会读取 .gitea/ 目录。
+# Gitea 发现 .gitea/workflows 后不再读取 .github/workflows，官方那批 workflow（CI、CodeQL、发布等）在这里不会跑。
+#
+# 触发：推送 fork-v* 标签，或手动运行（填已有标签）。
+# 产物挂到 Gitea 上同名 Release：
+#   - wheel + sdist
+#   - 飞牛原生版 FPK：x86_64 和 arm64（arm64 的依赖按目标平台下载二进制轮子，不在本机运行验证）
+#   - Linux 桌面客户端 deb / rpm：amd64 和 arm64（便携运行时按目标平台交叉组装，arm64 同样不在本机运行验证）
+# 不做的事：不跑测试（GitHub 上的同一标签已经跑过）；Windows 和 macOS 桌面包由构建虚拟机另行打包；不发 PyPI、不打 Docker。
+#
+# 打包步骤与 .github/workflows/fork-release.yml、fork-desktop.yml 保持一致，官方调整时一起同步。
+# Release 用 scripts/fork/gitea_release.sh 通过 Gitea 接口创建和上传，令牌用 secrets.GITHUB_TOKEN。
+
+on:
+  push:
+    tags:
+      - "fork-v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "要发布的已有标签，例如 fork-v1.0.3b4.post2"
+        required: true
+        type: string
+
+env:
+  FNPACK_VERSION: "1.2.3"
+  GITEA_URL: ${{ github.server_url }}
+  GITEA_REPO: ${{ github.repository }}
+  GITEA_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  prepare:
+    name: Resolve version
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.ver.outputs.tag }}
+      version: ${{ steps.ver.outputs.version }}
+      base_version: ${{ steps.ver.outputs.base_version }}
+      prerelease: ${{ steps.ver.outputs.prerelease }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag || github.ref }}
+
+      - name: Check tag matches pyproject.toml
+        id: ver
+        env:
+          TAG: ${{ inputs.tag || github.ref_name }}
+        run: |
+          set -euo pipefail
+          case "$TAG" in
+            fork-v*) ;;
+            *) echo "标签必须以 fork-v 开头，收到 $TAG"; exit 1 ;;
+          esac
+          VER="${TAG#fork-v}"
+          PYVER=$(sed -nE 's/^version[[:space:]]*=[[:space:]]*"([^"]+)".*/\1/p' pyproject.toml | head -1)
+          if [ "$VER" != "$PYVER" ]; then
+            echo "标签 $TAG 与 pyproject.toml 版本 $PYVER 不一致"
+            exit 1
+          fi
+          bash scripts/fnos/store_version.sh "$VER"
+          if [[ "$VER" =~ (a|b|rc)[0-9]+ ]]; then pre=true; else pre=false; fi
+          {
+            echo "tag=$TAG"
+            echo "version=$VER"
+            echo "base_version=$(printf '%s' "$VER" | sed -E 's/\.post[0-9]+$//')"
+            echo "prerelease=$pre"
+          } >> "$GITHUB_OUTPUT"
+
+  dist-and-fnos:
+    name: Wheel and FnOS packages
+    needs: prepare
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ needs.prepare.outputs.tag }}
+      VER: ${{ needs.prepare.outputs.version }}
+      PRERELEASE: ${{ needs.prepare.outputs.prerelease }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.prepare.outputs.tag }}
+          fetch-depth: 0
+
+      - uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: dashboard/package-lock.json
+
+      - name: Install dependencies
+        run: make install
+
+      - name: Build wheel and sdist
+        run: make build
+
+      - name: Release notes and Release
+        run: |
+          set -euo pipefail
+          : > .release-notes.md
+          if [ -f CHANGELOG.fork.md ]; then
+            awk -v v="$VER" '
+              $0 ~ "^## \\[?" v "\\]?([[:space:]]|$)" { flag = 1; next }
+              /^## / { flag = 0 }
+              flag
+            ' CHANGELOG.fork.md > .release-notes.md
+          fi
+          if [ ! -s .release-notes.md ]; then
+            echo "## 变更" > .release-notes.md
+            git log --oneline --no-decorate --no-merges -20 "$TAG" >> .release-notes.md
+          fi
+          {
+            echo
+            echo "## 安装"
+            echo
+            echo '- 飞牛 NAS：下载 `Octop-fnos-native-amd64-*.fpk`（x86_64）或 `Octop-fnos-native-arm64-*.fpk`（ARM），在应用中心「手动安装」。'
+            echo '- 桌面客户端：`Octop-desktop-<平台>-*`（deb / rpm；Windows 和 macOS 包由构建虚拟机另行提供）。未签名。'
+            echo '- pip：下载 `.whl` 后执行 `pip install ./octop-'"$VER"'-py3-none-any.whl`。'
+            echo
+            echo "> 这是基于官方 Octop ${VER%.post*} 的 fork 版本。应用内「检查更新」查询的是官方 PyPI，升级到官方版本会移除 fork 的改动。"
+          } >> .release-notes.md
+          bash scripts/fork/gitea_release.sh ensure "$TAG" "Octop $VER" "$PRERELEASE" .release-notes.md
+          bash scripts/fork/gitea_release.sh upload "$TAG" dist/*
+
+      - name: Build FnOS packages
+        run: |
+          set -euo pipefail
+          WHL="$(ls "$PWD"/dist/octop-*.whl | head -1)"
+          PY="$(uv python find 3.12)"
+          mkdir -p /tmp/octop-pinned
+          uvx pip download --only-binary :all: --no-deps --no-cache-dir -d /tmp/octop-pinned \
+            "mcp==1.28.1" "langchain-mcp-adapters==0.3.0"
+          for arch in amd64 arm64; do
+            SP="$PWD/fnos/native/app/site-packages"
+            rm -rf "$SP"; mkdir -p "$SP"
+            if [ "$arch" = amd64 ]; then plat=x86_64-manylinux_2_28; else plat=aarch64-manylinux_2_28; fi
+            uv pip install --python "$PY" --target "$SP" --no-cache --only-binary :all: \
+              --python-platform "$plat" "$WHL"
+            rm -rf "$SP/mcp" "$SP"/mcp-*.dist-info \
+                   "$SP/langchain_mcp_adapters" "$SP"/langchain_mcp_adapters-*.dist-info
+            for whl in /tmp/octop-pinned/*.whl; do "$PY" -m zipfile -e "$whl" "$SP"; done
+            cp "$WHL" "$SP/octop.whl"
+            mkdir -p "$SP/octop_harness/backends"
+            cp scripts/fnos/vendor/storage_errors.py "$SP/octop_harness/backends/storage_errors.py"
+            bash scripts/fnos/slim-site-packages.sh "$SP"
+            if [ "$arch" = amd64 ]; then
+              PYTHONPATH="$SP" "$PY" -c "import octop, mcp, langchain_mcp_adapters; from octop.launch import run_foreground_blocking; from octop_harness.backends.storage_errors import classify_storage_error; print('octop', octop.__version__)"
+            fi
+            test -d "$SP/octop"
+            FPK_NAME_PREFIX=Octop-fnos FPK_ARCH="$arch" bash scripts/build-fpk.sh native
+          done
+          ls -lh dist/*.fpk
+
+      - name: Upload FnOS packages
+        run: bash scripts/fork/gitea_release.sh upload "$TAG" dist/Octop-fnos-native-*.fpk
+
+  desktop-linux:
+    name: Linux desktop (${{ matrix.arch }})
+    needs: prepare
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [amd64, arm64]
+    env:
+      TAG: ${{ needs.prepare.outputs.tag }}
+      OCTOP_VERSION: ${{ needs.prepare.outputs.version }}
+      BASE_VERSION: ${{ needs.prepare.outputs.base_version }}
+      PLAT: linux-${{ matrix.arch }}
+      GREEN_HOST_PLAT: linux-${{ matrix.arch }}
+      PBS_BASE_URL: https://github.com/astral-sh/python-build-standalone/releases/download/20251209
+      PBS_TAG: "20251209"
+      PBS_PY: "3.12.12"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.prepare.outputs.tag }}
+
+      - uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: dashboard/package-lock.json
+
+      - name: Build dashboard
+        run: make build-frontend
+
+      - name: Bootstrap portable CPython
+        run: bash desktop/portable/bootstrap-runtime.sh "$PLAT"
+
+      - name: Assemble portable tree
+        run: bash desktop/portable/package.sh "$PLAT"
+
+      # 交叉组装（arm64）时本机的 Python 跑不了目标平台的包，只在原生 amd64 上做导入验证。
+      - name: Smoke import (amd64 only)
+        if: matrix.arch == 'amd64'
+        run: |
+          set -euo pipefail
+          staging="desktop/portable/release/Octop-${PLAT}"
+          verify_args=(--packages "${staging}/packages" --requirements "desktop/portable/requirements-${PLAT}.txt")
+          if [ -f "desktop/portable/overrides-${PLAT}.txt" ]; then
+            verify_args+=(--overrides "desktop/portable/overrides-${PLAT}.txt")
+          fi
+          PYTHONNOUSERSITE=1 "${staging}/runtime/bin/python3" desktop/portable/verify_imports.py "${verify_args[@]}"
+
+      - name: Stage Electron runtime
+        run: |
+          set -euo pipefail
+          zip="desktop/portable/release/Octop-portable-${PLAT}-${OCTOP_VERSION}.zip"
+          inner="desktop/portable/release/Octop-${PLAT}"
+          rm -rf desktop/src/resources/portable
+          mkdir -p desktop/src/resources/portable
+          test -f "$inner/packages/octop/dashboard/index.html"
+          test -f "$inner/launch.py"
+          shopt -s dotglob
+          cp -a "$inner"/. desktop/src/resources/portable/
+          shopt -u dotglob
+          python3 - "$zip" "$OCTOP_VERSION" <<'PY'
+          import hashlib, json, pathlib, sys, zipfile
+          path = pathlib.Path(sys.argv[1])
+          if not zipfile.is_zipfile(path):
+              raise SystemExit(f"not a portable zip: {path}")
+          manifest = {"version": sys.argv[2], "sha256": hashlib.sha256(path.read_bytes()).hexdigest()}
+          pathlib.Path("desktop/src/resources/portable/portable-version.json").write_text(
+              json.dumps(manifest) + "\n", encoding="utf-8")
+          PY
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Enable pnpm
+        run: |
+          set -euo pipefail
+          corepack enable
+          corepack prepare pnpm@12.15.0 --activate
+          pnpm --version
+
+      - name: Install and check Electron shell
+        working-directory: desktop/src
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm run typecheck
+          pnpm run test
+
+      - name: Build deb and rpm
+        working-directory: desktop/src
+        env:
+          OCTOP_PLATFORM: ${{ env.PLAT }}
+          OCTOP_VERSION: ${{ needs.prepare.outputs.base_version }}
+        run: |
+          set -euo pipefail
+          pnpm run build
+          if [ "${{ matrix.arch }}" = amd64 ]; then arch=--x64; else arch=--arm64; fi
+          pnpm exec electron-builder --config electron-builder.config.ts --linux "$arch" --publish never
+
+      - name: Upload to Release
+        run: |
+          set -euo pipefail
+          mkdir -p publish
+          n=0
+          for f in desktop/src/release/Octop-desktop-${PLAT}-${BASE_VERSION}.*; do
+            case "$f" in *.deb|*.rpm) ;; *) continue ;; esac
+            cp "$f" "publish/Octop-desktop-${PLAT}-${OCTOP_VERSION}.${f##*.}"
+            n=$((n + 1))
+          done
+          [ "$n" -gt 0 ] || { ls -lh desktop/src/release; echo "没有找到安装包"; exit 1; }
+          ls -lh publish
+          for i in 1 2 3 4 5 6; do
+            if bash scripts/fork/gitea_release.sh upload "$TAG" publish/*; then exit 0; fi
+            echo "Release 还没就绪，等 30 秒（$i/6）"; sleep 30
+          done
+          exit 1
