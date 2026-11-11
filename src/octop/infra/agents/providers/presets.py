@@ -7,6 +7,11 @@ from typing import Any
 
 def _reasoning_profile(provider_id: str, model_id: str) -> dict[str, Any] | None:
     """Reasoning metadata for bundled models with documented request semantics."""
+    from octop.infra.agents.providers.fork_presets import fork_reasoning_profile  # fork:
+
+    forked = fork_reasoning_profile(provider_id, model_id)  # fork:
+    if forked is not None:  # fork:
+        return forked  # fork:
     provider = provider_id.lower()
     model = model_id.lower()
     enum_efforts = ["low", "medium", "high"]
@@ -349,6 +354,9 @@ def load_provider_presets() -> list[dict[str, Any]]:
         out.insert(insert_at, onnx_preset)
     if not any(p.get("purpose") == "embedding" and p.get("id") != "onnx" for p in out):
         out.extend(_embedding_cloud_presets())
+    from octop.infra.agents.providers.fork_presets import apply_fork_presets  # fork:
+
+    apply_fork_presets(out)  # fork:
     for preset in out:
         provider_id = str(preset.get("id") or "")
         for model in preset.get("models") or []:
