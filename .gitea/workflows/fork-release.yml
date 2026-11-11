@@ -86,16 +86,11 @@ jobs:
           ref: ${{ needs.prepare.outputs.tag }}
           fetch-depth: 0
 
-      - uses: astral-sh/setup-uv@v4
-        with:
-          enable-cache: false
+      - name: Install uv and Python
+        run: bash scripts/fork/gitea_tools.sh uv
 
-      - name: Set up Python
-        run: uv python install 3.12
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20"
+      - name: Install Node 20
+        run: bash scripts/fork/gitea_tools.sh node 20
 
       - name: Install dependencies
         run: make install
@@ -186,16 +181,11 @@ jobs:
           github-server-url: https://nas.virson.cn:10088
           ref: ${{ needs.prepare.outputs.tag }}
 
-      - uses: astral-sh/setup-uv@v4
-        with:
-          enable-cache: false
+      - name: Install uv and Python
+        run: bash scripts/fork/gitea_tools.sh uv
 
-      - name: Set up Python
-        run: uv python install 3.12
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20"
+      - name: Install Node 20
+        run: bash scripts/fork/gitea_tools.sh node 20
 
       - name: Build dashboard
         run: make build-frontend
@@ -240,14 +230,12 @@ jobs:
               json.dumps(manifest) + "\n", encoding="utf-8")
           PY
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "24"
+      - name: Install Node 24
+        run: bash scripts/fork/gitea_tools.sh node 24
 
       - name: Enable pnpm
         run: |
           set -euo pipefail
-          corepack enable
           corepack prepare pnpm@12.15.0 --activate
           pnpm --version
 
