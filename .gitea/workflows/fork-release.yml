@@ -26,7 +26,8 @@ on:
 
 env:
   FNPACK_VERSION: "1.2.3"
-  GITEA_URL: ${{ github.server_url }}
+  # Gitea 的 ROOT_URL 是 https://nas.virson.cn:3000，作业容器里握手失败；对外可用的是 10088（检出同理）。
+  GITEA_URL: https://nas.virson.cn:10088
   GITEA_REPO: ${{ github.repository }}
   GITEA_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -42,6 +43,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          github-server-url: https://nas.virson.cn:10088
           ref: ${{ inputs.tag || github.ref }}
 
       - name: Check tag matches pyproject.toml
@@ -80,6 +82,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          github-server-url: https://nas.virson.cn:10088
           ref: ${{ needs.prepare.outputs.tag }}
           fetch-depth: 0
 
@@ -182,6 +185,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          github-server-url: https://nas.virson.cn:10088
           ref: ${{ needs.prepare.outputs.tag }}
 
       - uses: astral-sh/setup-uv@v4
