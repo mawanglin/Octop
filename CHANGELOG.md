@@ -29,6 +29,8 @@
   - 推理开关按官方说明修正：GLM-5.3（智谱）、Kimi K3 系列、MiniMax M3.1 Flash 始终思考、不能关闭并带推理档位，MiniMax M3 不提供开关，豆包可用 `thinking.type=disabled` 关闭，OpenRouter 上的 Claude 5 不可关闭；嵌入模型不再被误加推理开关；
   - 补上官方有写的限额和输入模态：Gemini 3.x 三个新型号和三个已有型号的上下文、输出与图片 / 视频 / 音频 / PDF 输入，火山的第三方型号和豆包 2.0 的图片输入，MiniMax 的视频输入，`kimi-k3`、`glm-5.3-flashx` 的图片输入；
   - OpenAI 预设里已弃用、2027-01-14 关停的 `gpt-4.1`、`gpt-4.1-mini`、`gpt-4o`、`gpt-4o-mini` 一并去掉；
+  - 第二次独立复核后再修正：Qwen3.7 / 3.8 系列最大输出统一为 131,072（原来 `qwen3.7-plus` 写成 65,536），Gemini 补齐 3.1 Pro、3 Flash、2.5 Flash-Lite 的音频 / 视频 / PDF 输入和 3 Flash 的 `minimal` 档位，Kimi K3 / K3.1 Pro 补视频输入，Groq 的 `qwen3.8-27b` 补图片输入与可关闭的推理设置，OpenRouter 的 Claude 5 补 xhigh、max 两档，`dashscope-us` 补 `qwen-plus`、`qwen-flash` 及各型号限额；去掉 11 月 24 日下线的讯飞 `spark-x2.5` 和 11 月 25 日下线的火山 Coding Plan `kimi-k3`；腾讯企业版 `kimi-k2.6` 最大输出改为 256K，TokenHub 补上 3 个现行型号；
+  - 暂不处理：腾讯 HAI（没有文档）；腾讯个人版 Token Plan 与 Hy Token Plan 的 Base URL（官方已是 `tokenhub.tencentmaas.com/plan/v3`，直接改会让老用户收不到新模型）；讯飞里 6 个来自模型广场、但不在 Token Plan 文档中的型号（无法确认套餐里能否调用）。
   - 腾讯 HAI 仍没有找到官方文档，保持原样。
 
 - 自定义 MCP 可以填写 OAuth 应用凭证（Client ID / Secret、Scope、授权与令牌端点）：授权服务器不支持自动注册客户端，或不提供发现信息时，也能在页面上完成授权并自动刷新令牌

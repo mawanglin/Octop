@@ -7,7 +7,7 @@
 ## [Unreleased]
 
 ### 变更
-- 供应商预设：按各家模型页更新硅基流动（国内站和国际站）、小米 MiMo、讯飞星辰和腾讯云 TokenHub 系列（TokenHub、Coding Plan、Token Plan、Hy Token Plan、企业版），智谱、阿里云、火山方舟的套餐预设，并根据一次独立复核修正 Groq、Codex、`dashscope-us`、Kimi Coding Plan、`gpt-5.2`、若干推理开关和缺失字段（详见 `CHANGELOG.md`），仍由 `providers/fork_presets.py` 叠加。
+- 供应商预设：按各家模型页更新硅基流动（国内站和国际站）、小米 MiMo、讯飞星辰和腾讯云 TokenHub 系列（TokenHub、Coding Plan、Token Plan、Hy Token Plan、企业版），智谱、阿里云、火山方舟的套餐预设，并根据两次独立复核修正 Groq、Codex、`dashscope-us`、Kimi Coding Plan、`gpt-5.2`、若干推理开关和缺失字段（详见 `CHANGELOG.md`），仍由 `providers/fork_presets.py` 叠加。
 - 新增 `.gitea/workflows/fork-release.yml`：在自建 Gitea 上构建 wheel、飞牛包和 Linux 桌面 deb / rpm（Windows 和 macOS 包之后由构建虚拟机提供）。
 
 ## [1.0.3b4.post2] - 2026-11-11

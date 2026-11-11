@@ -26,8 +26,8 @@ Tencent TokenHub, Coding Plan, Token Plan (personal) and Hy Token Plan follow th
 the model list and price pages (cloud.tencent.com/document/product/1823/130051, 130055), the Coding
 Plan overview (130092), and the Token Plan personal overview (130060), all read 2026-11-11.
 
-Token Plan enterprise follows the professional plan page (130659) and its overview (131172). ``tencent-hai`` is not covered:
-no document for api.model.haihub.cn was found.
+Token Plan enterprise follows the professional plan page (130659) and its overview (131172).
+``tencent-hai`` is not covered: no document for api.model.haihub.cn was found.
 
 Zhipu Coding Plan (docs.bigmodel.cn / docs.z.ai), Aliyun Coding Plan and Token Plan (help.aliyun.com,
 alibabacloud.com) and Volcengine Coding Plan / Agent Plan (docs.volcengine.com/docs/ark) follow each
@@ -35,9 +35,16 @@ plan's own "supported models" page, read 2026-11-11. These plans only accept the
 
 Second pass (an independent audit, checked against the pages again): Groq, Codex, gpt-5.2, dashscope-us,
 Kimi Coding Plan (www.kimi.com/code/docs/kimi-code/models.html), reasoning switches for GLM-5.3, Kimi K3,
-MiniMax M3, Doubao and OpenRouter's Claude 5, plus missing limits and input modalities.
+MiniMax M3, Doubao and OpenRouter's Claude 5, plus missing limits and input modalities. Third pass: a
+second independent audit of everything (Qwen output limits from the Aliyun model pages, Gemini inputs,
+Kimi video input, Groq qwen3.8-27b, Kimi K3 on Volcengine Coding Plan going offline 2026-11-25,
+Spark-X2.5 going offline 2026-11-24, Tencent enterprise kimi-k2.6 output).
 
-Not covered on purpose: every other "plan" preset (Coding / Token / Agent Plan, Kimi Coding Plan, Tencent HAI), ``dashscope-us``.
+Known gaps left on purpose: ``tencent-hai`` (no documentation found); the Base URL of the Tencent personal
+Token Plan and Hy Token Plan presets (the docs now say https://tokenhub.tencentmaas.com/plan/v3; changing it
+would stop existing users from receiving new models, so it needs a migration first); six iFlytek models that
+come from the public model square but are not in the Token Plan doc (spark-x2.6, spark-x2.6-4b, xopglm53,
+xopdeepseekv4pro0813, xopdeepseekv4flash0731, xopkimik27code).
 """
 
 from __future__ import annotations
@@ -47,6 +54,7 @@ from dataclasses import dataclass, field
 from typing import Any
 
 _K = 1024
+_TIV = ("text", "image", "video")
 
 
 def _m(
@@ -127,10 +135,11 @@ _KIMI_RETIRED = (
     "kimi-k2.6",  # same
 )
 _KIMI_NEW = (
-    _m("kimi-k3.1-pro", "Kimi K3.1 Pro", context=1_048_576, inputs=_TI),
-    _m("kimi-k3.1-pro-highspeed", "Kimi K3.1 Pro Highspeed", context=1_048_576, inputs=_TI),
+    _m("kimi-k3.1-pro", "Kimi K3.1 Pro", context=1_048_576, inputs=_TIV),
+    _m("kimi-k3.1-pro-highspeed", "Kimi K3.1 Pro Highspeed", context=1_048_576, inputs=_TIV),
 )
-_KIMI_K3_VISION: dict[str, dict[str, Any]] = {"kimi-k3": {"input": ["text", "image"]}}
+# platform.kimi.com "use-kimi-vision-model": K3.1 Pro and K3 understand images and video.
+_KIMI_K3_VISION: dict[str, dict[str, Any]] = {"kimi-k3": {"input": ["text", "image", "video"]}}
 # MiniMax text API: M3.1-Flash and M3 accept text, image and video input (no audio).
 _MINIMAX_VISION: dict[str, dict[str, Any]] = {
     "MiniMax-M3.1-Flash": {"input": ["text", "image", "video"]},
@@ -142,7 +151,6 @@ _MINIMAX_RETIRED = (
     "MiniMax-M2.7",
     "MiniMax-M2.7-highspeed",
 )
-_TIV = ("text", "image", "video")
 _GEMINI_IN = ("text", "image", "video", "audio", "pdf")
 _MINIMAX_NEW = (
     _m("MiniMax-M3.1-Flash", "MiniMax M3.1 Flash", context=1_000_000, inputs=_TIV),
@@ -237,22 +245,27 @@ _VOLC_THIRD_PARTY = (
 
 _ZHIPU_PLAN_NEW = (
     _m("glm-5.3", "GLM-5.3", context=1_000_000, max_output=131_072),
-    _m("glm-5.3-flash", "GLM-5.3 Flash", context=1_000_000, max_output=131_072, inputs=_TI),
+    _m("glm-5.3-flash", "GLM-5.3 Flash", context=1_000_000, max_output=131_072, inputs=_TIV),
 )
 _ALIYUN_CODING_RETIRED = ("glm-4.7", "qwen3-max-2026-01-23", "qwen3-coder-next", "qwen3-coder-plus")
 _ALIYUN_CODING_VISION: dict[str, dict[str, Any]] = {
-    "qwen3.7-plus": {"input": ["text", "image"]},
+    "qwen3.7-plus": {"input": ["text", "image"], "max_output_tokens": 131_072},
     "qwen3.6-plus": {"input": ["text", "image"]},
     "kimi-k2.5": {"input": ["text", "image"]},
 }
+# Aliyun model pages: context 1,000,000; max output 131,072; images and video in (qwen3.7-max: text only).
+_QWEN_ROWS = (
+    _m("qwen3.8-max", "Qwen3.8 Max", context=1_000_000, max_output=131_072, inputs=_TIV),
+    _m("qwen3.8-flash", "Qwen3.8 Flash", context=1_000_000, max_output=131_072, inputs=_TIV),
+    _m("qwen3.7-max", "Qwen3.7 Max", context=1_000_000, max_output=131_072),
+    _m("qwen3.7-plus", "Qwen3.7 Plus", context=1_000_000, max_output=131_072, inputs=_TIV),
+    _m("qwen3.7-flash", "Qwen3.7 Flash", context=1_000_000, max_output=131_072, inputs=_TIV),
+)
 _ALIYUN_TOKEN_RETIRED = ("qwen3.6-plus", "glm-5", "MiniMax-M2.5", "deepseek-v3.2", "kimi-k2.5")
 _ALIYUN_TOKEN_NEW = (
     _m("auto", "Auto"),
-    _m("qwen3.8-max", "Qwen3.8 Max", context=1_000_000, inputs=_TI),
-    _m("qwen3.8-flash", "Qwen3.8 Flash", context=1_000_000, inputs=_TI),
-    _m("qwen3.7-max", "Qwen3.7 Max", context=1_000_000),
-    _m("qwen3.7-plus", "Qwen3.7 Plus", context=1_000_000, max_output=65_536, inputs=_TI),
-    _m("qwen3.6-flash", "Qwen3.6 Flash", inputs=_TI),
+    *_QWEN_ROWS,
+    _m("qwen3.6-flash", "Qwen3.6 Flash", context=1_000_000, max_output=65_536, inputs=_TIV),
     _m("deepseek-v4.1-flash", "DeepSeek V4.1 Flash", inputs=_TI),
     _m("deepseek-v4.1-flash-1017", "DeepSeek V4.1 Flash 1017", inputs=_TI),
     _m("deepseek-v4-pro-0813", "DeepSeek V4 Pro 0813"),
@@ -355,7 +368,8 @@ _ARK_PLAN_MODELS = (
     _m("deepseek-v4-pro", "DeepSeek V4 Pro", context=_ARK_1M, max_output=384 * _K),
     *_ARK_PLAN_NEW_ONLY[2:4],
 )
-_ARK_CODING_ONLY = (_m("kimi-k3", "Kimi K3", context=_ARK_1M, max_output=128 * _K, inputs=_TI),)
+# kimi-k3 stops serving new users on 2026-11-11 and goes offline on 2026-11-25 (deprecation notice): not offered.
+_ARK_CODING_ONLY: tuple[dict[str, Any], ...] = ()
 
 PATCHES: dict[str, ProviderPatch] = {
     # https://docs.anthropic.com/en/docs/about-claude/model-deprecations
@@ -448,10 +462,11 @@ PATCHES: dict[str, ProviderPatch] = {
                 inputs=_GEMINI_IN,
             ),
         ),
-        # Model pages: output token limit 65,536.
+        # Model pages: output token limit 65,536; inputs text, image, video, audio and PDF.
         update={
-            "gemini-3.1-pro-preview": {"max_output_tokens": 65_536},
-            "gemini-2.5-flash-lite": {"max_output_tokens": 65_536},
+            "gemini-3.1-pro-preview": {"max_output_tokens": 65_536, "input": list(_GEMINI_IN)},
+            "gemini-3-flash-preview": {"max_output_tokens": 65_536, "input": list(_GEMINI_IN)},
+            "gemini-2.5-flash-lite": {"max_output_tokens": 65_536, "input": list(_GEMINI_IN)},
         },
     ),
     # OpenRouter ids and limits come from its public /api/v1/models.
@@ -514,22 +529,15 @@ PATCHES: dict[str, ProviderPatch] = {
     # Not on the price list any more (not asserted as shut down).
     "dashscope": ProviderPatch(
         remove=(*_QWEN_RETIRED, "deepseek-v3.2"),
-        add=(
-            _m("qwen3.8-max", "Qwen3.8 Max", context=1_000_000),
-            _m("qwen3.8-flash", "Qwen3.8 Flash", context=1_000_000),
-            _m("qwen3.7-max", "Qwen3.7 Max", context=1_000_000),
-            _m("qwen3.7-flash", "Qwen3.7 Flash", context=1_000_000),
-        ),
+        # qwen3.7-plus is already in the bundled row; it is corrected by the update below.
+        add=tuple(row for row in _QWEN_ROWS if row["id"] != "qwen3.7-plus"),
+        update={
+            "qwen3.7-plus": {"max_output_tokens": 131_072, "input": ["text", "image", "video"]}
+        },
     ),
     "dashscope-intl": ProviderPatch(
         remove=(*_QWEN_RETIRED, "deepseek-v3.2"),
-        add=(
-            _m("qwen3.8-max", "Qwen3.8 Max", context=1_000_000),
-            _m("qwen3.8-flash", "Qwen3.8 Flash", context=1_000_000),
-            _m("qwen3.7-plus", "Qwen3.7 Plus", context=1_000_000),
-            _m("qwen3.7-max", "Qwen3.7 Max", context=1_000_000),
-            _m("qwen3.7-flash", "Qwen3.7 Flash", context=1_000_000),
-        ),
+        add=_QWEN_ROWS,
     ),
     "volcengine-cn": ProviderPatch(
         remove=(
@@ -744,7 +752,8 @@ PATCHES: dict[str, ProviderPatch] = {
     # Model ids are the platform's service ids; list from the public model-square API.
     # GLM-5 (xopglm5) is kept: the square still lists it, although its serverStatus differs (0, not 3).
     "iflytek-astron-token-plan": ProviderPatch(
-        remove=("xopdeepseekv4pro", "xopqwen35v35b"),
+        # spark-x2.5 goes offline on 2026-11-24 10:00 (maas.xfyun.cn old-model shutdown notice).
+        remove=("xopdeepseekv4pro", "xopqwen35v35b", "spark-x2.5"),
         add=(
             _m("spark-x2.6", "Spark-X2.6", context=1_048_576),
             _m("spark-x2.6-4b", "Spark-X2.6-4B", context=1_048_576),
@@ -753,13 +762,31 @@ PATCHES: dict[str, ProviderPatch] = {
             _m("xopdeepseekv4flash0731", "DeepSeek-V4-Flash-0731", context=1_048_576),
             _m("xopkimik27code", "Kimi-K2.7-Code", context=262_144, inputs=_TI),
         ),
-        update={"xopglm52": {"context_window": 1_048_576, "max_input_tokens": 1_048_576}},
+        update={
+            "xopglm52": {"context_window": 1_048_576, "max_input_tokens": 1_048_576},
+            "xopkimik25": {"input": ["text", "image"]},  # Token Plan doc: multimodal input
+        },
     ),
     # TokenHub pay-as-you-go: language models from the TokenHub model list (updated 2026-11-09).
     # Retiring or preview-only entries (glm-5v-turbo, minimax-m2.7, kimi-k2.8-preview, step-5-preview,
     # translation / role-play models) are not offered. "1M" is 1,000,000 here, like the plan presets.
     "tencent-tokenhub": ProviderPatch(
         add=(
+            _m(
+                "deepseek-v4.1-flash-1017",
+                "DeepSeek-V4.1-Flash-1017",
+                context=1_000_000,
+                max_output=384_000,
+                inputs=_TI,
+            ),
+            _m("deepseek-v4-pro", "DeepSeek-V4-Pro", context=1_000_000, max_output=384_000),
+            _m(
+                "kimi-k2.7-code-highspeed",
+                "Kimi K2.7 Code HighSpeed",
+                context=262_144,
+                max_output=262_144,
+                inputs=_TI,
+            ),
             _m(
                 "hy4-preview",
                 "Hy4 Preview",
@@ -899,6 +926,9 @@ PATCHES: dict[str, ProviderPatch] = {
     # The "deepseek/..." direct ids are not added: enterprise ids stay bare model names (upstream test).
     # Plain "deepseek-v4-flash" / "-0731" are only valid as "deepseek/..." aliases of the direct row.
     "tencent-token-plan-enterprise-cn": ProviderPatch(
+        update={
+            "kimi-k2.6": {"max_output_tokens": 262_144}
+        },  # model list: 256k, bundled row says 65,536
         remove=(
             "deepseek-v4-flash",
             "deepseek-v4-flash-0731",
@@ -998,28 +1028,41 @@ PATCHES: dict[str, ProviderPatch] = {
     # Max completion tokens from the model list; qwen3.8-27b is the recommended replacement (preview).
     "groq": ProviderPatch(
         remove=("llama-3.1-8b-instant", "llama-3.3-70b-versatile"),
-        add=(_m("qwen/qwen3.8-27b", "Qwen3.8 27B (preview)", context=131_072, max_output=16_384),),
+        add=(
+            _m(
+                "qwen/qwen3.8-27b",
+                "Qwen3.8 27B (preview)",
+                context=131_072,
+                max_output=16_384,
+                inputs=_TI,
+            ),
+        ),
         update={
             "openai/gpt-oss-120b": {"max_output_tokens": 65_536},
             "openai/gpt-oss-20b": {"max_output_tokens": 65_536},
         },
     ),
-    # DashScope US (Virginia): the "US" section of help.aliyun.com/zh/model-studio/model-pricing. Only models
-    # whose deployment scope is "US" are offered; the old three rows are not on that list.
+    # DashScope US (Virginia): the "US" section of help.aliyun.com/zh/model-studio/model-pricing. Models with
+    # deployment scope "US" are offered; per the region doc, "global" scope models are callable here too but
+    # are not listed. The old three rows are not on that list. Limits come from the model pages.
     "dashscope-us": ProviderPatch(
         remove=("qwen3-max", "qwen3-235b-a22b-thinking-2507", "deepseek-v3.2"),
         add=(
-            _m("qwen3.8-max", "Qwen3.8 Max", context=1_000_000),
-            _m("qwen3.8-flash", "Qwen3.8 Flash", context=1_000_000),
-            _m("qwen3.7-max", "Qwen3.7 Max", context=1_000_000),
-            _m("qwen3.7-plus", "Qwen3.7 Plus", context=1_000_000),
-            _m("qwen3.7-flash", "Qwen3.7 Flash", context=1_000_000),
-            _m("qwen3.6-flash", "Qwen3.6 Flash", context=1_000_000),
-            _m("deepseek-v4-pro", "DeepSeek V4 Pro"),
+            *_QWEN_ROWS,
+            _m("qwen3.6-flash", "Qwen3.6 Flash", context=1_000_000, max_output=65_536, inputs=_TIV),
+            _m("qwen-plus", "Qwen Plus", context=1_000_000),
+            _m("qwen-flash", "Qwen Flash", context=1_000_000, max_output=32_768),
+            _m("deepseek-v4-pro", "DeepSeek V4 Pro", context=1_000_000, max_output=393_216),
             _m("deepseek-v4-flash-0731", "DeepSeek V4 Flash 0731"),
-            _m("kimi-k3.1-pro", "Kimi K3.1 Pro"),
-            _m("glm-5.3", "GLM-5.3"),
-            _m("glm-5.2", "GLM-5.2"),
+            _m(
+                "kimi-k3.1-pro",
+                "Kimi K3.1 Pro",
+                context=1_048_576,
+                max_output=1_048_576,
+                inputs=_TI,
+            ),
+            _m("glm-5.3", "GLM-5.3", context=1_048_576, max_output=131_072),
+            _m("glm-5.2", "GLM-5.2", context=1_048_576, max_output=131_072),
         ),
     ),
     # Kimi Code: www.kimi.com/code/docs/kimi-code/models.html (6 models; "1M" = 1,048,576).
@@ -1088,6 +1131,7 @@ _GEMINI_THINKING: dict[str, tuple[list[str], str]] = {
     "gemini-3.8-flash": (["low", "medium", "high"], "medium"),
     "gemini-3.6-flash": (["minimal", "low", "medium", "high"], "medium"),
     "gemini-3.5-flash-lite": (["minimal", "low", "medium", "high"], "minimal"),
+    "gemini-3-flash-preview": (["minimal", "low", "medium", "high"], "high"),
 }
 
 
@@ -1117,7 +1161,9 @@ def fork_reasoning_profile(provider_id: str, model_id: str) -> dict[str, Any] | 
     model = model_id.lower()
 
     if provider in {"anthropic", "opencode-zen-anthropic"} and model in _CLAUDE_5_DEFAULT_EFFORT:
-        # Claude 5 always runs adaptive thinking; the vendor's "off" is not a request switch.
+        # Fable 5.2 and Opus 5.5 are always on. Sonnet 5.5's lowest setting is between_tools, and Haiku 5.5 may
+        # send thinking.type "disabled" at effort high or below (effort doc), but the anthropic_adaptive adapter
+        # only drops the field for "off" and never sends "disabled", so every Claude 5 row stays not switchable.
         return {
             "supported": True,
             "adapter": "anthropic_adaptive",
@@ -1190,6 +1236,16 @@ def fork_reasoning_profile(provider_id: str, model_id: str) -> dict[str, Any] | 
             "default_effort": "medium",
         }
 
+    if provider == "groq" and model == "qwen/qwen3.8-27b":
+        # Groq reasoning doc: low / medium / high, default none (reasoning off).
+        return {
+            "supported": True,
+            "adapter": "openai_reasoning_effort",
+            "toggle": True,
+            "default_mode": "auto",
+            "efforts": ["low", "medium", "high"],
+        }
+
     if provider.startswith("zhipu-") and model in {"glm-5.3", "glm-5.3-flash", "glm-5.3-flashx"}:
         # Zhipu docs: GLM-5.3 always thinks (thinking cannot be disabled); effort is low / high / max,
         # default max. The top-level reasoning_effort field is what the OpenAI-compatible endpoint maps.
@@ -1235,7 +1291,7 @@ def fork_reasoning_profile(provider_id: str, model_id: str) -> dict[str, Any] | 
             "adapter": "openrouter",
             "toggle": False,
             "default_mode": "enabled",
-            "efforts": ["low", "medium", "high"],
+            "efforts": ["low", "medium", "high", "xhigh", "max"],
             "default_effort": _OPENROUTER_CLAUDE_5[model],
         }
 

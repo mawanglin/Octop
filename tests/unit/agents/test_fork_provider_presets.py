@@ -203,7 +203,7 @@ def test_zhipu_coding_plans_only_offer_glm_5_3() -> None:
     for pid in ("zhipu-cn-codingplan", "zhipu-intl-codingplan"):
         rows = {m["id"]: m for m in presets[pid]["models"]}
         assert set(rows) == {"glm-5.3", "glm-5.3-flash"}
-        assert rows["glm-5.3-flash"]["input"] == ["text", "image"]
+        assert rows["glm-5.3-flash"]["input"] == ["text", "image", "video"]
         assert "input" not in rows["glm-5.3"]
 
 
@@ -249,7 +249,6 @@ def test_volcengine_plans_follow_their_model_name_lists() -> None:
         "deepseek-v4-flash",
         "deepseek-v4-pro",
         "kimi-k2.8-preview",
-        "kimi-k3",
         "kimi-k3.1-pro",
     }
     assert coding["glm-5.3"]["reasoning_config"]["toggle"] is False
@@ -340,7 +339,7 @@ def test_missing_limits_and_modalities_are_filled() -> None:
     ]
     assert volc["doubao-seed-character-251128"]["max_input_tokens"] == 96 * 1024
     kimi = {m["id"]: m for m in presets["kimi-cn"]["models"]}
-    assert kimi["kimi-k3"]["input"] == ["text", "image"]
+    assert kimi["kimi-k3"]["input"] == ["text", "image", "video"]
     zhipu = {m["id"]: m for m in presets["zhipu-cn"]["models"]}
     assert "video" in zhipu["glm-5.3-flashx"]["input"]
 
@@ -348,3 +347,30 @@ def test_missing_limits_and_modalities_are_filled() -> None:
 def test_openai_preset_has_no_deprecated_gpt4_rows() -> None:
     ids = _ids(_by_id(load_provider_presets())["openai"])
     assert ids == ["gpt-6-astra", "gpt-6.1-sol", "gpt-6.1-terra", "gpt-6-luna", "gpt-5.2"]
+
+
+def test_third_pass_audit_fixes() -> None:
+    presets = _by_id(load_provider_presets())
+    # Qwen3.7 Plus: 131,072 max output on every Aliyun surface.
+    for pid in ("dashscope", "dashscope-us", "aliyun-tokenplan", "aliyun-codingplan-cn"):
+        row = next(m for m in presets[pid]["models"] if m["id"] == "qwen3.7-plus")
+        assert row["max_output_tokens"] == 131_072, pid
+    assert "qwen-plus" in _ids(presets["dashscope-us"])
+    gem = {m["id"]: m for m in presets["gemini"]["models"]}
+    assert gem["gemini-3-flash-preview"]["max_output_tokens"] == 65_536
+    assert gem["gemini-3-flash-preview"]["reasoning_config"]["efforts"][0] == "minimal"
+    assert "audio" in gem["gemini-2.5-flash-lite"]["input"]
+    groq = {m["id"]: m for m in presets["groq"]["models"]}
+    assert groq["qwen/qwen3.8-27b"]["input"] == ["text", "image"]
+    assert groq["qwen/qwen3.8-27b"]["reasoning_config"]["toggle"] is True
+    efforts = next(
+        m for m in presets["openrouter"]["models"] if m["id"] == "anthropic/claude-sonnet-5.5"
+    )["reasoning_config"]["efforts"]
+    assert efforts[-2:] == ["xhigh", "max"]
+    assert "kimi-k3" not in _ids(presets["volcengine-cn-codingplan"])
+    xf = {m["id"]: m for m in presets["iflytek-astron-token-plan"]["models"]}
+    assert "spark-x2.5" not in xf and xf["xopkimik25"]["input"] == ["text", "image"]
+    ent = {m["id"]: m for m in presets["tencent-token-plan-enterprise-cn"]["models"]}
+    assert ent["kimi-k2.6"]["max_output_tokens"] == 262_144
+    hub = _ids(presets["tencent-tokenhub"])
+    assert {"deepseek-v4-pro", "kimi-k2.7-code-highspeed", "deepseek-v4.1-flash-1017"} <= set(hub)

@@ -89,7 +89,7 @@ def test_load_provider_presets_integration() -> None:
     kimi_cn = next(p for p in presets if p["id"] == "kimi-cn")
     # fork: kimi-k2.5 is retired and no longer in the preset; K3.1 Pro is multimodal.
     kimi_k31 = next(m for m in kimi_cn["models"] if m["id"] == "kimi-k3.1-pro")
-    assert kimi_k31.get("input") == ["text", "image"]
+    assert kimi_k31.get("input") == ["text", "image", "video"]
     assert kimi_cn.get("vendor") == "kimi"
 
     volc_open = next(p for p in presets if p["id"] == "volcengine-cn")
