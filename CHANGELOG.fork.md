@@ -4,6 +4,14 @@
 
 版本号规则：`<官方版本>.postN`，例如基于官方 1.0.2b9 的第 1 个 fork 版本是 `1.0.2b9.post1`。打 `fork-v<版本号>` 标签（如 `fork-v1.0.2b9.post6`；不用 `v` 开头，以免触发官方发布流程）后，`.github/workflows/fork-release.yml` 会构建 wheel 和飞牛原生版 FPK，并发布到 GitHub Release；本文件中同名版本小节会作为 Release 说明。
 
+## [1.0.3b5.post1] - 2026-11-11
+
+### 变更
+- 合并官方 1.0.3b5 及之后的 develop 提交（0c9312ed）：知识库检索新增重排（rerank）、各页面和文案随之更新；其余内容见官方 `CHANGELOG.md`。
+- 本版版本号由 `1.0.3b4.postN` 切换为 `1.0.3b5.post1`（fork 版本号 = 官方版本 + `.postN`，官方升到 b5 后序号从 1 重新开始）。
+- 飞牛商店版本 1.0.30501。
+- 模型清单覆盖层（`providers/fork_presets.py`）与桌面构建流水线对官方的钩子和镜像在本次合并中无冲突，官方没有改动 `.github`、`desktop`、`scripts`。
+
 ## [1.0.3b4.post3] - 2026-11-11
 
 ### 变更
