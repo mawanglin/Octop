@@ -4,11 +4,12 @@
 
 版本号规则：`<官方版本>.postN`，例如基于官方 1.0.2b9 的第 1 个 fork 版本是 `1.0.2b9.post1`。打 `fork-v<版本号>` 标签（如 `fork-v1.0.2b9.post6`；不用 `v` 开头，以免触发官方发布流程）后，`.github/workflows/fork-release.yml` 会构建 wheel 和飞牛原生版 FPK，并发布到 GitHub Release；本文件中同名版本小节会作为 Release 说明。
 
-## [Unreleased]
+## [1.0.3b5.post3] - 2026-11-12
 
 ### 新增
 - 生图服务商 OpenAI、Google Gemini、腾讯云 TokenHub（混元）：适配器放在 fork 专用模块 `src/octop/infra/agents/media_fork/`，与提给官方 octop-harness 的 PR #255、#256、#257 代码一致，启动时注册进已安装的 harness（服务商注册表和默认值表）；Octop 设置后端和设置页对应改动带 `# fork:` / `// fork:` 注释。官方 harness 发版包含这些 PR 后，删掉该模块并升级依赖即可。
 - 按官方文档实现，没有用真实密钥调用验证过。
+- 飞牛商店版本 1.0.30503。
 
 ## [1.0.3b5.post2] - 2026-11-12
 
