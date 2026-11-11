@@ -6,7 +6,7 @@ name: Fork Release (Gitea)
 # 触发：推送 fork-v* 标签，或手动运行（填已有标签）。
 # 产物挂到 Gitea 上同名 Release：
 #   - wheel + sdist
-#   - 飞牛原生版 FPK：x86_64 和 arm64（arm64 的依赖按目标平台下载二进制轮子，不在本机运行验证）
+#   - 飞牛原生版 FPK：x86_64；arm64 在 x86 上交叉安装依赖，只有源码的 C 扩展（crcmod 等）装不了时这一项会失败
 #   - Linux 桌面客户端 deb / rpm：amd64 和 arm64（便携运行时按目标平台交叉组装，arm64 同样不在本机运行验证）
 # 不做的事：不跑测试（GitHub 上的同一标签已经跑过）；Windows 和 macOS 桌面包由构建虚拟机另行打包；不发 PyPI、不打 Docker。
 #
@@ -165,34 +165,13 @@ jobs:
           bash /tmp/forktools/scripts/fork/gitea_release.sh ensure "$TAG" "Octop $VER" "$PRERELEASE" .release-notes.md
           bash /tmp/forktools/scripts/fork/gitea_release.sh upload "$TAG" dist/*
 
-      - name: Build FnOS packages
-        run: |
-          set -euo pipefail
-          WHL="$(ls "$PWD"/dist/octop-*.whl | head -1)"
-          PY="$(uv python find 3.12)"
-          mkdir -p /tmp/octop-pinned
-          uvx pip download --only-binary :all: --no-deps --no-cache-dir -d /tmp/octop-pinned \
-            "mcp==1.28.1" "langchain-mcp-adapters==0.3.0"
-          for arch in amd64 arm64; do
-            SP="$PWD/fnos/native/app/site-packages"
-            rm -rf "$SP"; mkdir -p "$SP"
-            if [ "$arch" = amd64 ]; then plat=x86_64-manylinux_2_28; else plat=aarch64-manylinux_2_28; fi
-            uv pip install --python "$PY" --target "$SP" --no-cache --only-binary :all: \
-              --python-platform "$plat" "$WHL"
-            rm -rf "$SP/mcp" "$SP"/mcp-*.dist-info \
-                   "$SP/langchain_mcp_adapters" "$SP"/langchain_mcp_adapters-*.dist-info
-            for whl in /tmp/octop-pinned/*.whl; do "$PY" -m zipfile -e "$whl" "$SP"; done
-            cp "$WHL" "$SP/octop.whl"
-            mkdir -p "$SP/octop_harness/backends"
-            cp scripts/fnos/vendor/storage_errors.py "$SP/octop_harness/backends/storage_errors.py"
-            bash scripts/fnos/slim-site-packages.sh "$SP"
-            if [ "$arch" = amd64 ]; then
-              PYTHONPATH="$SP" "$PY" -c "import octop, mcp, langchain_mcp_adapters; from octop.launch import run_foreground_blocking; from octop_harness.backends.storage_errors import classify_storage_error; print('octop', octop.__version__)"
-            fi
-            test -d "$SP/octop"
-            FPK_NAME_PREFIX=Octop-fnos FPK_ARCH="$arch" bash scripts/build-fpk.sh native
-          done
-          ls -lh dist/*.fpk
+      - name: Build FnOS package (amd64)
+        run: bash /tmp/forktools/scripts/fork/gitea_fnos.sh amd64
+
+      # arm64 在 x86 上交叉安装依赖；装不了就只失败这一步，不影响 wheel 和 amd64 包。
+      - name: Build FnOS package (arm64, cross)
+        continue-on-error: true
+        run: bash /tmp/forktools/scripts/fork/gitea_fnos.sh arm64
 
       - name: Upload FnOS packages
         run: bash /tmp/forktools/scripts/fork/gitea_release.sh upload "$TAG" dist/Octop-fnos-native-*.fpk
