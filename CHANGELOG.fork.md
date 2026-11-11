@@ -4,13 +4,15 @@
 
 版本号规则：`<官方版本>.postN`，例如基于官方 1.0.2b9 的第 1 个 fork 版本是 `1.0.2b9.post1`。打 `fork-v<版本号>` 标签（如 `fork-v1.0.2b9.post6`；不用 `v` 开头，以免触发官方发布流程）后，`.github/workflows/fork-release.yml` 会构建 wheel 和飞牛原生版 FPK，并发布到 GitHub Release；本文件中同名版本小节会作为 Release 说明。
 
-## [Unreleased]
+## [1.0.3b4.post2] - 2026-11-11
 
 ### 变更
 - 合并官方 develop 至 `9931a27e`：桌面壳由 Wails 换成 Electron，新增 `octop migrate openclaw|hermes`、自定义 MCP 的 OAuth 应用凭证、知识库文档移动等，octop-harness 升到 1.0.9。
 - `fork-desktop.yml` 改为打官方 Electron 桌面壳：macOS 为 dmg + zip，Windows 为 exe，Linux 为 deb + rpm（不再有 AppImage）；去掉 Go、Wails、NSIS 的安装步骤，pnpm 用 corepack 启用，仍只用白名单里的 Action。官方 Electron 配置不认 `.postN` 版本，所以 electron-builder 用去掉 `.postN` 的基础版本构建，打完再把安装包文件名改回完整版本。
 - 删除 `scripts/fork/linux_packages.sh`（它只服务于旧的 Wails 二进制）。
 - 供应商预设模型清单按官方文档更新，由 `providers/fork_presets.py` 叠加（说明见 `CHANGELOG.md`）；每次合并官方后要核对 `presets.py` 里带 `# fork:` 的钩子。
+- 飞牛商店版本 1.0.30402。
+- 1.0.3b4.post1 的标签已推送，但当时 2010 仓库的 Actions 被 GitHub 暂停，没有产出发布；本版包含它的全部内容。
 
 ## [1.0.3b4.post1] - 2026-11-09
 
