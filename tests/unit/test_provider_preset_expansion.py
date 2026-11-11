@@ -41,7 +41,8 @@ def test_load_provider_presets_integration() -> None:
     assert enterprise["base_url"] == "https://tokenhub.tencentmaas.com/plan/v3"
     assert enterprise.get("provider_group") == "tencent"
     assert enterprise.get("provider_variant") == "token_plan_enterprise_cn"
-    assert {"auto", "deepseek-v4-flash", "deepseek-v4-pro", "kimi-k2.5"} <= enterprise_ids
+    # fork: follows the professional plan page (2026-11-04): no plain deepseek-v4-flash or kimi-k2.5 any more.
+    assert {"auto", "deepseek-v4-pro", "kimi-k3"} <= enterprise_ids
     assert any(mid.startswith("glm-5") for mid in enterprise_ids)
     assert any(mid.startswith("minimax-m") for mid in enterprise_ids)
     # Enterprise ids are bare model names, not vendor-prefixed routes.
@@ -56,7 +57,8 @@ def test_load_provider_presets_integration() -> None:
     assert hy_plan.get("provider_group") == "tencent"
     assert hy_plan.get("provider_variant") == "hy_token_plan"
     hy_ids = {m["id"] for m in hy_plan["models"]}
-    assert {"hy3", "hy3-preview"} <= hy_ids
+    # fork: Hy Token Plan overview (2026-11-04) lists Hy4, Hy4 preview and Hy3; hy3-preview is gone.
+    assert {"hy3", "hy4-preview"} <= hy_ids and "hy3-preview" not in hy_ids
     hy3 = next(m for m in hy_plan["models"] if m["id"] == "hy3")
     assert hy3["reasoning_config"]["adapter"] == "status_only"
 
@@ -72,7 +74,8 @@ def test_load_provider_presets_integration() -> None:
     assert hai_models["MiniMax-M2.7"]["reasoning_config"]["adapter"] == "status_only"
 
     coding_plan = next(p for p in presets if p["id"] == "tencent-coding-plan")
-    assert "kimi-k2.5" in {m["id"] for m in coding_plan["models"]}
+    # fork: the Coding Plan overview (2026-10-15) lists only Auto; kimi-k2.5 is no longer offered.
+    assert "tc-code-latest" in {m["id"] for m in coding_plan["models"]}
 
     openai = next(p for p in presets if p["id"] == "openai")
     gpt4o = next(m for m in openai["models"] if m["id"] == "gpt-4o")

@@ -22,6 +22,13 @@ model-square API behind maas.xfyun.cn/modelSquare.
 ``siliconflow-intl`` follows www.siliconflow.com/models (cards with context and max output; the
 API ids come from each model's detail page). Its catalog differs from the cn site.
 
+Tencent TokenHub, Coding Plan, Token Plan (personal) and Hy Token Plan follow the TokenHub docs:
+the model list and price pages (cloud.tencent.com/document/product/1823/130051, 130055), the Coding
+Plan overview (130092), and the Token Plan personal overview (130060), all read 2026-11-11.
+
+Token Plan enterprise follows the professional plan page (130659). ``tencent-hai`` is not covered:
+no document for api.model.haihub.cn was found.
+
 Not covered on purpose: every other "plan" preset (Coding / Token / Agent Plan, Kimi Coding Plan, Tencent HAI), ``dashscope-us``.
 """
 
@@ -513,6 +520,195 @@ PATCHES: dict[str, ProviderPatch] = {
         ),
         update={"xopglm52": {"context_window": 1_048_576, "max_input_tokens": 1_048_576}},
     ),
+    # TokenHub pay-as-you-go: language models from the TokenHub model list (updated 2026-11-09).
+    # Retiring or preview-only entries (glm-5v-turbo, minimax-m2.7, kimi-k2.8-preview, step-5-preview,
+    # translation / role-play models) are not offered. "1M" is 1,000,000 here, like the plan presets.
+    "tencent-tokenhub": ProviderPatch(
+        add=(
+            _m(
+                "hy4-preview",
+                "Hy4 Preview",
+                context=1_000_000,
+                max_input=960_000,
+                max_output=64_000,
+            ),
+            _m("hy3", "Hy3", context=256_000, max_input=192_000, max_output=128_000),
+            _m(
+                "deepseek-v4.1-flash",
+                "DeepSeek-V4.1-Flash",
+                context=1_000_000,
+                max_output=384_000,
+                inputs=_TI,
+            ),
+            _m(
+                "deepseek-v4-pro-0813",
+                "DeepSeek-V4-Pro 0813",
+                context=1_000_000,
+                max_output=384_000,
+            ),
+            _m("glm-5.3", "GLM-5.3", context=1_000_000, max_output=131_072),
+            _m("glm-5.3-flash", "GLM-5.3-Flash", context=1_000_000, max_output=131_072, inputs=_TI),
+            _m(
+                "glm-5.3-flashx",
+                "GLM-5.3-FlashX",
+                context=1_000_000,
+                max_output=131_072,
+                inputs=_TI,
+            ),
+            _m("glm-5.2", "GLM-5.2", context=1_000_000, max_output=131_072),
+            _m(
+                "kimi-k3.1-pro",
+                "Kimi K3.1 Pro",
+                context=1_000_000,
+                max_output=1_000_000,
+                inputs=_TI,
+            ),
+            _m(
+                "kimi-k3.1-pro-highspeed",
+                "Kimi K3.1 Pro HighSpeed",
+                context=1_000_000,
+                max_output=1_000_000,
+                inputs=_TI,
+            ),
+            _m("kimi-k3", "Kimi K3", context=1_000_000, max_output=1_000_000, inputs=_TI),
+            _m("kimi-k2.7-code", "Kimi K2.7 Code", context=262_144, max_output=262_144, inputs=_TI),
+            _m("kimi-k2.6", "Kimi-K2.6", context=262_144, max_output=262_144, inputs=_TI),
+            _m(
+                "minimax-m3.1-flash",
+                "MiniMax-M3.1-Flash",
+                context=1_000_000,
+                max_output=524_288,
+                inputs=_TI,
+            ),
+            _m("minimax-m3", "MiniMax-M3", context=1_000_000, inputs=_TI),
+            _m("mimo-v2.6-pro", "MiMo-V2.6-Pro", context=1_000_000, max_output=131_072, inputs=_TI),
+            _m(
+                "mimo-v2.6-flash",
+                "MiMo-V2.6-Flash",
+                context=1_000_000,
+                max_output=131_072,
+                inputs=_TI,
+            ),
+        ),
+    ),
+    # Coding Plan overview (updated 2026-10-15): the plan's model list is just "Auto" (tc-code-latest).
+    # The FAQ page (2026-06-22) still lists minimax-m2.5 / kimi-k2.5 / glm-5; the newer overview wins.
+    "tencent-coding-plan": ProviderPatch(remove=("minimax-m2.5", "kimi-k2.5", "glm-5")),
+    # Token Plan personal overview (updated 2026-11-04), general plan. MiniMax-M2.7 goes offline on 11-17.
+    # Base URL there is now https://tokenhub.tencentmaas.com/plan/v3 (the bundled row still has lkeap).
+    "tencent-token-plan": ProviderPatch(
+        remove=("glm-5", "glm-5.1", "minimax-m2.7"),
+        add=(
+            _m(
+                "deepseek-v4.1-flash-1017",
+                "DeepSeek-V4.1-Flash-1017",
+                context=1_000_000,
+                max_output=384_000,
+                inputs=_TI,
+            ),
+            _m(
+                "deepseek-v4-pro-0813",
+                "DeepSeek-V4-Pro 0813",
+                context=1_000_000,
+                max_output=384_000,
+            ),
+            _m(
+                "deepseek/deepseek-flash",
+                "DeepSeek-V4.1-Flash-1017 Direct",
+                context=1_000_000,
+                max_output=384_000,
+                inputs=_TI,
+            ),
+            _m(
+                "hy4-preview",
+                "Hy4 Preview",
+                context=1_000_000,
+                max_input=960_000,
+                max_output=64_000,
+            ),
+            _m("minimax-m3", "MiniMax-M3", context=1_000_000, inputs=_TI),
+            _m("glm-5.3", "GLM-5.3", context=1_000_000, max_output=131_072),
+            _m("glm-5.3-flash", "GLM-5.3-Flash", context=1_000_000, max_output=131_072, inputs=_TI),
+            _m("kimi-k2.7-code", "Kimi K2.7 Code", context=262_144, max_output=262_144, inputs=_TI),
+            _m("kimi-k3", "Kimi K3", context=1_000_000, max_output=1_000_000, inputs=_TI),
+            _m(
+                "mimo-v2.6-flash",
+                "MiMo-V2.6-Flash",
+                context=1_000_000,
+                max_output=131_072,
+                inputs=_TI,
+            ),
+        ),
+    ),
+    # Hy Token Plan: Hy4, Hy4 preview, Hy3 (same overview page). hy3 limits per the model list.
+    "tencent-hy-token-plan": ProviderPatch(
+        remove=("hy3-preview",),
+        add=(
+            _m(
+                "hy4-preview",
+                "Hy4 Preview",
+                context=1_000_000,
+                max_input=960_000,
+                max_output=64_000,
+            ),
+        ),
+        update={
+            "hy3": {
+                "context_window": 256_000,
+                "max_input_tokens": 192_000,
+                "max_output_tokens": 128_000,
+            }
+        },
+    ),
+    # Token Plan enterprise, professional plan page (updated 2026-11-04), Guangzhou list (the bundled
+    # base URL). The light plan's own list was not found, so this follows the professional plan.
+    # The "deepseek/..." direct ids are not added: enterprise ids stay bare model names (upstream test).
+    # Plain "deepseek-v4-flash" / "-0731" are only valid as "deepseek/..." aliases of the direct row.
+    "tencent-token-plan-enterprise-cn": ProviderPatch(
+        remove=(
+            "deepseek-v4-flash",
+            "deepseek-v4-flash-0731",
+            "glm-5",
+            "glm-5-turbo",
+            "glm-5.1",
+            "kimi-k2.5",
+            "minimax-m2.5",
+            "minimax-m2.7",
+        ),
+        add=(
+            _m(
+                "hy4-preview",
+                "Hy4 Preview",
+                context=1_000_000,
+                max_input=960_000,
+                max_output=64_000,
+            ),
+            _m("glm-5.3-flash", "GLM-5.3-Flash", context=1_000_000, max_output=131_072, inputs=_TI),
+            _m("kimi-k3", "Kimi K3", context=1_000_000, max_output=1_000_000, inputs=_TI),
+            _m(
+                "deepseek-v4.1-flash-1017",
+                "DeepSeek-V4.1-Flash-1017",
+                context=1_000_000,
+                max_output=384_000,
+                inputs=_TI,
+            ),
+            _m(
+                "deepseek-v4.1-flash",
+                "DeepSeek-V4.1-Flash",
+                context=1_000_000,
+                max_output=384_000,
+                inputs=_TI,
+            ),
+            _m("mimo-v2.6-pro", "MiMo-V2.6-Pro", context=1_000_000, max_output=131_072, inputs=_TI),
+            _m(
+                "mimo-v2.6-flash",
+                "MiMo-V2.6-Flash",
+                context=1_000_000,
+                max_output=131_072,
+                inputs=_TI,
+            ),
+        ),
+    ),
     # Local models are never removed; popular current ones are appended.
     "ollama": ProviderPatch(
         add=(_m("qwen3", "qwen3"), _m("gpt-oss", "gpt-oss"), _m("gemma4", "gemma4")),
@@ -544,6 +740,11 @@ _CLAUDE_5_DEFAULT_EFFORT = {
     "claude-opus-5-5": "medium",
     "claude-sonnet-5-5": "high",
     "claude-haiku-5-5": "medium",
+}
+_TENCENT_DEEPSEEK_V41 = {
+    "deepseek-v4.1-flash",
+    "deepseek-v4.1-flash-1017",
+    "deepseek/deepseek-flash",
 }
 _GPT6_CANNOT_DISABLE = {"gpt-6-astra", "gpt-6.1-sol"}
 # model -> (efforts, default effort); thinking page of the Gemini API docs.
@@ -581,6 +782,18 @@ def fork_reasoning_profile(provider_id: str, model_id: str) -> dict[str, Any] | 
             "default_mode": "auto" if can_disable else "enabled",
             "efforts": ["low", "medium", "high", "xhigh", "max"],
             "default_effort": "medium",
+        }
+
+    if provider.startswith("tencent-") and model in _TENCENT_DEEPSEEK_V41:
+        # Same request semantics as the deepseek-v4-* rows in presets.py, whose prefix match misses these ids.
+        plan = provider in {"tencent-token-plan", "tencent-token-plan-enterprise-cn"}
+        return {
+            "supported": True,
+            "adapter": "thinking_nested_effort" if plan else "thinking",
+            "toggle": True,
+            "default_mode": "enabled",
+            "efforts": ["high", "max"],
+            "default_effort": "high",
         }
 
     if provider == "mimo" and model in {"mimo-v2.6-pro", "mimo-v2.6-flash"}:

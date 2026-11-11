@@ -126,7 +126,7 @@ def test_unverified_and_plan_providers_are_not_patched() -> None:
         "dashscope-us",
         "deepseek",
         "groq",
-        "tencent-hy-token-plan",
+        "tencent-hai",
         "kimi-codingplan",
         "volcengine-cn-codingplan",
     }
@@ -163,3 +163,43 @@ def test_iflytek_replaces_unlisted_ids_and_corrects_glm52() -> None:
     assert "xopdeepseekv4pro" not in rows and "xopdeepseekv4pro0813" in rows
     assert rows["xopglm52"]["context_window"] == 1_048_576
     assert "xopglm5" in rows
+
+
+def test_tencent_tokenhub_lists_current_models_with_reasoning() -> None:
+    hub = _by_id(load_provider_presets())["tencent-tokenhub"]
+    rows = {m["id"]: m for m in hub["models"]}
+    assert {"hy4", "hy3", "glm-5.3", "kimi-k3.1-pro", "minimax-m3.1-flash"} <= set(rows)
+    assert rows["hy3"]["max_input_tokens"] == 192_000
+    assert rows["deepseek-v4.1-flash"]["reasoning_config"]["adapter"] == "thinking"
+    assert rows["kimi-k3.1-pro"]["reasoning_config"]["adapter"] == "thinking"
+
+
+def test_tencent_coding_plan_keeps_only_auto() -> None:
+    plan = _by_id(load_provider_presets())["tencent-coding-plan"]
+    assert _ids(plan) == ["tc-code-latest"]
+
+
+def test_tencent_token_plan_matches_the_personal_overview() -> None:
+    plan = _by_id(load_provider_presets())["tencent-token-plan"]
+    rows = {m["id"]: m for m in plan["models"]}
+    assert not {"glm-5", "glm-5.1", "minimax-m2.7"} & set(rows)
+    assert {"kimi-k3", "minimax-m3", "glm-5.3", "mimo-v2.6-flash", "hy4-preview"} <= set(rows)
+    for mid in ("deepseek-v4.1-flash-1017", "deepseek/deepseek-flash"):
+        assert rows[mid]["reasoning_config"]["adapter"] == "thinking_nested_effort"
+
+
+def test_tencent_hy_token_plan_swaps_preview_and_fixes_hy3() -> None:
+    plan = _by_id(load_provider_presets())["tencent-hy-token-plan"]
+    rows = {m["id"]: m for m in plan["models"]}
+    assert set(rows) == {"hy4", "hy4-preview", "hy3"}
+    assert (rows["hy3"]["max_input_tokens"], rows["hy3"]["max_output_tokens"]) == (192_000, 128_000)
+
+
+def test_tencent_enterprise_plan_follows_the_professional_plan_list() -> None:
+    plan = _by_id(load_provider_presets())["tencent-token-plan-enterprise-cn"]
+    rows = {m["id"]: m for m in plan["models"]}
+    gone = {"deepseek-v4-flash", "glm-5", "glm-5-turbo", "glm-5.1", "kimi-k2.5", "minimax-m2.5"}
+    assert not gone & set(rows) and "minimax-m2.7" not in rows
+    assert {"auto", "kimi-k3", "deepseek-v4-pro-0813", "mimo-v2.6-pro", "hy4-preview"} <= set(rows)
+    assert not any("/" in mid for mid in rows)
+    assert rows["deepseek-v4.1-flash"]["reasoning_config"]["adapter"] == "thinking_nested_effort"
