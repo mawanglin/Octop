@@ -5,7 +5,16 @@ from __future__ import annotations
 import importlib.util
 from pathlib import Path
 
+import pytest
+
 _SCRIPT = Path(__file__).resolve().parents[2] / "scripts" / "release_download_links.py"
+
+
+@pytest.fixture(autouse=True)
+def _upstream_repo(monkeypatch: pytest.MonkeyPatch) -> None:
+    # fork: the script reads GITHUB_REPOSITORY at import time. On a fork's CI it names the fork, so the
+    # TencentCloud/Octop assertions fail; start every test from the upstream default.
+    monkeypatch.delenv("GITHUB_REPOSITORY", raising=False)
 
 
 def _load():
