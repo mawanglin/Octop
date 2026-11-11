@@ -358,6 +358,8 @@ def load_provider_presets() -> list[dict[str, Any]]:
 
     apply_fork_presets(out)  # fork:
     for preset in out:
+        if preset.get("purpose") == "embedding":  # fork: embedding models have no reasoning mode
+            continue
         provider_id = str(preset.get("id") or "")
         for model in preset.get("models") or []:
             profile = _reasoning_profile(provider_id, str(model.get("id") or ""))

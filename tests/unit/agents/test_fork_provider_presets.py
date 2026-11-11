@@ -99,7 +99,8 @@ def test_codex_preset_swaps_retired_model() -> None:
     codex = _by_id(load_provider_presets())["openai-codex"]
     ids = _ids(codex)
     assert "gpt-5.5" not in ids
-    assert {"gpt-6.1-sol", "gpt-6-luna", "gpt-5.4"} <= set(ids)
+    assert not {"gpt-5.4", "gpt-5.4-mini"} & set(ids)
+    assert {"gpt-6-astra", "gpt-6.1-sol", "gpt-6-luna"} <= set(ids)
 
 
 @pytest.mark.parametrize("model", ["claude-fable-5-2", "claude-opus-5-5", "claude-haiku-5-5"])
@@ -117,18 +118,11 @@ def test_gemini4_profile_and_old_rules_untouched() -> None:
     assert rows["gemini-3.5-flash-lite"]["reasoning_config"]["default_effort"] == "minimal"
     assert rows["gemini-4-carbon"]["reasoning_config"]["efforts"] == ["low", "medium", "high"]
     assert rows["gemini-3.1-pro-preview"]["reasoning_config"]["default_effort"] == "high"
-    assert fork_reasoning_profile("openai", "gpt-5.2") is None
+    assert fork_reasoning_profile("openai", "gpt-4o") is None
 
 
 def test_unverified_and_plan_providers_are_not_patched() -> None:
-    untouched = {
-        "siliconflow-embedding-cn",
-        "dashscope-us",
-        "deepseek",
-        "groq",
-        "tencent-hai",
-        "kimi-codingplan",
-    }
+    untouched = {"siliconflow-embedding-cn", "deepseek", "tencent-hai"}
     presets = _by_id(load_provider_presets())
     for pid in untouched & set(presets):
         assert pid not in PATCHES
@@ -264,3 +258,88 @@ def test_volcengine_plans_follow_their_model_name_lists() -> None:
     assert {"kimi-k3.1-pro", "deepseek-v4.1-flash-economy", "doubao-seed-2.1-pro"} <= set(agent)
     assert agent["deepseek-v4-pro"]["max_output_tokens"] == 393_216
     assert agent["doubao-seed-2.0-mini"]["context_window"] == 262_144
+
+
+def test_groq_drops_shut_down_models_and_fills_outputs() -> None:
+    rows = {m["id"]: m for m in _by_id(load_provider_presets())["groq"]["models"]}
+    assert not {"llama-3.1-8b-instant", "llama-3.3-70b-versatile"} & set(rows)
+    assert rows["openai/gpt-oss-120b"]["max_output_tokens"] == 65_536
+    assert rows["qwen/qwen3.8-27b"]["max_output_tokens"] == 16_384
+
+
+def test_gpt_5_2_matches_its_model_page() -> None:
+    rows = {m["id"]: m for m in _by_id(load_provider_presets())["openai"]["models"]}
+    row = rows["gpt-5.2"]
+    assert (row["context_window"], row["max_output_tokens"]) == (400_000, 128_000)
+    assert row["reasoning_config"]["efforts"] == ["low", "medium", "high", "xhigh"]
+
+
+def test_dashscope_us_and_kimi_coding_plan_follow_their_pages() -> None:
+    presets = _by_id(load_provider_presets())
+    us = _ids(presets["dashscope-us"])
+    assert not {"qwen3-max", "qwen3-235b-a22b-thinking-2507", "deepseek-v3.2"} & set(us)
+    assert {"qwen3.8-max", "deepseek-v4-pro", "kimi-k3.1-pro", "glm-5.3"} <= set(us)
+    kc = {m["id"]: m for m in presets["kimi-codingplan"]["models"]}
+    assert set(kc) == {
+        "k3.1-pro",
+        "k3.1-pro-highspeed",
+        "k3",
+        "k3-256k",
+        "kimi-for-coding",
+        "kimi-for-coding-highspeed",
+    }
+    assert kc["k3"]["context_window"] == 1_048_576 and kc["k3-256k"]["context_window"] == 262_144
+    assert kc["k3-256k"]["input"] == ["text", "image"]
+    assert kc["k3.1-pro"]["reasoning_config"]["toggle"] is False
+    assert kc["kimi-for-coding-highspeed"]["reasoning_config"]["adapter"] == "status_only"
+
+
+def test_dashscope_cn_drops_deepseek_v32() -> None:
+    assert "deepseek-v3.2" not in _ids(_by_id(load_provider_presets())["dashscope"])
+
+
+def test_reasoning_that_cannot_be_turned_off_is_marked_so() -> None:
+    presets = _by_id(load_provider_presets())
+    for pid, mid in (
+        ("zhipu-cn", "glm-5.3"),
+        ("zhipu-intl-codingplan", "glm-5.3-flash"),
+        ("kimi-cn", "kimi-k3"),
+        ("kimi-intl", "kimi-k3.1-pro"),
+        ("minimax-cn", "MiniMax-M3.1-Flash"),
+    ):
+        row = next(m for m in presets[pid]["models"] if m["id"] == mid)
+        cfg = row["reasoning_config"]
+        assert cfg["toggle"] is False and cfg["default_mode"] == "enabled", (pid, mid)
+        assert cfg["adapter"] == "openai_reasoning_effort"
+    mm3 = next(m for m in presets["minimax-cn"]["models"] if m["id"] == "MiniMax-M3")
+    assert mm3["reasoning_config"]["adapter"] == "status_only"
+    for mid in ("anthropic/claude-fable-5.2", "anthropic/claude-sonnet-5.5"):
+        row = next(m for m in presets["openrouter"]["models"] if m["id"] == mid)
+        assert row["reasoning_config"]["toggle"] is False
+
+
+def test_doubao_models_can_turn_thinking_off_and_embeddings_have_no_reasoning() -> None:
+    presets = _by_id(load_provider_presets())
+    volc = {m["id"]: m for m in presets["volcengine-cn"]["models"]}
+    assert volc["doubao-seed-2-1-pro-260915"]["reasoning_config"]["toggle"] is True
+    assert "reasoning_config" not in volc["doubao-seed-character-251128"]
+    for row in presets["dashscope-embedding"]["models"]:
+        assert "reasoning_config" not in row and "reasoning" not in row
+
+
+def test_missing_limits_and_modalities_are_filled() -> None:
+    presets = _by_id(load_provider_presets())
+    gem = {m["id"]: m for m in presets["gemini"]["models"]}
+    assert gem["gemini-3.8-flash"]["context_window"] == 1_048_576
+    assert "pdf" in gem["gemini-3.6-flash"]["input"]
+    assert gem["gemini-3.1-pro-preview"]["max_output_tokens"] == 65_536
+    volc = {m["id"]: m for m in presets["volcengine-cn"]["models"]}
+    assert "kimi-k3-1-pro-261024" in volc and volc["doubao-seed-2-0-mini-260428"]["input"] == [
+        "text",
+        "image",
+    ]
+    assert volc["doubao-seed-character-251128"]["max_input_tokens"] == 96 * 1024
+    kimi = {m["id"]: m for m in presets["kimi-cn"]["models"]}
+    assert kimi["kimi-k3"]["input"] == ["text", "image"]
+    zhipu = {m["id"]: m for m in presets["zhipu-cn"]["models"]}
+    assert "video" in zhipu["glm-5.3-flashx"]["input"]

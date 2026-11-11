@@ -33,6 +33,10 @@ Zhipu Coding Plan (docs.bigmodel.cn / docs.z.ai), Aliyun Coding Plan and Token P
 alibabacloud.com) and Volcengine Coding Plan / Agent Plan (docs.volcengine.com/docs/ark) follow each
 plan's own "supported models" page, read 2026-11-11. These plans only accept the models they list.
 
+Second pass (an independent audit, checked against the pages again): Groq, Codex, gpt-5.2, dashscope-us,
+Kimi Coding Plan (www.kimi.com/code/docs/kimi-code/models.html), reasoning switches for GLM-5.3, Kimi K3,
+MiniMax M3, Doubao and OpenRouter's Claude 5, plus missing limits and input modalities.
+
 Not covered on purpose: every other "plan" preset (Coding / Token / Agent Plan, Kimi Coding Plan, Tencent HAI), ``dashscope-us``.
 """
 
@@ -126,20 +130,28 @@ _KIMI_NEW = (
     _m("kimi-k3.1-pro", "Kimi K3.1 Pro", context=1_048_576, inputs=_TI),
     _m("kimi-k3.1-pro-highspeed", "Kimi K3.1 Pro Highspeed", context=1_048_576, inputs=_TI),
 )
+_KIMI_K3_VISION: dict[str, dict[str, Any]] = {"kimi-k3": {"input": ["text", "image"]}}
+# MiniMax text API: M3.1-Flash and M3 accept text, image and video input (no audio).
+_MINIMAX_VISION: dict[str, dict[str, Any]] = {
+    "MiniMax-M3.1-Flash": {"input": ["text", "image", "video"]},
+    "MiniMax-M3": {"input": ["text", "image", "video"]},
+}
 _MINIMAX_RETIRED = (
     "MiniMax-M2.5",
     "MiniMax-M2.5-highspeed",
     "MiniMax-M2.7",
     "MiniMax-M2.7-highspeed",
 )
+_TIV = ("text", "image", "video")
+_GEMINI_IN = ("text", "image", "video", "audio", "pdf")
 _MINIMAX_NEW = (
-    _m("MiniMax-M3.1-Flash", "MiniMax M3.1 Flash", context=1_000_000, inputs=_TI),
-    _m("MiniMax-M3", "MiniMax M3", context=1_000_000, inputs=_TI),
+    _m("MiniMax-M3.1-Flash", "MiniMax M3.1 Flash", context=1_000_000, inputs=_TIV),
+    _m("MiniMax-M3", "MiniMax M3", context=1_000_000, inputs=_TIV),
 )
 _ZHIPU_NEW = (
     _m("glm-5.3", "GLM-5.3", context=1_000_000, max_output=128 * _K),
-    _m("glm-5.3-flash", "GLM-5.3 Flash", context=1_000_000, max_output=128 * _K, inputs=_TI),
-    _m("glm-5.3-flashx", "GLM-5.3 FlashX", context=1_000_000, max_output=128 * _K),
+    _m("glm-5.3-flash", "GLM-5.3 Flash", context=1_000_000, max_output=128 * _K, inputs=_TIV),
+    _m("glm-5.3-flashx", "GLM-5.3 FlashX", context=1_000_000, max_output=128 * _K, inputs=_TIV),
 )
 _QWEN_RETIRED = ("qwen3-max", "qwen3-235b-a22b-thinking-2507")
 _DOUBAO_NEW = (
@@ -172,11 +184,56 @@ _DOUBAO_NEW = (
         inputs=_TI,
     ),
 )
-_DOUBAO_20_LIMITS = {
+_DOUBAO_20_LIMITS: dict[str, Any] = {
     "context_window": 256 * _K,
     "max_input_tokens": 224 * _K,
     "max_output_tokens": 128 * _K,
+    "input": ["text", "image"],  # "multimodal understanding" on the model list
 }
+# Third-party rows on the Ark model list (www.volcengine.com/docs/82379/1330310); "1024K" = 1,048,576.
+_VOLC_THIRD_PARTY = (
+    _m(
+        "glm-5-3-flash-260828",
+        "GLM-5.3-Flash 260828",
+        context=1024 * _K,
+        max_output=128 * _K,
+        inputs=_TI,
+    ),
+    _m("glm-5-2-260617", "GLM-5.2 260617", context=1024 * _K, max_output=128 * _K),
+    _m(
+        "kimi-k3-1-pro-261024",
+        "Kimi-K3.1-Pro 261024",
+        context=1024 * _K,
+        max_output=1024 * _K,
+        inputs=_TI,
+    ),
+    _m(
+        "deepseek-v4-1-flash-261017",
+        "DeepSeek-V4.1-Flash 261017",
+        context=1024 * _K,
+        max_output=384 * _K,
+        inputs=_TI,
+    ),
+    _m(
+        "deepseek-v4-1-flash-economy-261017",
+        "DeepSeek-V4.1-Flash-Economy 261017",
+        context=1024 * _K,
+        max_output=384 * _K,
+        inputs=_TI,
+    ),
+    _m(
+        "deepseek-v4-pro-ga-260813",
+        "DeepSeek-V4-Pro GA 260813",
+        context=1024 * _K,
+        max_output=384 * _K,
+    ),
+    _m(
+        "deepseek-v4-flash-ga-260731",
+        "DeepSeek-V4-Flash GA 260731",
+        context=1024 * _K,
+        max_output=384 * _K,
+    ),
+)
 
 _ZHIPU_PLAN_NEW = (
     _m("glm-5.3", "GLM-5.3", context=1_000_000, max_output=131_072),
@@ -315,12 +372,22 @@ PATCHES: dict[str, ProviderPatch] = {
     "openai": ProviderPatch(
         remove=("o4-mini", "gpt-4.1-nano", "gpt-5", "gpt-5-mini", "gpt-5-nano", "o3"),
         add=_gpt6(**_RESPONSES),
+        # Model page: 400,000 context window, 128,000 max output tokens.
+        update={
+            "gpt-5.2": {
+                "context_window": 400_000,
+                "max_input_tokens": 400_000,
+                "max_output_tokens": 128_000,
+            }
+        },
     ),
     # gpt-5.5 is retired for ChatGPT sign-in; sol / luna are the documented replacements.
     # gpt-6.1-terra needs Codex CLI >= 0.159.0, so it is not offered here.
     "openai-codex": ProviderPatch(
-        remove=("gpt-5.5",),
+        # gpt-5.4 and gpt-5.4-mini retired from Codex with ChatGPT sign-in on 2026-08-31.
+        remove=("gpt-5.5", "gpt-5.4", "gpt-5.4-mini"),
         add=(
+            _m("gpt-6-astra", "GPT-6 Astra", enabled=True, inputs=("text",)),
             _m("gpt-6.1-sol", "GPT-6.1 Sol", enabled=True, inputs=("text",)),
             _m("gpt-6-luna", "GPT-6 Luna", enabled=True, inputs=("text",)),
         ),
@@ -347,10 +414,33 @@ PATCHES: dict[str, ProviderPatch] = {
                 max_output=65_536,
                 inputs=("text", "image", "audio", "video", "pdf"),
             ),
-            _m("gemini-3.8-flash", "Gemini 3.8 Flash"),
-            _m("gemini-3.6-flash", "Gemini 3.6 Flash"),
-            _m("gemini-3.5-flash-lite", "Gemini 3.5 Flash-Lite"),
+            _m(
+                "gemini-3.8-flash",
+                "Gemini 3.8 Flash",
+                context=1_048_576,
+                max_output=65_536,
+                inputs=_GEMINI_IN,
+            ),
+            _m(
+                "gemini-3.6-flash",
+                "Gemini 3.6 Flash",
+                context=1_048_576,
+                max_output=65_536,
+                inputs=_GEMINI_IN,
+            ),
+            _m(
+                "gemini-3.5-flash-lite",
+                "Gemini 3.5 Flash-Lite",
+                context=1_048_576,
+                max_output=65_536,
+                inputs=_GEMINI_IN,
+            ),
         ),
+        # Model pages: output token limit 65,536.
+        update={
+            "gemini-3.1-pro-preview": {"max_output_tokens": 65_536},
+            "gemini-2.5-flash-lite": {"max_output_tokens": 65_536},
+        },
     ),
     # OpenRouter ids and limits come from its public /api/v1/models.
     "openrouter": ProviderPatch(
@@ -401,15 +491,17 @@ PATCHES: dict[str, ProviderPatch] = {
             _or("z-ai/glm-5.3", "GLM-5.3", 1_048_576, 943_718, ("text",)),
         ),
     ),
-    "kimi-cn": ProviderPatch(remove=_KIMI_RETIRED, add=_KIMI_NEW),
-    "kimi-intl": ProviderPatch(remove=_KIMI_RETIRED, add=_KIMI_NEW),
-    "minimax-cn": ProviderPatch(remove=_MINIMAX_RETIRED, add=_MINIMAX_NEW),
-    "minimax-intl": ProviderPatch(remove=_MINIMAX_RETIRED, add=_MINIMAX_NEW),
+    "kimi-cn": ProviderPatch(remove=_KIMI_RETIRED, add=_KIMI_NEW, update=_KIMI_K3_VISION),
+    "kimi-intl": ProviderPatch(remove=_KIMI_RETIRED, add=_KIMI_NEW, update=_KIMI_K3_VISION),
+    "minimax-cn": ProviderPatch(remove=_MINIMAX_RETIRED, add=_MINIMAX_NEW, update=_MINIMAX_VISION),
+    "minimax-intl": ProviderPatch(
+        remove=_MINIMAX_RETIRED, add=_MINIMAX_NEW, update=_MINIMAX_VISION
+    ),
     "zhipu-cn": ProviderPatch(add=_ZHIPU_NEW),
     "zhipu-intl": ProviderPatch(add=_ZHIPU_NEW),
     # Not on the price list any more (not asserted as shut down).
     "dashscope": ProviderPatch(
-        remove=_QWEN_RETIRED,
+        remove=(*_QWEN_RETIRED, "deepseek-v3.2"),
         add=(
             _m("qwen3.8-max", "Qwen3.8 Max", context=1_000_000),
             _m("qwen3.8-flash", "Qwen3.8 Flash", context=1_000_000),
@@ -436,10 +528,15 @@ PATCHES: dict[str, ProviderPatch] = {
             "doubao-seed-2-0-pro-260215",  # listed as "going offline soon"
             "doubao-seed-2-0-code-preview-260215",  # same
         ),
-        add=_DOUBAO_NEW,
+        add=(*_DOUBAO_NEW, *_VOLC_THIRD_PARTY),
         update={
             "doubao-seed-2-0-lite-260428": _DOUBAO_20_LIMITS,
             "doubao-seed-2-0-mini-260428": _DOUBAO_20_LIMITS,
+            # Model list: context 128K, max input 96K, max output 32K.
+            "doubao-seed-character-251128": {
+                "max_input_tokens": 96 * _K,
+                "max_output_tokens": 32 * _K,
+            },
         },
     ),
     "opencode-zen-openai": ProviderPatch(
@@ -884,6 +981,56 @@ PATCHES: dict[str, ProviderPatch] = {
         add=_ARK_PLAN_NEW_ONLY,
         update=_ARK_PLAN_LIMITS,
     ),
+    # Groq: llama-3.1-8b-instant and llama-3.3-70b-versatile were shut down for the free and developer
+    # tiers on 2026-08-16 (console.groq.com/docs/deprecations; enterprise-only on the model list now).
+    # Max completion tokens from the model list; qwen3.8-27b is the recommended replacement (preview).
+    "groq": ProviderPatch(
+        remove=("llama-3.1-8b-instant", "llama-3.3-70b-versatile"),
+        add=(_m("qwen/qwen3.8-27b", "Qwen3.8 27B (preview)", context=131_072, max_output=16_384),),
+        update={
+            "openai/gpt-oss-120b": {"max_output_tokens": 65_536},
+            "openai/gpt-oss-20b": {"max_output_tokens": 65_536},
+        },
+    ),
+    # DashScope US (Virginia): the "US" section of help.aliyun.com/zh/model-studio/model-pricing. Only models
+    # whose deployment scope is "US" are offered; the old three rows are not on that list.
+    "dashscope-us": ProviderPatch(
+        remove=("qwen3-max", "qwen3-235b-a22b-thinking-2507", "deepseek-v3.2"),
+        add=(
+            _m("qwen3.8-max", "Qwen3.8 Max", context=1_000_000),
+            _m("qwen3.8-flash", "Qwen3.8 Flash", context=1_000_000),
+            _m("qwen3.7-max", "Qwen3.7 Max", context=1_000_000),
+            _m("qwen3.7-plus", "Qwen3.7 Plus", context=1_000_000),
+            _m("qwen3.7-flash", "Qwen3.7 Flash", context=1_000_000),
+            _m("qwen3.6-flash", "Qwen3.6 Flash", context=1_000_000),
+            _m("deepseek-v4-pro", "DeepSeek V4 Pro"),
+            _m("deepseek-v4-flash-0731", "DeepSeek V4 Flash 0731"),
+            _m("kimi-k3.1-pro", "Kimi K3.1 Pro"),
+            _m("glm-5.3", "GLM-5.3"),
+            _m("glm-5.2", "GLM-5.2"),
+        ),
+    ),
+    # Kimi Code: www.kimi.com/code/docs/kimi-code/models.html (6 models; "1M" = 1,048,576).
+    "kimi-codingplan": ProviderPatch(
+        add=(
+            _m("k3.1-pro", "K3.1 Pro", context=1_048_576, inputs=_TIV),
+            _m("k3.1-pro-highspeed", "K3.1 Pro Highspeed", context=1_048_576, inputs=_TIV),
+        ),
+        update={
+            "k3": {
+                "context_window": 1_048_576,
+                "max_input_tokens": 1_048_576,
+                "input": ["text", "image", "video"],
+            },
+            "k3-256k": {"input": ["text", "image"]},
+            "kimi-for-coding": {
+                "context_window": 1_048_576,
+                "max_input_tokens": 1_048_576,
+                "input": ["text", "image", "video"],
+            },
+            "kimi-for-coding-highspeed": {"input": ["text", "image", "video"]},
+        },
+    ),
     # Local models are never removed; popular current ones are appended.
     "ollama": ProviderPatch(
         add=(_m("qwen3", "qwen3"), _m("gpt-oss", "gpt-oss"), _m("gemma4", "gemma4")),
@@ -930,6 +1077,26 @@ _GEMINI_THINKING: dict[str, tuple[list[str], str]] = {
     "gemini-3.6-flash": (["minimal", "low", "medium", "high"], "medium"),
     "gemini-3.5-flash-lite": (["minimal", "low", "medium", "high"], "minimal"),
 }
+
+
+_KIMI_K3_IDS = {"kimi-k3", "kimi-k3.1-pro", "kimi-k3.1-pro-highspeed"}
+_OPENROUTER_CLAUDE_5 = {
+    "anthropic/claude-fable-5.2": "high",
+    "anthropic/claude-opus-5.5": "medium",
+    "anthropic/claude-sonnet-5.5": "high",
+}
+
+
+def _always_on_effort(efforts: list[str], default: str) -> dict[str, Any]:
+    """Reasoning that cannot be switched off, with a reasoning_effort level."""
+    return {
+        "supported": True,
+        "adapter": "openai_reasoning_effort",
+        "toggle": False,
+        "default_mode": "enabled",
+        "efforts": efforts,
+        "default_effort": default,
+    }
 
 
 def fork_reasoning_profile(provider_id: str, model_id: str) -> dict[str, Any] | None:
@@ -998,6 +1165,79 @@ def fork_reasoning_profile(provider_id: str, model_id: str) -> dict[str, Any] | 
             "default_mode": "enabled",
             "efforts": efforts,
             "default_effort": default,
+        }
+
+    if provider in {"openai"} and model == "gpt-5.2":
+        # Model page: reasoning.effort supports none (default), low, medium, high and xhigh.
+        return {
+            "supported": True,
+            "adapter": "openai_reasoning_effort",
+            "toggle": True,
+            "default_mode": "auto",
+            "efforts": ["low", "medium", "high", "xhigh"],
+            "default_effort": "medium",
+        }
+
+    if provider.startswith("zhipu-") and model in {"glm-5.3", "glm-5.3-flash", "glm-5.3-flashx"}:
+        # Zhipu docs: GLM-5.3 always thinks (thinking cannot be disabled); effort is low / high / max,
+        # default max. The top-level reasoning_effort field is what the OpenAI-compatible endpoint maps.
+        return _always_on_effort(["low", "high", "max"], "max")
+
+    if provider in {"kimi-cn", "kimi-intl"} and model in _KIMI_K3_IDS:
+        # platform.kimi.com "reasoning effort": K3.1 Pro always reasons; low / high / max, default max.
+        return _always_on_effort(["low", "high", "max"], "max")
+
+    if provider == "kimi-codingplan":
+        # Kimi Code model page: K3.1 Pro series cannot turn thinking off (HTTP 400); K3 and K3-256k default
+        # to high, kimi-for-coding (K2.8 Preview) to max; kimi-for-coding-highspeed has thinking on only.
+        if model in {"k3.1-pro", "k3.1-pro-highspeed", "k3", "k3-256k"}:
+            return _always_on_effort(["low", "high", "max"], "high")
+        if model == "kimi-for-coding":
+            return _always_on_effort(["low", "high", "max"], "max")
+        if model == "kimi-for-coding-highspeed":
+            return {
+                "supported": True,
+                "adapter": "status_only",
+                "toggle": False,
+                "default_mode": "enabled",
+            }
+
+    if provider.startswith("minimax-"):
+        # MiniMax text API: M3.1-Flash forces thinking (disabled returns 400) and takes reasoning_effort
+        # low..max, default max. M3 can skip thinking, but its only switch is thinking.type "disabled" /
+        # "adaptive" (not "enabled"), which the generic thinking adapter cannot express, so no controls.
+        if model == "minimax-m3.1-flash":
+            return _always_on_effort(["low", "medium", "high", "xhigh", "max"], "max")
+        if model == "minimax-m3":
+            return {
+                "supported": True,
+                "adapter": "status_only",
+                "toggle": False,
+                "default_mode": "enabled",
+            }
+
+    if provider == "openrouter" and model in _OPENROUTER_CLAUDE_5:
+        # Fable 5.2 and Opus 5.5 are "Adaptive (always on)"; Sonnet 5.5 does not accept thinking "disabled".
+        return {
+            "supported": True,
+            "adapter": "openrouter",
+            "toggle": False,
+            "default_mode": "enabled",
+            "efforts": ["low", "medium", "high"],
+            "default_effort": _OPENROUTER_CLAUDE_5[model],
+        }
+
+    if (
+        provider == "volcengine-cn"
+        and model.startswith(("doubao-seed-", "deepseek-"))
+        and "character" not in model
+    ):
+        # Ark model list: models tagged "deep thinking" think by default; thinking.type=disabled turns it off.
+        return {
+            "supported": True,
+            "adapter": "thinking",
+            "toggle": True,
+            "default_mode": "auto",
         }
 
     return None
