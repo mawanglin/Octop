@@ -11,6 +11,10 @@ from urllib.parse import urlsplit, urlunsplit
 
 import httpx
 
+from octop.infra.agents.media_fork import (  # fork: image adapters pending upstream harness PRs
+    IMAGE_ONLY_MEDIA_PROVIDERS,
+    install_fork_media_providers,
+)
 from octop.infra.connectors.crypto import decrypt_credentials, encrypt_credentials
 from octop.infra.db.repos.secrets import SecretRepo
 from octop.infra.db.repos.settings import SettingsRepo
@@ -19,8 +23,12 @@ from octop.infra.errors import ErrorCode, OctopError
 if TYPE_CHECKING:
     from octop_harness import MediaGenerationConfig
 
-MediaProviderName = Literal["volcengine", "dashscope", "minimax"]
+MediaProviderName = Literal[
+    "volcengine", "dashscope", "minimax", "openai", "gemini", "tencent"
+]  # fork: +3
 MediaTestKind = Literal["image", "video"]
+
+install_fork_media_providers()  # fork: register OpenAI / Gemini / Tencent adapters in the harness
 
 DEFAULT_PROVIDER_ID = "volcengine-default"
 DEFAULT_ARK_BASE_URL = "https://ark.cn-beijing.volces.com/api/v3"
@@ -58,7 +66,7 @@ class MediaProviderPreset:
 
     @property
     def default_video_model(self) -> str:
-        return self.video_models[0]
+        return self.video_models[0] if self.video_models else ""  # fork: image-only presets
 
 
 MEDIA_PROVIDER_PRESETS: dict[MediaProviderName, MediaProviderPreset] = {
@@ -104,6 +112,38 @@ MEDIA_PROVIDER_PRESETS: dict[MediaProviderName, MediaProviderPreset] = {
         base_url="https://api.minimax.cn",
         image_models=("image-01", "image-01-live"),
         video_models=("MiniMax-H3", "MiniMax-H3-Max"),
+    ),
+    # fork: image-only adapters from octop.infra.agents.media_fork (upstream harness PRs #255-#257).
+    "openai": MediaProviderPreset(
+        provider="openai",
+        display_name="OpenAI",
+        base_url="https://api.openai.com/v1",
+        image_models=(
+            "gpt-image-2.6-flare",
+            "gpt-image-2.6-sunburst",
+            "gpt-image-2.5-flare",
+            "gpt-image-2.5-sunburst",
+        ),
+        video_models=(),
+    ),
+    "gemini": MediaProviderPreset(
+        provider="gemini",
+        display_name="Google Gemini",
+        base_url="https://generativelanguage.googleapis.com/v1beta",
+        image_models=(
+            "gemini-nano-banana-2.1",
+            "gemini-3.1-flash-image",
+            "gemini-3.1-flash-lite-image",
+            "gemini-3-pro-image",
+        ),
+        video_models=(),
+    ),
+    "tencent": MediaProviderPreset(
+        provider="tencent",
+        display_name="Tencent Cloud TokenHub",
+        base_url="https://tokenhub.tencentmaas.com/v1",
+        image_models=("hy-image-v3.5-preview", "hy-image-v3"),
+        video_models=(),
     ),
 }
 
@@ -193,7 +233,8 @@ def _normalized_update(item: MediaProviderUpdate) -> MediaProviderUpdate:
         enabled=item.enabled,
         base_url=item.base_url.strip().rstrip("/"),
         image_enabled=item.image_enabled,
-        video_enabled=item.video_enabled,
+        # fork: image-only providers never route video
+        video_enabled=item.video_enabled and item.provider not in IMAGE_ONLY_MEDIA_PROVIDERS,
         image_model=item.image_model.strip(),
         video_model=item.video_model.strip(),
         api_key=(item.api_key or "").strip() or None,
@@ -223,6 +264,8 @@ def _validate_provider(item: MediaProviderUpdate) -> None:
 
 def _probe_url(provider: MediaProviderName, base_url: str) -> str:
     base = base_url.rstrip("/")
+    if provider == "gemini":  # fork: .../v1beta/models
+        return f"{base}/models"
     if provider == "volcengine":
         parsed = urlsplit(base)
         return urlunsplit((parsed.scheme, parsed.netloc, "/ping", "", ""))
@@ -241,10 +284,12 @@ async def verify_media_credentials(
     """Run a non-generation authenticated probe for one built-in provider."""
 
     async def _request(http: httpx.AsyncClient) -> httpx.Response:
-        return await http.get(
-            _probe_url(provider, base_url),
-            headers={"Authorization": f"Bearer {api_key}"},
+        headers = (  # fork: Gemini API keys go in x-goog-api-key, not Bearer
+            {"x-goog-api-key": api_key}
+            if provider == "gemini"
+            else {"Authorization": f"Bearer {api_key}"}
         )
+        return await http.get(_probe_url(provider, base_url), headers=headers)
 
     try:
         if client is not None:
@@ -255,7 +300,10 @@ async def verify_media_credentials(
     except httpx.HTTPError as exc:
         return {"ok": False, "error": str(exc)}
 
-    if response.status_code in {401, 403}:
+    if response.status_code in {401, 403} or (
+        provider == "gemini"
+        and response.status_code == 400  # fork: Gemini answers 400 for a bad key
+    ):
         return {"ok": False, "error": "Media provider authentication failed"}
     if response.is_error:
         return {
@@ -297,7 +345,7 @@ async def verify_media_model(
 
     config = MediaProviderConfig(
         id=item.id,
-        provider=item.provider,
+        provider=item.provider,  # type: ignore[arg-type]  # fork: harness Literal lacks the fork providers
         api_key=api_key,
         base_url=item.base_url,
         image_model=item.image_model,
@@ -372,7 +420,8 @@ class MediaGenerationSettingsStore:
                         enabled=bool(raw.get("enabled", True)),
                         base_url=str(raw.get("base_url") or preset.base_url).strip().rstrip("/"),
                         image_enabled=bool(raw.get("image_enabled", True)),
-                        video_enabled=bool(raw.get("video_enabled", True)),
+                        video_enabled=bool(raw.get("video_enabled", True))
+                        and provider not in IMAGE_ONLY_MEDIA_PROVIDERS,  # fork
                         image_model=str(
                             raw.get("image_model") or preset.default_image_model
                         ).strip(),
@@ -580,7 +629,7 @@ class MediaGenerationSettingsStore:
         providers = [
             MediaProviderConfig(
                 id=item.id,
-                provider=item.provider,
+                provider=item.provider,  # type: ignore[arg-type]  # fork: harness Literal lacks the fork providers
                 api_key=credentials[item.id],
                 base_url=item.base_url,
                 image_model=item.image_model,

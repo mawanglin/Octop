@@ -6,6 +6,9 @@
 
 ## [Unreleased]
 
+### 新增
+- 媒体生成新增三家生图服务商：OpenAI（GPT Image，默认 `gpt-image-2.6-flare`）、Google Gemini（Nano Banana，默认 `gemini-nano-banana-2.1`）、腾讯云 TokenHub 混元生图（默认 `hy-image-v3.5-preview`，也可选 `hy-image-v3`）。在「设置 → 媒体生成」里添加，只支持生图，设置页不再显示它们的视频选项；“测试连接”对 Gemini 改用 `x-goog-api-key`。适配器按各家官方文档实现，尚未用真实密钥实测。
+
 ## [1.0.3b5] - 2026-11-11
 
 ### 新增
