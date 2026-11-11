@@ -189,7 +189,8 @@ jobs:
       OCTOP_VERSION: ${{ needs.prepare.outputs.version }}
       BASE_VERSION: ${{ needs.prepare.outputs.base_version }}
       PLAT: linux-${{ matrix.arch }}
-      GREEN_HOST_PLAT: linux-${{ matrix.arch }}
+      # 宿主机永远是 amd64；arm64 是在它上面交叉组装（GREEN_HOST_PLAT 设成目标平台会去执行 arm64 的 Python）。
+      GREEN_HOST_PLAT: linux-amd64
       PBS_BASE_URL: https://github.com/astral-sh/python-build-standalone/releases/download/20251209
       PBS_TAG: "20251209"
       PBS_PY: "3.12.12"
@@ -228,11 +229,22 @@ jobs:
       - name: Build dashboard
         run: make build-frontend
 
+      # runner 到 GitHub 的大文件下载会被随机重置，脚本自带的重试不够，外面再套一层。
       - name: Bootstrap portable CPython
-        run: bash desktop/portable/bootstrap-runtime.sh "$PLAT"
+        run: |
+          for i in 1 2 3 4 5 6; do
+            bash desktop/portable/bootstrap-runtime.sh "$PLAT" && exit 0
+            echo "下载运行时失败，重试（$i/6）"; sleep 20
+          done
+          exit 1
 
       - name: Assemble portable tree
-        run: bash desktop/portable/package.sh "$PLAT"
+        run: |
+          for i in 1 2 3; do
+            bash desktop/portable/package.sh "$PLAT" && exit 0
+            echo "组装失败，重试（$i/3）"; sleep 20
+          done
+          exit 1
 
       # 交叉组装（arm64）时本机的 Python 跑不了目标平台的包，只在原生 amd64 上做导入验证。
       - name: Smoke import (amd64 only)
