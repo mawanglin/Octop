@@ -17,6 +17,12 @@
   - 四位成员共用 `article_pack.py`（文章包：选题单、线索包、初稿、核验报告、发布单，含发布前把关），有测试保证各处副本一致。
 - 专家页恢复“内置专家模板”标签：官方 1.0.3b3 把内置模板并入线上市场、专家页不再列出随包自带的专家，导致本 fork 新增的专家没有入口。新标签沿用原来的卡片、场景筛选和搜索，点卡片即可从模板新建；实现放在独立组件里，对官方页面只改标签接线。
 
+- 供应商预设的模型清单按各家官方文档（2026-11-11 核对）更新，由 fork 自己的 `fork_presets.py` 在加载预设时叠加，不改动 octop-harness：
+  - 新增 Claude 5 系列（Fable 5.2、Opus 5.5、Sonnet 5.5、Haiku 5.5）、GPT-6 系列（Astra、Sol、Terra、Luna，走 Responses 接口）、Gemini 4 与 3.x Flash、Kimi K3.1 Pro、MiniMax M3 / M3.1 Flash、GLM-5.3、Qwen3.8 / 3.7、豆包 Seed 2.1，以及 OpenRouter、OpenCode、魔搭、Ollama 的当前模型；
+  - 去掉官方已下线或已对新用户关闭的旧型号（Claude 4 / 3.5、o3 / o4-mini / GPT-5 系列、Gemini 2.x、Kimi K2 系列、MiniMax M2.x 等）；
+  - 已保存的用户配置不动，旧模型 ID 仍在，只是预设里不再提供；
+  - 硅基流动、小米 MiMo、讯飞星辰、各类套餐预设和 `dashscope-us` 未核对，保持原样。
+
 - 专家市场默认打开「精选」，用书签标出接入市场前随安装包提供的 22 个专家模板
 - 通道卡片与 `/api/health` 展示每个通道的入站、出站、重连和丢弃计数；记忆存储页显示 checkpoint 保留窗口与 VACUUM 提示
 

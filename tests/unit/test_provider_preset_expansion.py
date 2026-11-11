@@ -77,16 +77,18 @@ def test_load_provider_presets_integration() -> None:
     openai = next(p for p in presets if p["id"] == "openai")
     gpt4o = next(m for m in openai["models"] if m["id"] == "gpt-4o")
     assert gpt4o.get("input") == ["text", "image"]
-    gpt5 = next(m for m in openai["models"] if m["id"] == "gpt-5")
+    # fork: gpt-5 is retired and no longer in the preset; gpt-5.2 keeps the same coverage.
+    gpt5 = next(m for m in openai["models"] if m["id"] == "gpt-5.2")
     assert gpt5["reasoning_config"]["adapter"] == "openai_reasoning_effort"
 
     kimi_cn = next(p for p in presets if p["id"] == "kimi-cn")
-    kimi_k25 = next(m for m in kimi_cn["models"] if m["id"] == "kimi-k2.5")
-    assert kimi_k25.get("input") == ["text", "image"]
+    # fork: kimi-k2.5 is retired and no longer in the preset; K3.1 Pro is multimodal.
+    kimi_k31 = next(m for m in kimi_cn["models"] if m["id"] == "kimi-k3.1-pro")
+    assert kimi_k31.get("input") == ["text", "image"]
     assert kimi_cn.get("vendor") == "kimi"
 
     volc_open = next(p for p in presets if p["id"] == "volcengine-cn")
-    assert len(volc_open["models"]) >= 8
+    assert len(volc_open["models"]) >= 6  # fork: retired ids removed, 2.1 family added
 
     coding = next(p for p in presets if p["id"] == "volcengine-cn-codingplan")
     coding_ids = {m["id"] for m in coding["models"]}
