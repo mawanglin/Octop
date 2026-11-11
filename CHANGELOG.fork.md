@@ -4,11 +4,13 @@
 
 版本号规则：`<官方版本>.postN`，例如基于官方 1.0.2b9 的第 1 个 fork 版本是 `1.0.2b9.post1`。打 `fork-v<版本号>` 标签（如 `fork-v1.0.2b9.post6`；不用 `v` 开头，以免触发官方发布流程）后，`.github/workflows/fork-release.yml` 会构建 wheel 和飞牛原生版 FPK，并发布到 GitHub Release；本文件中同名版本小节会作为 Release 说明。
 
-## [Unreleased]
+## [1.0.3b4.post3] - 2026-11-11
 
 ### 变更
 - 供应商预设：按各家模型页更新硅基流动（国内站和国际站）、小米 MiMo、讯飞星辰和腾讯云 TokenHub 系列（TokenHub、Coding Plan、Token Plan、Hy Token Plan、企业版），智谱、阿里云、火山方舟的套餐预设，并根据两次独立复核修正 Groq、Codex、`dashscope-us`、Kimi Coding Plan、`gpt-5.2`、若干推理开关和缺失字段（详见 `CHANGELOG.md`），仍由 `providers/fork_presets.py` 叠加。
 - 新增 `.gitea/workflows/fork-release.yml`：在自建 Gitea 上构建 wheel、飞牛包和 Linux 桌面 deb / rpm（Windows 和 macOS 包之后由构建虚拟机提供）。
+- 飞牛商店版本 1.0.30403。
+- 基于官方 1.0.3b4，未并入 1.0.3b4.post2 之后官方 develop 的新提交。
 
 ## [1.0.3b4.post2] - 2026-11-11
 
