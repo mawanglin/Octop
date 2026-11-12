@@ -4,11 +4,12 @@
 
 版本号规则：`<官方版本>.postN`，例如基于官方 1.0.2b9 的第 1 个 fork 版本是 `1.0.2b9.post1`。打 `fork-v<版本号>` 标签（如 `fork-v1.0.2b9.post6`；不用 `v` 开头，以免触发官方发布流程）后，`.github/workflows/fork-release.yml` 会构建 wheel 和飞牛原生版 FPK，并发布到 GitHub Release；本文件中同名版本小节会作为 Release 说明。
 
-## [Unreleased]
+## [1.0.3b5.post4] - 2026-11-12
 
 ### 新增
 - 媒体生成新增套餐服务商「火山方舟 Agent Plan」（`volcengine-agent-plan`）和「阿里云百炼 Token Plan」（`dashscope-token-plan`）：在 `src/octop/infra/agents/media_fork/` 里把 harness 自带的火山、百炼适配器以新名字注册，设置后端加预设和“测试连接”地址（Token Plan 探测 `compatible-mode/v1/models`），前端只扩了类型。接入地址、Key 类型、模型名和请求格式按 2026-11-12 读到的官方套餐文档核对过，没有用真实密钥调用验证。
 - 已核实其他套餐不含生图、生视频，不加：火山 Coding Plan、腾讯 Coding Plan / Token Plan / Hy Token Plan / 企业版、智谱 GLM Coding Plan、Kimi Code、阿里云 Coding Plan。MiniMax 的套餐（现名 M Plan）含生图和视频额度，但生图已换成新接口 `/v1/images/generations`（现有适配器调的是旧接口），文档也没说订阅 Key 能否调用生图、视频接口，暂不加。讯飞没找到官方套餐页面。
+- 飞牛商店版本 1.0.30504。
 
 ## [1.0.3b5.post3] - 2026-11-12
 
