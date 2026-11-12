@@ -96,6 +96,9 @@ async def test_media_provider_presets_include_all_p0_adapters(
         "openai",
         "gemini",
         "tencent",
+        # fork: subscription-plan aliases of the stock adapters
+        "volcengine-agent-plan",
+        "dashscope-token-plan",
     ]
     presets = {item["provider"]: item for item in response.json()}
     assert "doubao-seedream-5-0-pro-260628" in presets["volcengine"]["image_models"]

@@ -24,8 +24,15 @@ if TYPE_CHECKING:
     from octop_harness import MediaGenerationConfig
 
 MediaProviderName = Literal[
-    "volcengine", "dashscope", "minimax", "openai", "gemini", "tencent"
-]  # fork: +3
+    "volcengine",
+    "dashscope",
+    "minimax",
+    "openai",
+    "gemini",
+    "tencent",
+    "volcengine-agent-plan",
+    "dashscope-token-plan",
+]  # fork: +5
 MediaTestKind = Literal["image", "video"]
 
 install_fork_media_providers()  # fork: register OpenAI / Gemini / Tencent adapters in the harness
@@ -144,6 +151,32 @@ MEDIA_PROVIDER_PRESETS: dict[MediaProviderName, MediaProviderPreset] = {
         base_url="https://tokenhub.tencentmaas.com/v1",
         image_models=("hy-image-v3.5-preview", "hy-image-v3"),
         video_models=(),
+    ),
+    # fork: subscription plans that include image/video quota, served by the stock adapters.
+    # Ark Agent Plan (personal/team overview + visual-models page, read 2026-11-12): dedicated key and
+    # /api/plan/v3; Seedream on every tier, Seedance only on Large / Max. Model IDs follow the plan
+    # table spelling.
+    "volcengine-agent-plan": MediaProviderPreset(
+        provider="volcengine-agent-plan",
+        display_name="Volcengine Ark Agent Plan",
+        base_url="https://ark.cn-beijing.volces.com/api/plan/v3",
+        image_models=("doubao-seedream-5-0-pro", "doubao-seedream-5.0-flash"),
+        video_models=(
+            "doubao-seedance-2.0-fast",
+            "doubao-seedance-2.0-mini",
+            "doubao-seedance-2.0",
+            "doubao-seedance-2.5",
+        ),
+    ),
+    # Model Studio Token Plan (personal overview + image/video pages, read 2026-11-12): sk-sp- key,
+    # Beijing only. HappyHorse i2v / r2v need media inputs the stock adapter does not send for them,
+    # so only t2v is listed.
+    "dashscope-token-plan": MediaProviderPreset(
+        provider="dashscope-token-plan",
+        display_name="Alibaba Cloud Model Studio Token Plan",
+        base_url="https://token-plan.cn-beijing.maas.aliyuncs.com/api/v1",
+        image_models=("wan2.7-image-pro", "wan2.7-image", "qwen-image-3.0-pro"),
+        video_models=("wan3.0-video", "happyhorse-1.1-t2v"),
     ),
 }
 
@@ -266,7 +299,10 @@ def _probe_url(provider: MediaProviderName, base_url: str) -> str:
     base = base_url.rstrip("/")
     if provider == "gemini":  # fork: .../v1beta/models
         return f"{base}/models"
-    if provider == "volcengine":
+    if provider == "dashscope-token-plan":  # fork: plan docs only document compatible-mode here
+        parsed = urlsplit(base)
+        return urlunsplit((parsed.scheme, parsed.netloc, "/compatible-mode/v1/models", "", ""))
+    if provider in {"volcengine", "volcengine-agent-plan"}:  # fork: + Agent Plan
         parsed = urlsplit(base)
         return urlunsplit((parsed.scheme, parsed.netloc, "/ping", "", ""))
     if provider == "dashscope":
