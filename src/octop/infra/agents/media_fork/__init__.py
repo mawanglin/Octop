@@ -1,4 +1,4 @@
-"""Fork-owned image adapters for OpenAI, Gemini and Tencent Cloud TokenHub (Hunyuan).
+"""Fork-owned media providers: OpenAI / Gemini / Tencent image adapters and two plan aliases.
 
 These three modules are verbatim copies of the adapters proposed upstream in
 TencentCloud/octop-harness PRs #255 (OpenAI), #256 (Gemini) and #257 (Tencent). Until a harness
@@ -11,12 +11,21 @@ release ships them, :func:`install_fork_media_providers` registers them into the
 
 The three providers are image-only. The upstream PRs force ``video_enabled`` off inside the harness
 config; here Octop's media settings do that before building a config (see
-``IMAGE_ONLY_MEDIA_PROVIDERS``). Remove this package once the harness pin includes the PRs.
+``IMAGE_ONLY_MEDIA_PROVIDERS``). Remove the three image-only adapters once the harness pin includes the PRs.
+
+Two more entries reuse the harness's own adapters under a subscription-plan base URL:
+``volcengine-agent-plan`` (Volcengine Ark Agent Plan, ``/api/plan/v3``, dedicated plan key) and
+``dashscope-token-plan`` (Alibaba Cloud Model Studio Token Plan, ``token-plan.cn-beijing.maas``
+host, ``sk-sp-`` key). Their endpoints and request bodies match the standard Ark / DashScope APIs
+per the plan docs (read 2026-11-12), so only the provider name, base URL and model list differ.
+These are not part of the upstream PRs.
 """
 
 from __future__ import annotations
 
 from octop_harness.media.base import BaseMediaProvider
+from octop_harness.media.providers.dashscope import DashScopeMediaProvider
+from octop_harness.media.providers.volcengine import VolcengineMediaProvider
 
 from octop.infra.agents.media_fork.gemini import GeminiMediaProvider
 from octop.infra.agents.media_fork.openai import OpenAIMediaProvider
@@ -37,13 +46,27 @@ FORK_MEDIA_PROVIDER_DEFAULTS: dict[str, tuple[str, str, str, str]] = {
         "hy-image-v3.5-preview",
         "",
     ),
+    "volcengine-agent-plan": (
+        "ARK_AGENT_PLAN_API_KEY",
+        "https://ark.cn-beijing.volces.com/api/plan/v3",
+        "doubao-seedream-5-0-pro",
+        "doubao-seedance-2.0-fast",
+    ),
+    "dashscope-token-plan": (
+        "DASHSCOPE_TOKEN_PLAN_API_KEY",
+        "https://token-plan.cn-beijing.maas.aliyuncs.com/api/v1",
+        "wan2.7-image-pro",
+        "wan3.0-video",
+    ),
 }
 FORK_MEDIA_PROVIDERS: dict[str, type[BaseMediaProvider]] = {
     "openai": OpenAIMediaProvider,
     "gemini": GeminiMediaProvider,
     "tencent": TencentMediaProvider,
+    "volcengine-agent-plan": VolcengineMediaProvider,
+    "dashscope-token-plan": DashScopeMediaProvider,
 }
-IMAGE_ONLY_MEDIA_PROVIDERS: frozenset[str] = frozenset(FORK_MEDIA_PROVIDERS)
+IMAGE_ONLY_MEDIA_PROVIDERS: frozenset[str] = frozenset({"openai", "gemini", "tencent"})
 
 
 def install_fork_media_providers() -> None:
